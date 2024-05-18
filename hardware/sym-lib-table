@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "holiday-widget")(type "KiCad")(uri "${KIPRJMOD}/holiday-widget.kicad_sym")(options "")(descr ""))
+)
