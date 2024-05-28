@@ -15,3 +15,11 @@
 *.net
 *-cache.lib
 *-rescue.lib
+
+./firmware/build/*
+./firmware/build
+
+*.elf
+*.swp
+*.o
+*.d
