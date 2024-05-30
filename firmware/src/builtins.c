@@ -16,7 +16,7 @@ void __libc_init_array(void) {
 
  void *memset(void *data, int value, size_t size) {
          
-         int *data_ = data;
+         unsigned char *data_ = data;
          for(size_t i=0; i<size;i++) {
                  data_[i] = value;
          }
