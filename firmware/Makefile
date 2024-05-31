@@ -7,11 +7,18 @@ HAL_SRC_DIR := ./STM32CubeL0/Drivers/STM32L0xx_HAL_Driver/Src/
 SYSTEM_SRC  := ./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Source/Templates/system_stm32l0xx.c
 STARTUP_SRC := ./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Source/Templates/gcc/startup_stm32l053xx.s
 
+# Required .c file for the printf file to work
+PRINTF_SRC := ./SmallPrintf/src/printf/printf.c
+
 # List of all source directories to check thorugh
 SRC_DIRS    := $(SRC_DIR) $(HAL_SRC_DIR)
 
 # List of all include directories
-INC_DIRS    := ./include ./STM32CubeL0/Drivers/CMSIS/Include ./STM32CubeL0/Drivers/STM32L0xx_HAL_Driver/Inc ./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Include/
+INC_DIRS    := ./include \
+./STM32CubeL0/Drivers/CMSIS/Include \
+./STM32CubeL0/Drivers/STM32L0xx_HAL_Driver/Inc \
+./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Include/ \
+./SmallPrintf/src/
 
 # commands
 PREFIX  ?= arm-none-eabi-
@@ -33,7 +40,7 @@ PROCESSOR_FLAG := -DSTM32L053xx
 SRCS      := $(shell find $(SRC_DIRS) ! -name 'stm32l0xx_hal_msp_template.c' -name '*.c' -or -name '*.s')
 SRCS      += $(SYSTEM_SRC)
 SRCS	  += $(STARTUP_SRC)
-
+SRCS      += $(PRINTF_SRC)
 # Respective .o files
 OBJS      := $(SRCS:%=$(BUILD_DIR)/%.o)
 

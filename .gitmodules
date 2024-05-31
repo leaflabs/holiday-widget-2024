@@ -1,3 +1,6 @@
 [submodule "firmware/STM32CubeL0"]
 	path = firmware/STM32CubeL0
 	url = https://github.com/STMicroelectronics/STM32CubeL0.git
+[submodule "firmware/SmallPrintf"]
+	path = firmware/SmallPrintf
+	url = https://github.com/eyalroz/printf.git

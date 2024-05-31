@@ -1,4 +1,6 @@
 #include "main.h"
+#include "uart_logger.h"
+
 
 /*
  * Basic system clock initalization code
@@ -38,13 +40,7 @@ void system_clock_init(void) {
 	if (HAL_RCC_ClockConfig(&rcc_clk_init, FLASH_LATENCY_0) != HAL_OK) {
 		// Error message here
 	}
-}
 
-
-static void system_init() {
-	HAL_Init();
-      
-	system_clock_init();
 }
 
 
@@ -71,7 +67,7 @@ void delay(volatile uint32_t time) {
  */
 void GPIO_Init() {
 
-	// RCC enable GPIOA and GPIOC ports clocks
+	// Enable GPIOA and GPIOC clocks
 	__HAL_RCC_GPIOA_CLK_ENABLE();
 	__HAL_RCC_GPIOC_CLK_ENABLE();
 
@@ -101,17 +97,24 @@ void GPIO_Init() {
 
 int main(void) {
 
+	// Init the HAL
+	HAL_Init();
 
- 	system_init();
+	// Init the system clock
+	system_clock_init();
+	
+	// Set up the GPIO pins for the button and led
 	GPIO_Init();
 
 
+	// Set up the uart for communication with the computer
+	uart_logger_init();
 
 	uint32_t button;
 
  	while(1) {
 
-		// toggle the LED on or orff
+		// toggle the LED on or off
 		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 		
 		button = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
