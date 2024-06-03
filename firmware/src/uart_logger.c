@@ -12,28 +12,13 @@ static const size_t loggerBufferSize = 100;
 static const int transmitTimeout = 1000;
 
 /*
- * uart_init initalizes all pins, clocks and features for the uart to work properly.
+ * uart_init initalizes all features for the uart to work properly.
  * It must be called before using any functions in this file.
  *
 */
 void uart_logger_init() {
 
-	// Now set up the GPIO pins for uart, which are PA2 and PA3
-
-	// Init the GPIOA and USART2 clocks
-	__HAL_RCC_GPIOA_CLK_ENABLE();
-	__HAL_RCC_USART2_CLK_ENABLE();
-
-	// Set up both pins
-	GPIO_InitTypeDef gpio = {0};
-	gpio.Mode = GPIO_MODE_AF_PP;
-	gpio.Pull = GPIO_PULLUP;
-	gpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	gpio.Pin = GPIO_PIN_3 | GPIO_PIN_2;
-	gpio.Alternate = GPIO_AF4_USART2;
-	HAL_GPIO_Init(GPIOA, &gpio);
-
-	// Now setup the UART itself
+	// Setup the Uart parameters
 	uart.Instance = USART2;
 	uart.Init.BaudRate = 9600;
 	uart.Init.WordLength = UART_WORDLENGTH_8B;

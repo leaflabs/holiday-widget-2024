@@ -10,7 +10,6 @@ void system_clock_init(void) {
 	RCC_OscInitTypeDef rcc_osc_init = {0};
 	RCC_ClkInitTypeDef rcc_clk_init = {0};
 
-	__HAL_RCC_PWR_CLK_ENABLE();
 	__HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
 	  
 	/* Enable MSI Oscillator */
