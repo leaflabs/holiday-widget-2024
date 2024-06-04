@@ -36,8 +36,8 @@ LINK_MEM := linker_script.ld
 CPU_TYPE  := cortex-m0plus
 PROCESSOR_FLAG := -DSTM32L053xx
 
-# Source files include the SRC_DIRS and the system.c and startup.s files
-SRCS      := $(shell find $(SRC_DIRS) ! -name 'stm32l0xx_hal_msp_template.c' -name '*.c' -or -name '*.s')
+# Source files include the SRC_DIRS (except for the template files)  and the system.c and startup.s files
+SRCS      := $(shell find $(SRC_DIRS) ! -name '*template.c' -name '*.c' -or -name '*.s')
 SRCS      += $(SYSTEM_SRC)
 SRCS	  += $(STARTUP_SRC)
 SRCS      += $(PRINTF_SRC)
