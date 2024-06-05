@@ -66,24 +66,15 @@ void delay(volatile uint32_t time) {
  */
 void GPIO_Init() {
 
-	// Enable GPIOA and GPIOC clocks
-	__HAL_RCC_GPIOA_CLK_ENABLE();
+	// Enable the GPIOC clock
 	__HAL_RCC_GPIOC_CLK_ENABLE();
 
 
 	GPIO_InitTypeDef gpio = {0};
 
-	// Set up LED Pin (GPIOA Pin 5);
-	gpio.Pin = GPIO_PIN_5;
+	// Set up LED Pins (8-11);
+	gpio.Pin = GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11;
 	gpio.Mode = GPIO_MODE_OUTPUT_PP;
-	gpio.Pull = GPIO_PULLDOWN;
-	gpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-
-	HAL_GPIO_Init(GPIOA, &gpio);
-
-	// And set up the button (GPIOC Pin 13)
-	gpio.Pin = GPIO_PIN_13;
-	gpio.Mode = GPIO_MODE_INPUT;
 	gpio.Pull = GPIO_PULLDOWN;
 	gpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 
@@ -109,21 +100,15 @@ int main(void) {
 	// Set up the uart for communication with the computer
 	uart_logger_init();
 
-	uint32_t button;
+	// Turn 8 and 11 on initially so we can have the leds flash alternating
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8 | GPIO_PIN_11, 1);
 
  	while(1) {
 
-		// toggle the LED on or off
-		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+		// Flip all leds
+		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11);
 		
-		button = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
-
-		// Based on button input, flash fast or slow
-		if(button == 0) {
-			delay(100);
-		}else{
-			delay(500);
-		}
+		HAL_Delay(200);
 
 		
 	}
