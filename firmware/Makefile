@@ -5,7 +5,7 @@ HAL_SRC_DIR := ./STM32CubeL0/Drivers/STM32L0xx_HAL_Driver/Src/
 
 # Required system.c and startup.s files by CMSIS
 SYSTEM_SRC  := ./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Source/Templates/system_stm32l0xx.c
-STARTUP_SRC := ./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Source/Templates/gcc/startup_stm32l053xx.s
+STARTUP_SRC := ./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Source/Templates/gcc/startup_stm32l072xx.s
 
 # Required .c file for the printf file to work
 PRINTF_SRC := ./SmallPrintf/src/printf/printf.c
@@ -34,7 +34,7 @@ LINK_MEM := linker_script.ld
 
 # project parameters
 CPU_TYPE  := cortex-m0plus
-PROCESSOR_FLAG := -DSTM32L053xx
+PROCESSOR_FLAG := -DSTM32L072xx
 
 # Source files include the SRC_DIRS (except for the template files)  and the system.c and startup.s files
 SRCS      := $(shell find $(SRC_DIRS) ! -name '*template.c' -name '*.c' -or -name '*.s')
