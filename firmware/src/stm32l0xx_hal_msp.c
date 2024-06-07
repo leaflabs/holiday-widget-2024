@@ -32,3 +32,20 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *uart) {
 
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_2 | GPIO_PIN_3);
 }
+
+
+void HAL_I2C_MspInit(I2C_HandleTypeDef *i2c) {
+    (void)i2c;
+
+    __HAL_RCC_I2C1_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+
+    GPIO_InitTypeDef gpio = {0};
+
+    gpio.Mode = GPIO_MODE_AF_OD;
+    gpio.Pull = GPIO_NOPULL;
+    gpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    gpio.Pin = GPIO_PIN_6 | GPIO_PIN_7;
+    gpio.Alternate = GPIO_AF1_I2C1;
+    HAL_GPIO_Init(GPIOB, &gpio);
+}
