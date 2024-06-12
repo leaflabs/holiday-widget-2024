@@ -1,6 +1,8 @@
 #ifndef __UTILS_H
 #define __UTILS_H
 
+#include "stm32l0xx_hal.h"
+
 /*
     Prints out 'length' number of bytes to the console in binary
 

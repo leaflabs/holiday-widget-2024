@@ -34,7 +34,30 @@ void i2c_driver_scan(I2C_HandleTypeDef *, void (*handler)(uint8_t, void *),
    'numReceiveBytes' is how many bytes to receive from the transaction
 
 */
-void i2c_driver_read_register_with_stop(I2C_HandleTypeDef *i2c, uint8_t address,
-                                        uint8_t *buffer,
-                                        size_t numReceiveBytes);
+void i2c_driver_read_registers_with_stop(I2C_HandleTypeDef *i2c,
+                                         uint8_t address, uint8_t *buffer,
+                                         size_t numReceiveBytes);
+
+/*
+    Sends an I2C transmit to write 'size' register without a stop bit inbetween
+   the write and data.
+
+    'address' is the i2c address of the sensor to read. This should not be
+   shifted. 'ireg' is the internal register of the sensor to read 'buffer' is
+   the buffer to store the byte into
+*/
+void i2c_driver_write_registers(I2C_HandleTypeDef *i2c, uint8_t address,
+                                uint8_t ireg, uint8_t *buffer, size_t size);
+
+/*
+    Sends an I2C transmit to read 'size' registers without a stop bit inbetween
+   the internal register and the data.
+
+    'address' is the i2c address of the sensor to read. This should not be
+   shifted. 'ireg' is the internal register of the sensor to read. 'buffer' is
+   the buffer to store the bytes into 'size' is the number of bytes to read from
+   the sensor
+*/
+void i2c_driver_read_registers(I2C_HandleTypeDef *ic, uint8_t address,
+                               uint8_t ireg, uint8_t *buffer, size_t size);
 #endif

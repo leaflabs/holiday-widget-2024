@@ -42,9 +42,9 @@ void i2c_driver_scan(I2C_HandleTypeDef *i2c,
     }
 }
 
-void i2c_driver_read_register_with_stop(I2C_HandleTypeDef *i2c, uint8_t address,
-                                        uint8_t *buffer,
-                                        size_t numReceiveBytes) {
+void i2c_driver_read_registers_with_stop(I2C_HandleTypeDef *i2c,
+                                         uint8_t address, uint8_t *buffer,
+                                         size_t numReceiveBytes) {
     // Send the transmit to tell which register to read from
     // Uses 1 byte from 'buffer' as the register value
     HAL_I2C_Master_Transmit(i2c, address << 1, buffer, 1, TIMEOUT);
@@ -53,4 +53,17 @@ void i2c_driver_read_register_with_stop(I2C_HandleTypeDef *i2c, uint8_t address,
     // Use the buffer again to receive into
     // numReceiveBytes of data to receive into the buffer
     HAL_I2C_Master_Receive(i2c, address << 1, buffer, numReceiveBytes, TIMEOUT);
+}
+
+void i2c_driver_write_registers(I2C_HandleTypeDef *i2c, uint8_t address,
+                                uint8_t ireg, uint8_t *buffer,
+                                size_t numBytes) {
+    // Make the hal call based on a register being 1 byte long
+    HAL_I2C_Mem_Write(i2c, address << 1, ireg, 1, buffer, numBytes, TIMEOUT);
+}
+
+void i2c_driver_read_registers(I2C_HandleTypeDef *i2c, uint8_t address,
+                               uint8_t ireg, uint8_t *buffer, size_t numBytes) {
+    // Make the hal call based on a register being 1 byte long
+    HAL_I2C_Mem_Read(i2c, address << 1, ireg, 1, buffer, numBytes, TIMEOUT);
 }

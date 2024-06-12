@@ -51,7 +51,7 @@ float tmp102_driver_read(I2C_HandleTypeDef *i2c) {
 
     // Send request to read the temperature using the i2c_driver function
     // Receive two bytes into buff as a result
-    i2c_driver_read_register_with_stop(i2c, TMP102_ADDRESS, buff, 2);
+    i2c_driver_read_registers_with_stop(i2c, TMP102_ADDRESS, buff, 2);
 
     // Get the temperature from the bytes
     float temp = convert_temp(buff[0], buff[1]);
