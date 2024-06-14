@@ -5,10 +5,15 @@
 #include "stm32l0xx_hal.h"
 #include "tmp102_driver.h"
 #include "uart_logger.h"
+#include "vcnl4020_driver.h"
 
 // How many addresses we can store from an i2c_driver_scan call
 #define MAX_ADDRESSES 10U
 
+// Masks to get low and high thresholds from the status register for vcnl4020
+// interrupt
+#define LOW_THRESH_MSK 0x2
+#define HIGH_THRESH_MSK 0x1
 /*
     i2c_scan_arg is the struct passed into the i2c_scan_handler
     to save the addresses found
@@ -25,6 +30,16 @@ struct i2c_scan_arg {
 struct lis3dh_interrupt_arg {
     uint32_t
         numInterrupts;  // Keep track of how many interrupts have been triggered
+};
+
+/*
+    vcnl4020_interrupt_arg is the struct passed into the
+   vcnl4020_interrupt_handler for whatever it may be used for.
+*/
+struct vcnl4020_interrupt_arg {
+    // Keep track of how many low and high threshholds were hit
+    uint32_t num_low_thresh;
+    uint32_t num_high_thresh;
 };
 
 /*
@@ -151,6 +166,31 @@ void lis3dh_interrupt_handler(uint8_t status, void *interrupt_arg) {
     uart_logger_send(
         "Proessing interrupt from handler... Total interrupts: %u\r\n",
         arg->numInterrupts);
+}
+
+/*
+    user defined handler for the vcnl4020_interrupt_clear function.
+    Takes the status register vlaue and a void* for a struct or type
+    to be passed in.
+
+    The handler can do what it wants to based on the status
+*/
+void vcnl4020_interrupt_handler(uint8_t status, void *interrupt_arg) {
+    // Convert the argument to the type of choice
+    struct vcnl4020_interrupt_arg *arg = interrupt_arg;
+
+    // Check for high threshold
+    if ((status & HIGH_THRESH_MSK) != 0) {
+        arg->num_high_thresh++;
+    }
+    // Check for low threshold
+    if ((status & LOW_THRESH_MSK) != 0) {
+        arg->num_low_thresh++;
+    }
+
+    uart_logger_send(
+        "Processing interrupt from vcnl4020: Num low: %d, Num high: %d\r\n",
+        arg->num_low_thresh, arg->num_high_thresh);
 }
 
 int main(void) {
@@ -281,6 +321,70 @@ int main(void) {
     // Now init the driver
     lis3dh_driver_init(&lis3dh_config, &lis3dh_context);
 
+    /*
+        Now initalize the VCNL4020 sensor for proximity
+    */
+    const struct vcnl4020_config vcnl4020_config = {
+        .command_register =
+            {
+                .prox_en = 1,  // Enable proximity
+                .als_en = 1    // Enable als
+            },
+
+        .proximity_rate_register =
+            {
+                .proximity_rate =
+                    VCNL4020_PR_125_00  // 125.00 measurements per second
+            },
+
+        .ir_led_current_register =
+            {
+                .current_value =
+                    VCNL4020_200_MA  // 200 ma of current to the sensor. Yields
+                                     // more tests so more accurate results
+            },
+
+        .ambient_light_parameter_register =
+            {
+                .averaging_func =
+                    VCNL4020_32_CONV,  // 32 conversions -> average of 32 light
+                                       // sensor readings. Less accurate but
+                                       // faster
+                .offset_enable = 1,    // Enable offset so any drift is removed
+                                       // from light sensor readings
+                .als_rate = VCNL4020_AR_5  // 5 samples per second
+            },
+
+        .interrupt_control_register =
+            {
+                .thresh_prox_als =
+                    VCNL4020_THRESH_ALS,  // Enable threshold triggers on the
+                                          // als sensor
+                .thresh_enable =
+                    1,  // Allow thresholds to trigger the interrupt pin
+                .interrupt_count = VCNL4020_TC_2  // Must be over or under the
+                                                  // threshold at least 2 times
+            },
+
+        .interrupt_thresholds = {
+            // If VCNL4020_THRESH_ALS enabled:
+            .low = 200,    // Below 200 lux
+            .high = 10000  // Above 10000 lux
+
+            // If VCNL4020_THRESH_PROX enabled:
+            // .low = 2000, // Below 2000 cnts
+            // .high = 5000 // Above 5000 cnts
+        }};
+
+    // Create our context struct
+    struct vcnl4020_context vcnl4020_context = {.i2c = &i2c};
+
+    // Declare the interrupt argument for the interrupt handler
+    struct vcnl4020_interrupt_arg vcnl4020_interrupt_arg = {0};
+
+    // Init the driver here
+    vcnl4020_driver_init(&vcnl4020_config, &vcnl4020_context);
+
     while (1) {
         // Get the temperature from the tmp102 sensor
         float temp = tmp102_driver_read(&i2c);
@@ -297,6 +401,14 @@ int main(void) {
                          lis3dh_context.x_acc, lis3dh_context.y_acc,
                          lis3dh_context.z_acc);
 
+        // Get the current proximity and light intensity
+        vcnl4020_driver_read_all(&vcnl4020_context);
+
+        // Print it out too
+        uart_logger_send("Proximity: %d [cnt], Light: %d [lux]\r\n\r\n",
+                         vcnl4020_context.proximity_cnt,
+                         vcnl4020_context.als_lux);
+
         // Flip all leds to make
         HAL_GPIO_TogglePin(GPIOC,
                            GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11);
@@ -309,6 +421,13 @@ int main(void) {
                 // Call the clear function which calls our handler
                 lis3dh_clear_interrupt1(
                     &lis3dh_context, lis3dh_interrupt_handler, &interrupt_arg);
+            }
+
+            // Check if this interrupt was triggered
+            if (vcnl4020_interrupt_flag == 1) {
+                vcnl4020_clear_interrupt(&vcnl4020_context,
+                                         vcnl4020_interrupt_handler,
+                                         &vcnl4020_interrupt_arg);
             }
 
             HAL_Delay(10);
