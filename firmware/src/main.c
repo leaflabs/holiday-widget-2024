@@ -220,6 +220,18 @@ int main(void) {
     uart_logger_send("End of scan\n\r\n\r");
 
     /*
+        Set up the tmp102 sensor
+    */
+    static struct tmp102_config tmp102_config = {
+        .conversion_rate =
+            TMP102_1_0_HZ  // Update temperature 1 time per second
+    };
+
+    static struct tmp102_context tmp102_context = {.i2c = &i2c};
+
+    tmp102_driver_init(&tmp102_config, &tmp102_context);
+
+    /*
         Set up the LIS3DH sensor and all the structs for it
     */
 
@@ -387,11 +399,12 @@ int main(void) {
 
     while (1) {
         // Get the temperature from the tmp102 sensor
-        float temp = tmp102_driver_read(&i2c);
+        tmp102_driver_read(&tmp102_context);
 
         // Print it out
-        uart_logger_send("Temp is: %f C, %f F\r\n\r\n", temp,
-                         (9.0f / 5.0f * temp) + 32);
+        uart_logger_send("Temp is: %f C, %f F\r\n\r\n",
+                         tmp102_context.temperature,
+                         (9.0f / 5.0f * tmp102_context.temperature) + 32);
 
         // Get the current acceleration
         lis3dh_driver_read_all(&lis3dh_context);

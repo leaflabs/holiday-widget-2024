@@ -10,6 +10,33 @@
 // Register to read the temperature from the tmp102 sensor as defined in the
 // datasheet
 #define TEMPERATURE_REGISTER 0x00U
+#define CONFIGURATION_REGISTER 0x01U
+
+// bit location for CR0 and CR1 bits
+#define CR0_LOCATION 0x6
+
+void tmp102_driver_init(const struct tmp102_config *config,
+                        const struct tmp102_context *context) {
+    I2C_HandleTypeDef *i2c = context->i2c;
+
+    // Buffer to send data
+    uint8_t buffer[2] = {0};
+
+    // First we need to load the configuration register to preserve its values
+    i2c_driver_read_registers(i2c, TMP102_ADDRESS, CONFIGURATION_REGISTER,
+                              buffer, 2);
+
+    // second byte has the CR0 and CR1 bits
+    // Clear the CR1 and CR0 bits so we can set them
+    buffer[1] &= 0x3F;  // Clear the first two bits: 0b00111111
+
+    // Set the CR0 and CR1 bits to the configured rate
+    buffer[1] |= (config->conversion_rate << CR0_LOCATION);
+
+    // Write the configuration registers back
+    i2c_driver_write_registers(i2c, TMP102_ADDRESS, CONFIGURATION_REGISTER,
+                               buffer, 2);
+}
 
 /*
     Given the two bytes to make up a temp, where byte1 is the
@@ -42,19 +69,19 @@ static inline float convert_temp(uint8_t byte1, uint8_t byte2) {
     return temp;
 }
 
-float tmp102_driver_read(I2C_HandleTypeDef *i2c) {
-    // Buffer to send request and hold results
+void tmp102_driver_read(struct tmp102_context *context) {
+    I2C_HandleTypeDef *i2c = context->i2c;
+
+    // Buffer to hold results
     uint8_t buff[2] = {0};
 
-    // Set the address to read from
-    buff[0] = TEMPERATURE_REGISTER;
-
-    // Send request to read the temperature using the i2c_driver function
-    // Receive two bytes into buff as a result
-    i2c_driver_read_registers_with_stop(i2c, TMP102_ADDRESS, buff, 2);
+    // Get the two temperature bytes
+    i2c_driver_read_registers(i2c, TMP102_ADDRESS, TEMPERATURE_REGISTER, buff,
+                              2);
 
     // Get the temperature from the bytes
     float temp = convert_temp(buff[0], buff[1]);
 
-    return temp;
+    // Save the results
+    context->temperature = temp;
 }
