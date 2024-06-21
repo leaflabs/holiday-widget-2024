@@ -1,5 +1,6 @@
 #include "main.h"
 
+#include "charlieplex_driver.h"
 #include "i2c_driver.h"
 #include "lis3dh_driver.h"
 #include "stm32l0xx_hal.h"
@@ -96,7 +97,7 @@ void delay(volatile uint32_t time) {
  * Initalize everything for the GPIO pins
  *
  */
-void GPIO_Init() {
+void GPIO_Init(void) {
     // Enable the GPIOC clock
     __HAL_RCC_GPIOC_CLK_ENABLE();
 
@@ -199,9 +200,6 @@ int main(void) {
 
     // Set up the system and peripherals
     system_init(&i2c);
-
-    // Turn 8 and 11 on initially so we can have the leds flash alternating
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8 | GPIO_PIN_11, 1);
 
     // Scan all devices availbale over i2c
     //      Pass in the handler defined above and our struct
@@ -397,53 +395,70 @@ int main(void) {
     // Init the driver here
     vcnl4020_driver_init(&vcnl4020_config, &vcnl4020_context);
 
+    /*
+        Initalize the charlieplexing driver
+    */
+    charlieplex_driver_init();
+
+    // Set up the charlieplex context struct
+    struct charlieplex_context charlieplex_context = {0};
+
+    /*
+        Goal here is to turn on the leds in a sprial.
+        Defined below is the order of leds to be on inorder
+        for a sprial 'image' to apear. Once the spiral hits the center
+        it will go back out. To prevent the image from flashing too fast,
+        each led be on for 'num_frames' which is really how many frames
+        each led gets to be on.
+    */
+
+    // Spiral winding order inwards. Top left going right.
+    const uint32_t order[] = {D7,  D5,  D23, D24, D25, D11, D12, D17,
+                              D18, D9,  D28, D10, D6,  D8,  D21, D20,
+                              D22, D15, D14, D16, D27, D26, D19, D13};
+
+    // Which index are we on for the order of leds to turn on
+    int16_t order_index = 0;
+
+    // Which direction should the counter go
+    int8_t dir = 1;
+
+    // Counter for the number of frames we have drawn
+    int timer = 0;
+
+    // How many frames to draw before going to next led
+    const int num_frames = 120;
+
     while (1) {
-        // Get the temperature from the tmp102 sensor
-        tmp102_driver_read(&tmp102_context);
+        // Draw all leds specified
+        charlieplex_driver_draw(&charlieplex_context);
 
-        // Print it out
-        uart_logger_send("Temp is: %f C, %f F\r\n\r\n",
-                         tmp102_context.temperature,
-                         (9.0f / 5.0f * tmp102_context.temperature) + 32);
+        // Increment our timer
+        timer++;
 
-        // Get the current acceleration
-        lis3dh_driver_read_all(&lis3dh_context);
+        // For now, we will draw 'num_frames' frames before going to next led
+        // Once the timer hits, go to the next led
+        if (timer == num_frames) {
+            timer = 0;  // Reset the timer
 
-        // Print it out too
-        uart_logger_send("Acceleration data: %f %f %f [g]\r\n\r\n",
-                         lis3dh_context.x_acc, lis3dh_context.y_acc,
-                         lis3dh_context.z_acc);
+            // Turn on the led specified in the order array
+            // Notice a '=' because we want to turn off the previous led
+            charlieplex_context.leds = SET_LED(order[order_index]);
 
-        // Get the current proximity and light intensity
-        vcnl4020_driver_read_all(&vcnl4020_context);
+            // Increment the index
+            order_index += dir;
+        }
 
-        // Print it out too
-        uart_logger_send("Proximity: %d [cnt], Light: %d [lux]\r\n\r\n",
-                         vcnl4020_context.proximity_cnt,
-                         vcnl4020_context.als_lux);
+        // Upper bound for the array
+        if (order_index == 24) {
+            order_index = 23;
+            dir = -1;  // Flip direction
+        }
 
-        // Flip all leds to make
-        HAL_GPIO_TogglePin(GPIOC,
-                           GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11);
-
-        // For now, perform n waits while checking if the interrupt flag was
-        // enabled
-        for (int n = 0; n < 100; n++) {
-            // Check if the interrupt was triggered
-            if (lis3dh_interrupt1_flag == 1) {
-                // Call the clear function which calls our handler
-                lis3dh_clear_interrupt1(
-                    &lis3dh_context, lis3dh_interrupt_handler, &interrupt_arg);
-            }
-
-            // Check if this interrupt was triggered
-            if (vcnl4020_interrupt_flag == 1) {
-                vcnl4020_clear_interrupt(&vcnl4020_context,
-                                         vcnl4020_interrupt_handler,
-                                         &vcnl4020_interrupt_arg);
-            }
-
-            HAL_Delay(10);
+        // Lower bound for the array
+        if (order_index == -1) {
+            order_index = 0;
+            dir = 1;  // Flip direction
         }
     }
 }
