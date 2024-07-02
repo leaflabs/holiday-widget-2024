@@ -16,10 +16,14 @@
 *-cache.lib
 *-rescue.lib
 
-./firmware/build/*
-./firmware/build
+firmware/build/*
+firmware/build
 
 *.elf
 *.swp
 *.o
 *.d
+
+# Ignore the generated lmath_luts.h file
+firmware/include/lmath_luts.h
+

@@ -58,7 +58,7 @@ LDFLAGS   += -mthumb -nostdlib -lgcc -mcpu=$(CPU_TYPE) \
 
 # actual targets
 .PHONY: all
-all: $(TARGET_ELF)
+all: include/lmath_luts.h $(TARGET_ELF)
 
 $(TARGET_ELF): $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
@@ -81,5 +81,13 @@ clean:
 
 upload: $(TARGET_ELF)
 	openocd -f interface/stlink.cfg -f target/stm32l0.cfg -c "program $(TARGET_ELF) verify reset exit"
+
+# Code to build lut generating script
+build/lut_generator : scripts/lut_generator.c
+	gcc scripts/lut_generator.c -o build/lut_generator -Wall -lm
+
+# Code to generate the lmath_luts.h
+include/lmath_luts.h : build/lut_generator
+	./build/lut_generator > ./include/lmath_luts.h
 
 -include $(DEPS)
