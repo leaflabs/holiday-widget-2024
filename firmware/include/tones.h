@@ -70,7 +70,7 @@ static const uint16_t sine_wave[32] = {
 #define B5_NATURAL (B4_NATURAL / 2)
 
 /* Silence has MAX period value so that no audible tone is played */
-#define SILENCE 0x0
+#define SILENCE 0xFFFF
 
 /* Tempo in BPM */
 #define TEMPO 240

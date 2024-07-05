@@ -371,7 +371,7 @@ enum music_player_error music_player_core_init(
 }
 
 /* Plays the given song, returns 0 on success, -1 on failure */
-enum music_player_error music_player_core_play_song(enum Song_t song) {
+enum music_player_error music_player_core_play_song(enum Song song) {
     /* Enable waveform transfer frequency generation timer (TIM6) */
     if (HAL_TIM_Base_Start(&music_player.core.tim6_handle) != HAL_OK) {
         /* TIM6 Enable Error */

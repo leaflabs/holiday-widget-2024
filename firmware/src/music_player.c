@@ -103,7 +103,7 @@ void music_player_run(void) {
 }
 
 /* Play the provided song - returns MUSIC_PLAYER_RUN_ERROR on failure */
-enum music_player_error music_player_play_song(enum Song_t song) {
+enum music_player_error music_player_play_song(enum Song song) {
     if (context.state == MUSIC_PLAYER_READY) {
         context.current_song = song;
         return MUSIC_PLAYER_NO_ERROR;
