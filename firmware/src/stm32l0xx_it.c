@@ -1,9 +1,8 @@
 #include "stm32l0xx_it.h"
 
-#include "i2c_driver.h"
 #include "lis3dh_driver.h"
-#include "main.h"
 #include "stm32l0xx_hal.h"
+#include "system_communication.h"
 #include "vcnl4020_driver.h"
 
 void NMI_Handler(void) {

@@ -13,4 +13,10 @@
 */
 void bit_print(uint8_t *bytes, int length);
 
+/*
+    Print out all available i2c devices associated with
+    i2c1_context.
+*/
+void print_available_i2c_devices(void);
+
 #endif
