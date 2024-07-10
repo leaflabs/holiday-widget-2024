@@ -6,7 +6,6 @@
 void bit_print(uint8_t *bytes, int length) {
     // Iterate length times over the array
     for (int l = 0; l < length; l++) {
-
         // Get the element
         uint8_t byte = bytes[l];
 
@@ -15,7 +14,9 @@ void bit_print(uint8_t *bytes, int length) {
             // Get the 'ith' bit from this byte and shift back to be either 1 or
             // 0
             uint8_t bit = (byte & (1 << i)) >> i;
-            uart_logger_send("%c", bit + '0'); // print the bit as either '1' or '0' in ascii
+            uart_logger_send(
+                "%c",
+                bit + '0');  // print the bit as either '1' or '0' in ascii
         }
     }
 

@@ -1,5 +1,7 @@
 #include "lis3dh_driver.h"
 
+#include <errno.h>
+
 #include "i2c_driver.h"
 #include "stm32l0xx_hal.h"
 #include "uart_logger.h"
@@ -32,7 +34,7 @@
 #define INT1_DURATION 0x33
 
 // Flag for if the lis3dh interrupt was triggered
-volatile uint8_t lis3dh_interrupt1_flag = 0;
+volatile int lis3dh_interrupt1_flag = 0;
 
 // Map each scale value to the corrosponding 'mg per bit' ratio
 static const float data_scale_values[] = {[LIS3DH_SCALE_2G] = 16.0f,
@@ -47,61 +49,112 @@ const float data_rate_values[] = {
     [LIS3DH_100_HZ] = 100.0f, [LIS3DH_200_HZ] = 200.0f,
     [LIS3DH_400_HZ] = 400.0f, [LIS3DH_1344_HZ] = 1344.0f};
 
-void lis3dh_driver_init(struct lis3dh_config *config,
-                        struct lis3dh_context *context) {
-    I2C_HandleTypeDef *i2c = context->i2c;
+int lis3dh_driver_init(struct lis3dh_config *config,
+                       struct lis3dh_context *context) {
+    struct i2c_request *request = &context->request;
+    struct i2c_request *it_request = &context->it_request;
+    struct i2c_driver_context *i2c_context = context->i2c_context;
+    int ret = 0;
+
+    context->state = LIS3DH_ERROR;  // If we error out and exit early, set the
+                                    // state accordingly.
+    context->it_state = LIS3DH_INTERRUPT_CLEAR;
 
     /*
         GPIO PIN for interrupts is PC2.
         This is connected to INT1 or Inertial interrupt 1
     */
 
-    // Enable the clock
     __HAL_RCC_GPIOC_CLK_ENABLE();
 
-    // Configure the pin to accept interrupts
     GPIO_InitTypeDef gpio = {0};
     gpio.Pin = GPIO_PIN_2;
-    gpio.Mode =
-        GPIO_MODE_IT_RISING;  // Interrupt is triggered on rising voltage
-    gpio.Pull = GPIO_NOPULL;  // Pin is already pulled to ground by sensor
+    // Interrupt is triggered with rising voltage
+    gpio.Mode = GPIO_MODE_IT_RISING;
+    // Pin is alrelady pulled to ground by sensor
+    gpio.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOC, &gpio);
 
     // Configure NVIC so the interrupt can fire
     HAL_NVIC_SetPriority(EXTI2_3_IRQn, 0, 0);
     HAL_NVIC_EnableIRQ(EXTI2_3_IRQn);
 
-    /*
-        Configure each control register on the sensor
-    */
+    // Set up the i2c request for the whole driver
+    request->address = LIS3DH_ADDRESS;
+    request->buffer = context->i2c_transaction_buffer;
+    request->future.state = FUTURE_WAITING;
+    request->future.error_number = 0;
 
     // CTRL_REG1. Configures data rate and enabling an axis
-    i2c_driver_write_registers(i2c, LIS3DH_ADDRESS, CTRL_REG1,
-                               &config->reg1.as_byte, 1);
+    request->action = I2C_WRITE;
+    request->ireg = CTRL_REG1;
+    request->num_bytes = 1;
+    request->buffer[0] = config->reg1.as_byte;
+
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
 
     // CTRL_REG2. Configures high pass filter and where it should be applied.
-    i2c_driver_write_registers(i2c, LIS3DH_ADDRESS, CTRL_REG2,
-                               &config->reg2.as_byte, 1);
+    request->action = I2C_WRITE;
+    request->ireg = CTRL_REG2;
+    request->buffer[0] = config->reg2.as_byte;
+
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
 
     // CTRL_REG3. Configures INT1 options
-    i2c_driver_write_registers(i2c, LIS3DH_ADDRESS, CTRL_REG3,
-                               &config->reg3.as_byte, 1);
+    request->action = I2C_WRITE;
+    request->ireg = CTRL_REG3;
+    request->buffer[0] = config->reg3.as_byte;
+
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
 
     // CTRL_REG4. Configure scale of data and high resolution on.
-    i2c_driver_write_registers(i2c, LIS3DH_ADDRESS, CTRL_REG4,
-                               &config->reg4.as_byte, 1);
+    request->action = I2C_WRITE;
+    request->ireg = CTRL_REG4;
+    request->buffer[0] = config->reg4.as_byte;
+
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
 
     // CTRL_REG5. Configure where the interrupt signal goes.
-    i2c_driver_write_registers(i2c, LIS3DH_ADDRESS, CTRL_REG5,
-                               &config->reg5.as_byte, 1);
+    request->action = I2C_WRITE;
+    request->ireg = CTRL_REG5;
+    request->buffer[0] = config->reg5.as_byte;
 
-    // CTRL_REG5. Configure INT2 and polarity.
-    i2c_driver_write_registers(i2c, LIS3DH_ADDRESS, CTRL_REG6,
-                               &config->reg6.as_byte, 1);
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
+
+    // CTRL_REG6. Configure INT2 and polarity.
+    request->action = I2C_WRITE;
+    request->ireg = CTRL_REG6;
+    request->buffer[0] = config->reg6.as_byte;
+
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
 
     // INT1_CFG. Configure what triggers an INT1 interrupt
-    i2c_driver_write_registers(i2c, LIS3DH_ADDRESS, INT1_CFG,
-                               &config->int1.as_byte, 1);
+    request->action = I2C_WRITE;
+    request->ireg = INT1_CFG;
+    request->buffer[0] = config->int1.as_byte;
+
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
 
     // Copy relevant values from config to context
     context->data_scale = config->reg4.fs;
@@ -110,7 +163,8 @@ void lis3dh_driver_init(struct lis3dh_config *config,
     // INT_THS. Configure what acceleration is needed to trigger an interrupt.
     float acceleration_threshold =
         config->acceleration_threshold;  // measured in 'g's
-    acceleration_threshold = acceleration_threshold * 1000.0; // convert to 'mg's
+    acceleration_threshold =
+        acceleration_threshold * 1000.0;  // convert to 'mg's
     uint8_t threshold = 0;  // This will be the 8 bits to write to the register
 
     // Make sure the sensor is in the range of values
@@ -125,18 +179,23 @@ void lis3dh_driver_init(struct lis3dh_config *config,
             "FATAL ERROR: Invalid threshold value. MSB is not 0 though it "
             "should be:\r\n");
         bit_print(&threshold, 1);
-        while (1)
-            ;  // Spin forever because the user needs to change the settings
+        return -EINVAL;
     }
 
-    // Write the register now
-    i2c_driver_write_registers(i2c, LIS3DH_ADDRESS, INT1_THS, &threshold, 1);
+    request->action = I2C_WRITE;
+    request->ireg = INT1_THS;
+    request->buffer[0] = threshold;
+
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
 
     // INT_DURATION. Configure how long an event has to be to be recognized
     // Adjust the value of 'acceleration_duration', which is measured in 'ms'
     float acceleration_duration =
-        config->acceleration_duration;                      // measured in 'ms'
-    acceleration_duration = acceleration_duration / 1000.0; // Convert to 's'
+        config->acceleration_duration;                       // measured in 'ms'
+    acceleration_duration = acceleration_duration / 1000.0;  // Convert to 's'
     uint8_t duration = 0;  // This will be the 8 bits to write to the register
 
     // Make sure it is in the acceptable range
@@ -151,53 +210,47 @@ void lis3dh_driver_init(struct lis3dh_config *config,
             "FATAL ERROR: Invalid duration value. MSB is not 0 though it "
             "should be:\r\n");
         bit_print(&duration, 1);
-        while (1)
-            ;  // Spin forever because the user needs to change the settings
+        return -EINVAL;
     }
 
-    // Now write the duration value
-    i2c_driver_write_registers(i2c, LIS3DH_ADDRESS, INT1_DURATION, &duration,
-                               1);
+    request->action = I2C_WRITE;
+    request->ireg = INT1_DURATION;
+    request->buffer[0] = duration;
 
-    // Finally, read the interrupt register to clear it incase a previous flag
-    // (in the sensor) was not cleared
-    lis3dh_clear_interrupt1(context, NULL,
-                            NULL);  // No handler or args passed in
-}
-
-void lis3dh_clear_interrupt1(struct lis3dh_context *context,
-                             void (*user_handler)(uint8_t, void *),
-                             void *user_handler_args) {
-    I2C_HandleTypeDef *i2c = context->i2c;
-
-    // Remove the interrupt flag and read the src register to remove the
-    // interrupt and call the user defined handler First clear the flag
-    lis3dh_interrupt1_flag = 0;  // Reset
-
-    // Read the interrupt 1 source (INT1_SRC) register to clear the sensor's
-    // interrupt flag
-    uint8_t status = 0;
-    i2c_driver_read_registers(i2c, LIS3DH_ADDRESS, INT1_SRC, &status, 1);
-
-    // Call the user defined handler if it exists
-    if (user_handler != NULL) {
-        user_handler(status, user_handler_args);
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
     }
+
+    // Finally set up interrupts and their i2c request
+    it_request->action = I2C_READ;
+    it_request->address = LIS3DH_ADDRESS;
+    it_request->ireg = INT1_SRC;
+    it_request->buffer = context->it_status_buffer;
+    it_request->num_bytes = 1;
+    it_request->future.state = FUTURE_WAITING;
+    it_request->future.error_number = 0;
+
+    // Set the interrupt to triggered so we can clear any previous calls
+    lis3dh_interrupt1_flag = LIS3DH_INTERRUPT_TRIGGERED;
+
+    // Device is ready to use
+    context->state = LIS3DH_READY;
+
+    return 0;
 }
 
-void lis3dh_driver_read_all(struct lis3dh_context *context) {
-    I2C_HandleTypeDef *i2c = context->i2c;
-
-    uint8_t messages[6];
-    // To read continuously on the lis3dh, we need to set the 8th bit of the
-    // address to a 1. Hence the OUT_X_L | (1 << 7)
-    i2c_driver_read_registers(i2c, LIS3DH_ADDRESS, OUT_X_L | (1 << 7), messages,
-                              6);
-
+/*
+    Function for after reading all axes of the sensor.
+    Processes the data and saves the results into the context
+    struct for this driver
+*/
+void lis3dh_driver_process_acceleration(struct lis3dh_context *context) {
+    struct i2c_request *request = &context->request;
     // Shift the HIGH bits over 8
-    int16_t x_val = messages[0] | (messages[1] << 8);
-    int16_t y_val = messages[2] | (messages[3] << 8);
-    int16_t z_val = messages[4] | (messages[5] << 8);
+    int16_t x_val = request->buffer[0] | (request->buffer[1] << 8);
+    int16_t y_val = request->buffer[2] | (request->buffer[3] << 8);
+    int16_t z_val = request->buffer[4] | (request->buffer[5] << 8);
 
     // Get our conversion to go from binary to 'mgs' and 'mgs' to 'g'
     // 'int16_t' * 1/data_scale = 'mg'
@@ -214,4 +267,24 @@ void lis3dh_driver_read_all(struct lis3dh_context *context) {
     context->x_acc = x_acc;
     context->y_acc = y_acc;
     context->z_acc = z_acc;
+}
+
+int lis3dh_driver_request_acceleration(struct lis3dh_context *context) {
+    struct i2c_driver_context *i2c_context = context->i2c_context;
+    struct i2c_request *request = &context->request;
+
+    request->action = I2C_READ;
+    // (1 << 7) tells lis3dh to read more than 1 byte
+    request->ireg = OUT_X_L | (1 << 7);
+    request->num_bytes = 6;
+
+    // Submit a request for the acceleration data
+    return i2c_enqueue_request(i2c_context, request);
+}
+
+int lis3dh_driver_request_it_clear(struct lis3dh_context *context) {
+    struct i2c_driver_context *i2c_context = context->i2c_context;
+    struct i2c_request *it_request = &context->it_request;
+
+    return i2c_enqueue_request(i2c_context, it_request);
 }

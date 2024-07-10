@@ -1,13 +1,21 @@
 #ifndef __LIS3DH_DRIVER_H
 #define __LIS3DH_DRIVER_H
 
+#include "i2c_driver.h"
 #include "stdbool.h"
 #include "stm32l0xx_hal.h"
 
-// Flag for the interrupt
-extern volatile uint8_t lis3dh_interrupt1_flag;
+#define LIS3DH_MAX_I2C_SIZE 6U
 
-// #define bool uint8_t
+enum lis3dh_interrupt_state {
+    LIS3DH_INTERRUPT_CLEAR = 0,
+    LIS3DH_INTERRUPT_TRIGGERED = 1,
+    // I2C transaction to clear interrupt register is pending
+    LIS3DH_INTERRUPT_CLEARING = 2,
+};
+
+// Flag for the interrupt
+extern volatile int lis3dh_interrupt1_flag;
 
 /*
     CTRL_REG1
@@ -41,7 +49,8 @@ union control_reg1 {
 */
 
 enum hpm {
-    LIS3DH_HIGH_PASS_MODE_NORMAL_RESET = 0x0, // Reset by reading REFERENCE register
+    LIS3DH_HIGH_PASS_MODE_NORMAL_RESET =
+        0x0,  // Reset by reading REFERENCE register
     LIS3DH_HIGH_PASS_MODE_REF_SIGNAL = 0x1,
     LIS3DH_HIGH_PASS_MODE_NORMAL = 0x2,
     LIS3DH_HIGH_PASS_MODE_AUTO_RESET = 0x3
@@ -112,7 +121,6 @@ union control_reg4 {
     };
     uint8_t as_byte;
 };
-
 
 /*
     CTRL_REG5
@@ -190,12 +198,32 @@ struct lis3dh_config {
 };
 
 /*
+    Three states for this driver.
+    PRE_INIT - device is not initalized yet
+    READY - device is ready to use and read data
+    PENDING - device is waiting for i2c to complete
+    ERROR - device had an issue
+*/
+enum lis3dh_state {
+    LIS3DH_PRE_INIT,
+    LIS3DH_READY,
+    LIS3DH_PENDING,
+    LIS3DH_ERROR
+};
+
+/*
     Context struct for the lis3dh sensor
 */
-
 struct lis3dh_context {
-    I2C_HandleTypeDef *i2c;  // Handle to the I2C struct
+    // i2c context for communication
+    struct i2c_driver_context *i2c_context;
 
+    struct i2c_request request;
+    struct i2c_request it_request;
+
+    // Record the state of the driver
+    volatile enum lis3dh_state state;
+    volatile enum lis3dh_interrupt_state it_state;
     // Last x,y,z acceleration values
     float x_acc;
     float y_acc;
@@ -204,6 +232,9 @@ struct lis3dh_context {
     // Record the data rate and data scale
     enum odr data_rate;
     enum fs data_scale;
+
+    uint8_t i2c_transaction_buffer[LIS3DH_MAX_I2C_SIZE];
+    uint8_t it_status_buffer[1];
 };
 
 /*
@@ -213,26 +244,30 @@ struct lis3dh_context {
 
     Prerequisite: the I2C_HandleTypeDef in lis3dh_context must be a valid
    pointer in order for this function to work.
+
+    Returns 0 on success.
 */
-void lis3dh_driver_init(struct lis3dh_config *config,
-                        struct lis3dh_context *context);
+int lis3dh_driver_init(struct lis3dh_config *config,
+                       struct lis3dh_context *context);
 
 /*
-    Reads the x,y,z acceleration values from the lis3dh sensor.
-    'context' is the context struct for the sensor and where the results are
-   stored
+    Request to read the acceleration data from the sensor
+
+    returns 0 if the i2c transaction was added sucessfully
 */
-void lis3dh_driver_read_all(struct lis3dh_context *context);
+int lis3dh_driver_request_acceleration(struct lis3dh_context *context);
 
 /*
-    Clears the interrupt flag and reads the INT1_SRC register to clear the
-   internal flag the sensor has. 'context' is the context struct for the sensor
-    'user_handler' is the user defined handler for what to do once the interrupt
-   is processed 'user_handler_args' is the user defined argument to be passed
-   into the handler if desired
+    Convert the raw acceleration data received from the i2c transaction
+    into a usable format and save in the context struct
 */
-void lis3dh_clear_interrupt1(struct lis3dh_context *context,
-                             void (*user_handler)(uint8_t, void *),
-                             void *user_handler_args);
+void lis3dh_driver_process_acceleration(struct lis3dh_context *context);
+
+/*
+    Request to clear the interrupt flag on the sensor
+
+    returns 0 if the i2c transaction was added sucessfully
+*/
+int lis3dh_driver_request_it_clear(struct lis3dh_context *context);
 
 #endif

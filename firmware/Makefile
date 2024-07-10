@@ -50,7 +50,7 @@ DEPS      := $(OBJS:.o=.d)
 INCLUDES  += $(addprefix -I,$(INC_DIRS))
 ASFLAGS   += -mthumb -mcpu=$(CPU_TYPE)
 CPPFLAGS  += $(INCLUDES) -MMD -MP -Wall
-CFLAGS    += -mthumb -Wall -c -mcpu=$(CPU_TYPE) \
+CFLAGS    += -mthumb -Wall -Wextra -c -mcpu=$(CPU_TYPE) \
 	-std=gnu11 -Os -flto -g -gdwarf-2
 LDFLAGS   += -mthumb -nostdlib -lgcc -mcpu=$(CPU_TYPE) \
 	-Wl,-T,$(LINK_MEM) -Wl,--gc-sections \

@@ -2,10 +2,12 @@
 
 #include "charlieplex_driver.h"
 #include "i2c_driver.h"
+#include "job_queue.h"
 #include "lis3dh_driver.h"
 #include "stm32l0xx_hal.h"
 #include "tmp102_driver.h"
 #include "uart_logger.h"
+#include "utils.h"
 #include "vcnl4020_driver.h"
 
 // How many addresses we can store from an i2c_driver_scan call
@@ -15,33 +17,14 @@
 // interrupt
 #define LOW_THRESH_MSK 0x2
 #define HIGH_THRESH_MSK 0x1
-/*
-    i2c_scan_arg is the struct passed into the i2c_scan_handler
-    to save the addresses found
-*/
-struct i2c_scan_arg {
-    uint8_t addrs[MAX_ADDRESSES];  // Upto MAX_ADDRS number of addresses
-    size_t index;                  // Keep track of which element we are on
-};
 
-/*
-    lis3dh_interrupt_arg is the struct passed into the lis3dh_interrupt_handler
-   for whatever it may be used for.
-*/
-struct lis3dh_interrupt_arg {
-    uint32_t
-        numInterrupts;  // Keep track of how many interrupts have been triggered
-};
-
-/*
-    vcnl4020_interrupt_arg is the struct passed into the
-   vcnl4020_interrupt_handler for whatever it may be used for.
-*/
-struct vcnl4020_interrupt_arg {
-    // Keep track of how many low and high threshholds were hit
-    uint32_t num_low_thresh;
-    uint32_t num_high_thresh;
-};
+// Context structs for our drivers.
+struct i2c_driver_context i2c1_context = {0};
+static struct tmp102_context tmp102_context = {.i2c_context = &i2c1_context};
+static struct lis3dh_context lis3dh_context = {.i2c_context = &i2c1_context};
+static struct vcnl4020_context vcnl4020_context = {.i2c_context =
+                                                       &i2c1_context};
+static struct charlieplex_context charlieplex_context = {0};
 
 /*
  * Basic system clock initalization code
@@ -64,7 +47,8 @@ void system_clock_init(void) {
         // error message here
     }
 
-    /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
+    /*
+     * Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
      * clocks' dividers.
      */
     rcc_clk_init.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK |
@@ -112,12 +96,14 @@ void GPIO_Init(void) {
     HAL_GPIO_Init(GPIOC, &gpio);
 }
 
+/**** SETUP FUNCTIONS ****/
+
 /*
     Set up the HAL, clock and all peripherals
 
-    'i2c' is the handle for the I2C driver
+    'i2c' is the handle for the i2c_driver_context
 */
-static void system_init(I2C_HandleTypeDef *i2c) {
+static void system_init() {
     // Init the HAL
     HAL_Init();
 
@@ -131,110 +117,47 @@ static void system_init(I2C_HandleTypeDef *i2c) {
     uart_logger_init();
 
     // Initalize the i2c device so it can send and receive
-    i2c_driver_init(i2c, I2C1);
+    i2c_driver_init(&i2c1_context, I2C1);
 }
 
-/*
-    User defined handler for the i2c_driver_scan function.
-    Takes in an i2c address and a void* for a struct or regular type
+void print_available_i2c_devices(void) {
+    uint8_t online_count = 0;
+    uint64_t high_mask = 0;
+    uint64_t low_mask = 0;
 
-    The handler can do what it wants with the address and the type passed in
-*/
-void i2c_scan_handler(uint8_t address, void *scan_arg) {
-    // Convert the argument to the type of choice
-    struct i2c_scan_arg *arg = scan_arg;
-
-    // If we have space, save the address
-    if (arg->index < MAX_ADDRESSES) {
-        // Save the address in an array
-        arg->addrs[arg->index++] = address;
+    for (uint8_t i = 0; i < 128; i++) {
+        if (i2c_device_is_ready(&i2c1_context, i)) {
+            online_count++;
+            if (i < 64) {
+                low_mask |= 1 << i;
+            } else {
+                high_mask |= 1 << (i - 64);
+            }
+        }
     }
+
+    uart_logger_send("Scanned I2C addresses: %d\r\n", online_count);
+
+    for (uint8_t i = 0; i < 128; i++) {
+        if ((i < 64 && low_mask & (1 << i)) ||
+            (i < 128 && high_mask & (1 << (i - 64)))) {
+            uart_logger_send("     Address found: 0x%02x\r\n", i);
+        }
+    }
+    uart_logger_send("End of scan\r\n\r\n");
 }
 
-/*
-    User defined handler for the lis3dh_interrupt1_clear function.
-    Takes the status register value and a void* for a struct or type
-    to be passed in.
-
-    The handler can do what it wants based on the status
-*/
-void lis3dh_interrupt_handler(uint8_t status, void *interrupt_arg) {
-    // Convert the argument to the type of choice
-    struct lis3dh_interrupt_arg *arg = interrupt_arg;
-
-    arg->numInterrupts++;  // Add an extra interrupt occurence
-
-    uart_logger_send(
-        "Proessing interrupt from handler... Total interrupts: %u\r\n",
-        arg->numInterrupts);
-}
-
-/*
-    user defined handler for the vcnl4020_interrupt_clear function.
-    Takes the status register vlaue and a void* for a struct or type
-    to be passed in.
-
-    The handler can do what it wants to based on the status
-*/
-void vcnl4020_interrupt_handler(uint8_t status, void *interrupt_arg) {
-    // Convert the argument to the type of choice
-    struct vcnl4020_interrupt_arg *arg = interrupt_arg;
-
-    // Check for high threshold
-    if ((status & HIGH_THRESH_MSK) != 0) {
-        arg->num_high_thresh++;
-    }
-    // Check for low threshold
-    if ((status & LOW_THRESH_MSK) != 0) {
-        arg->num_low_thresh++;
-    }
-
-    uart_logger_send(
-        "Processing interrupt from vcnl4020: Num low: %d, Num high: %d\r\n",
-        arg->num_low_thresh, arg->num_high_thresh);
-}
-
-int main(void) {
-    // I2c handler for all sensors that use it
-    static I2C_HandleTypeDef i2c = {0};
-
-    // Set up the system and peripherals
-    system_init(&i2c);
-
-    // Scan all devices availbale over i2c
-    //      Pass in the handler defined above and our struct
-    //      to be passed into the handler
-    struct i2c_scan_arg scan_argument = {0};  // Define our argument struct
-    i2c_driver_scan(&i2c, i2c_scan_handler,
-                    &scan_argument);  // Pass in handler and argument
-
-    // Now print out the addresses found
-    uart_logger_send("Scanned I2C addresses: %d\r\n", scan_argument.index);
-
-    for (int i = 0; i < scan_argument.index; i++) {
-        uart_logger_send("     Address found: 0x%02x\r\n",
-                         scan_argument.addrs[i]);
-    }
-    uart_logger_send("End of scan\n\r\n\r");
-
-    /*
-        Set up the tmp102 sensor
-    */
+void tmp102_setup(void) {
     static struct tmp102_config tmp102_config = {
         .conversion_rate =
-            TMP102_1_0_HZ  // Update temperature 1 time per second
+            TMP102_8_0_HZ  // Update temperature 8 times per second
     };
 
-    static struct tmp102_context tmp102_context = {.i2c = &i2c};
+    int ret = tmp102_driver_init(&tmp102_config, &tmp102_context);
+    if (ret < 0) tmp102_context.state = TMP102_ERROR;
+}
 
-    tmp102_driver_init(&tmp102_config, &tmp102_context);
-
-    /*
-        Set up the LIS3DH sensor and all the structs for it
-    */
-
-    // Set up our configuration struct for the lis3dh accelerometer.
-    // Each configuration register can be configured.
+void lis3dh_setup(void) {
     static struct lis3dh_config lis3dh_config = {
         .reg1 =
             {// Enable the x, y, and z axis for recording acceleration data
@@ -253,8 +176,8 @@ int main(void) {
              .hp_ia1 = 0,
              .hp_ia2 = 0,
              .hpclick = 0,
-             // Yes filter data going to the output registers
-             .fds = 1,
+             // Do not filter data going to the output registers
+             .fds = 0,
              // Filter a 'low' amount of drift in the signal
              .hpcf = LIS3DH_HIGH_PASS_FILTER_LOW,
              // We want normal reset mode. Reset meaning that reading the
@@ -262,7 +185,8 @@ int main(void) {
              .hpm = LIS3DH_HIGH_PASS_MODE_NORMAL_RESET},
 
         .reg3 =
-            {// Enable interrupt 1 to be 'attached' to the ia1 bit (as opposed
+            {// Enable interrupt 1 to be 'attached' to the ia1 bit (as
+             // opposed
              // to the ia2 bit for the second int_src register)
              .i1_overrun = 0,
              .i1_wtm = 0,
@@ -279,7 +203,8 @@ int main(void) {
              .st = LIS3DH_SELF_TEST_NORMAL,
              // Select high resolution output mode
              .hr = 1,
-             // 2G is the max range for our data. Yields higher accuracy for low
+             // 2G is the max range for our data. Yields higher accuracy for
+             // low
              // acceleration environments
              .fs = LIS3DH_SCALE_2G,
              // Do not change endianness or blocking data updates
@@ -287,13 +212,14 @@ int main(void) {
              .bdu = 0},
 
         .reg5 =
-            {// Latch reading the INT1_SRC register to clearning the interrupt
+            {// Latch reading the INT1_SRC register to clearning the
+             // interrupt
              // flag
              .d4d_int2 = 0,
              .lir_int2 = 0,
              .d4d_int1 = 0,
              .lir_int1 = 1,  // Set it here
-             // Do not enable fifo or rebooting memory contents
+                             // Do not enable fifo or rebooting memory contents
              .fifo_en = 0,
              .boot = 0},
 
@@ -307,14 +233,16 @@ int main(void) {
              .i2_click = 0},
 
         .int1 =
-            {// Interrupt when x's or y's acceleration is higher than threshold
+            {// Interrupt when x's or y's acceleration is higher than
+             // threshold
              .xlow = 0,
              .xhigh = 1,  // Set here
              .ylow = 0,
              .yhigh = 1,  // Set here
              .zlow = 0,
              .zhigh = 0,
-             // Trigger interrupt if x OR y happens. AND would be both have to
+             // Trigger interrupt if x OR y happens. AND would be both have
+             // to
              // happen
              .it_mode = LIS3DH_OR_MODE},
         // Set the threshold to .15 * g to trigger
@@ -322,18 +250,12 @@ int main(void) {
         // Set the duration to be at least 20 miliseconds
         .acceleration_duration = 20.0f};
 
-    // Create our context struct to store the results of function calls
-    static struct lis3dh_context lis3dh_context = {.i2c = &i2c};
-
-    // Create our interrupt handler argument
-    static struct lis3dh_interrupt_arg interrupt_arg = {0};
-
     // Now init the driver
-    lis3dh_driver_init(&lis3dh_config, &lis3dh_context);
+    int ret = lis3dh_driver_init(&lis3dh_config, &lis3dh_context);
+    if (ret < 0) lis3dh_context.state = LIS3DH_ERROR;
+}
 
-    /*
-        Now initalize the VCNL4020 sensor for proximity
-    */
+void vcnl4020_setup(void) {
     const struct vcnl4020_config vcnl4020_config = {
         .command_register =
             {
@@ -349,30 +271,30 @@ int main(void) {
 
         .ir_led_current_register =
             {
-                .current_value =
-                    VCNL4020_200_MA  // 200 ma of current to the sensor. Yields
-                                     // more tests so more accurate results
+                .current_value = VCNL4020_200_MA  // 200 ma of current to
+                                                  // the sensor. Yields
+                // more tests so more accurate results
             },
 
         .ambient_light_parameter_register =
             {
                 .averaging_func =
-                    VCNL4020_32_CONV,  // 32 conversions -> average of 32 light
-                                       // sensor readings. Less accurate but
-                                       // faster
-                .offset_enable = 1,    // Enable offset so any drift is removed
-                                       // from light sensor readings
-                .als_rate = VCNL4020_AR_5  // 5 samples per second
+                    VCNL4020_32_CONV,  // 32 conversions -> average of 32
+                                       // light sensor readings. Less
+                                       // accurate but faster
+                .offset_enable = 1,    // Enable offset so any drift is
+                                       // removed from light sensor readings
+                .als_rate = VCNL4020_AR_10,  // 5 samples per second
             },
 
         .interrupt_control_register =
             {
                 .thresh_prox_als =
-                    VCNL4020_THRESH_ALS,  // Enable threshold triggers on the
-                                          // als sensor
+                    VCNL4020_THRESH_ALS,  // Enable threshold triggers on
+                                          // the als sensor
                 .thresh_enable =
                     1,  // Allow thresholds to trigger the interrupt pin
-                .interrupt_count = VCNL4020_TC_2  // Must be over or under the
+                .interrupt_count = VCNL4020_TC_1  // Must be over or under the
                                                   // threshold at least 2 times
             },
 
@@ -386,79 +308,273 @@ int main(void) {
             // .high = 5000 // Above 5000 cnts
         }};
 
-    // Create our context struct
-    struct vcnl4020_context vcnl4020_context = {.i2c = &i2c};
+    int ret = vcnl4020_driver_init(&vcnl4020_config, &vcnl4020_context);
+    if (ret < 0) vcnl4020_context.state = VCNL4020_ERROR;
+}
 
-    // Declare the interrupt argument for the interrupt handler
-    struct vcnl4020_interrupt_arg vcnl4020_interrupt_arg = {0};
+/**** RUN FUNCTIONS ****/
+void vcnl4020_run(void) {
+    struct i2c_request *request = &vcnl4020_context.request;
+    struct i2c_request *it_request = &vcnl4020_context.it_request;
 
-    // Init the driver here
-    vcnl4020_driver_init(&vcnl4020_config, &vcnl4020_context);
+    // First check if we have an interrupt to process
+    switch (vcnl4020_context.it_state) {
+        case VCNL4020_INTERRUPT_CLEAR:
+            /* Check if an interrupt needs to be processed */
+            if (vcnl4020_interrupt_flag == 1) {
+                vcnl4020_context.it_state = VCNL4020_INTERRUPT_TRIGGERED;
+                vcnl4020_interrupt_flag = 0;  // Unset for next trigger
+            }
 
-    /*
-        Initalize the charlieplexing driver
-    */
-    charlieplex_driver_init();
+            /* State Machine Start */
+            switch (vcnl4020_context.state) {
+                case VCNL4020_PRE_INIT:
+                    uart_logger_send("VCNL4020 not initalized properly\r\n");
+                    break;
 
-    // Set up the charlieplex context struct
-    struct charlieplex_context charlieplex_context = {0};
+                case VCNL4020_READY:
+                    uart_logger_send("Prox: %d [cnt], ALS: %d [lux]\r\n",
+                                     vcnl4020_context.proximity_cnt,
+                                     vcnl4020_context.als_lux);
 
-    /*
-        Goal here is to turn on the leds in a sprial.
-        Defined below is the order of leds to be on inorder
-        for a sprial 'image' to apear. Once the spiral hits the center
-        it will go back out. To prevent the image from flashing too fast,
-        each led be on for 'num_frames' which is really how many frames
-        each led gets to be on.
-    */
+                    int ret =
+                        vcnl4020_driver_request_als_prox(&vcnl4020_context);
+                    if (ret < 0)
+                        vcnl4020_context.state = VCNL4020_ERROR;
+                    else
+                        vcnl4020_context.state = VCNL4020_PENDING;
+                    break;
 
-    // Spiral winding order inwards. Top left going right.
-    const uint32_t order[] = {D7,  D5,  D23, D24, D25, D11, D12, D17,
-                              D18, D9,  D28, D10, D6,  D8,  D21, D20,
-                              D22, D15, D14, D16, D27, D26, D19, D13};
+                case VCNL4020_PENDING:
+                    switch (future_get_state(&request->future)) {
+                        case FUTURE_WAITING:
+                            // Do nothing
+                            break;
 
-    // Which index are we on for the order of leds to turn on
-    int16_t order_index = 0;
+                        case FUTURE_FINISHED:
+                            vcnl4020_driver_process_als_prox(&vcnl4020_context);
+                            vcnl4020_context.state = VCNL4020_READY;
+                            break;
 
-    // Which direction should the counter go
-    int8_t dir = 1;
+                        case FUTURE_ERROR:
+                            vcnl4020_context.state = VCNL4020_ERROR;
+                    }
+                    break;
 
-    // Counter for the number of frames we have drawn
-    int timer = 0;
+                case VCNL4020_ERROR:
+                    uart_logger_send("[ERROR] VCNL4020 had an error\r\n");
 
-    // How many frames to draw before going to next led
-    const int num_frames = 120;
+                    // Prevent leaving error state by an interrupt
+                    vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
+                    break;
+            }
+            /* State Machine End */
+            break;
+
+        case VCNL4020_INTERRUPT_TRIGGERED:
+            int ret = vcnl4020_driver_request_it_clear_read(&vcnl4020_context);
+            if (ret < 0) {
+                vcnl4020_context.state = VCNL4020_ERROR;
+                vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
+            } else
+                vcnl4020_context.it_state = VCNL4020_INTERRUPT_READING;
+            break;
+
+        case VCNL4020_INTERRUPT_READING:
+            switch (future_get_state(&it_request->future)) {
+                case FUTURE_WAITING:
+                    // No action
+                    break;
+
+                case FUTURE_FINISHED:
+                    int ret = vcnl4020_driver_request_it_clear_write(
+                        &vcnl4020_context);
+                    if (ret < 0) {
+                        vcnl4020_context.state = VCNL4020_ERROR;
+                        vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
+                    } else
+                        vcnl4020_context.it_state = VCNL4020_INTERRUPT_WRITING;
+                    break;
+
+                case FUTURE_ERROR:
+                    vcnl4020_context.state = VCNL4020_ERROR;
+                    vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
+                    break;
+            }
+            break;
+
+        case VCNL4020_INTERRUPT_WRITING:
+            switch (future_get_state(&it_request->future)) {
+                case FUTURE_WAITING:
+                    // No action
+                    break;
+
+                case FUTURE_FINISHED:
+                    uart_logger_send("\r\nVCNL4020 INTERRUPT FINISHED\r\n\r\n");
+                    vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
+                    break;
+
+                case FUTURE_ERROR:
+                    vcnl4020_context.state = VCNL4020_ERROR;
+                    vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
+                    break;
+            }
+            break;
+    }
+}
+
+void lis3dh_run(void) {
+    struct i2c_request *request = &lis3dh_context.request;
+    struct i2c_request *it_request = &lis3dh_context.it_request;
+
+    switch (lis3dh_context.it_state) {
+        case LIS3DH_INTERRUPT_CLEAR:
+            /* Check if an interrupt needs to be processed */
+            if (lis3dh_interrupt1_flag == 1) {
+                lis3dh_context.it_state = LIS3DH_INTERRUPT_TRIGGERED;
+                lis3dh_interrupt1_flag = 0;
+            }
+
+            /* State Machine Start */
+            switch (lis3dh_context.state) {
+                case LIS3DH_PRE_INIT:
+                    uart_logger_send("LIS3DH not initalized properly\r\n");
+                    break;
+
+                case LIS3DH_READY:
+                    uart_logger_send("Acceleration: %f %f %f [g]\r\n",
+                                     lis3dh_context.x_acc, lis3dh_context.y_acc,
+                                     lis3dh_context.z_acc);
+
+                    int ret =
+                        lis3dh_driver_request_acceleration(&lis3dh_context);
+                    if (ret < 0)
+                        lis3dh_context.state = LIS3DH_ERROR;
+                    else
+                        lis3dh_context.state = LIS3DH_PENDING;
+                    break;
+
+                case LIS3DH_PENDING:
+                    switch (future_get_state(&request->future)) {
+                        case FUTURE_WAITING:
+                            // Do nothing
+                            break;
+
+                        case FUTURE_FINISHED:
+                            lis3dh_driver_process_acceleration(&lis3dh_context);
+                            lis3dh_context.state = LIS3DH_READY;
+                            break;
+
+                        case FUTURE_ERROR:
+                            lis3dh_context.state = LIS3DH_ERROR;
+                    }
+                    break;
+
+                case LIS3DH_ERROR:
+                    uart_logger_send("[ERROR] LIS3DH had an error\r\n");
+
+                    // Prevent leaving error state by interrupt
+                    lis3dh_context.it_state = LIS3DH_INTERRUPT_CLEAR;
+                    break;
+            }
+            /* State Machine End */
+            break;
+
+        case LIS3DH_INTERRUPT_TRIGGERED:
+            int ret = lis3dh_driver_request_it_clear(&lis3dh_context);
+            if (ret < 0) {
+                lis3dh_context.state = LIS3DH_ERROR;
+                lis3dh_context.it_state = LIS3DH_INTERRUPT_CLEAR;
+            } else
+                lis3dh_context.it_state = LIS3DH_INTERRUPT_CLEARING;
+            break;
+
+        case LIS3DH_INTERRUPT_CLEARING:
+            switch (future_get_state(&it_request->future)) {
+                case FUTURE_WAITING:
+                    // Do nothing
+                    break;
+
+                case FUTURE_FINISHED:
+                    lis3dh_context.it_state = LIS3DH_INTERRUPT_CLEAR;
+                    uart_logger_send(
+                        "\r\nLIS3DH INTERRUPT FINISHED: 0x%x\r\n\r\n",
+                        it_request->buffer[0]);
+                    break;
+
+                case FUTURE_ERROR:
+                    lis3dh_context.state = LIS3DH_ERROR;
+                    lis3dh_context.it_state = LIS3DH_INTERRUPT_CLEAR;
+                    break;
+            }
+
+            break;
+    }
+}
+
+void tmp102_run(void) {
+    struct i2c_request *request = &tmp102_context.request;
+
+    switch (tmp102_context.state) {
+        case TMP102_PRE_INIT:
+            uart_logger_send("TMP102 not initalized properly\r\n");
+            break;
+
+        case TMP102_READY:
+            uart_logger_send("Temperature: %f [C] %f [F]\r\n",
+                             tmp102_context.temperature,
+                             (tmp102_context.temperature * 9.0f / 5.0f) + 32);
+
+            int ret = tmp102_driver_request_temperature(&tmp102_context);
+            if (ret < 0)
+                tmp102_context.state = TMP102_ERROR;
+            else
+                tmp102_context.state = TMP102_PENDING;
+            break;
+
+        case TMP102_PENDING:
+            switch (future_get_state(&request->future)) {
+                case FUTURE_WAITING:
+                    // Do nothing
+                    break;
+
+                case FUTURE_FINISHED:
+                    tmp102_driver_process_temperature(&tmp102_context);
+                    tmp102_context.state = TMP102_READY;
+                    break;
+
+                case FUTURE_ERROR:
+                    tmp102_context.state = TMP102_ERROR;
+                    break;
+            }
+            break;
+
+        case TMP102_ERROR:
+            uart_logger_send("[ERROR] TMP102 had an error\r\n");
+            // Stay in this state
+            break;
+    }
+}
+
+void i2c_run(void) {
+    i2c_queue_process_one(&i2c1_context);
+}
+
+int main(void) {
+    job_add(&system_init, JOB_INIT);
+    job_add(&print_available_i2c_devices, JOB_INIT);
+    job_add(&tmp102_setup, JOB_INIT);
+    job_add(&lis3dh_setup, JOB_INIT);
+    job_add(&vcnl4020_setup, JOB_INIT);
+    // job_add(&charlieplex_driver_init, JOB_INIT);
+
+    // Global function to process all i2c input
+    job_add(&i2c_run, JOB_RUN_RUN);
+    job_add(&tmp102_run, JOB_RUN_RUN);
+    job_add(&vcnl4020_run, JOB_RUN_RUN);
+    job_add(&lis3dh_run, JOB_RUN_RUN);
 
     while (1) {
-        // Draw all leds specified
-        charlieplex_driver_draw(&charlieplex_context);
-
-        // Increment our timer
-        timer++;
-
-        // For now, we will draw 'num_frames' frames before going to next led
-        // Once the timer hits, go to the next led
-        if (timer == num_frames) {
-            timer = 0;  // Reset the timer
-
-            // Turn on the led specified in the order array
-            // Notice a '=' because we want to turn off the previous led
-            charlieplex_context.leds = SET_LED(order[order_index]);
-
-            // Increment the index
-            order_index += dir;
-        }
-
-        // Upper bound for the array
-        if (order_index == 24) {
-            order_index = 23;
-            dir = -1;  // Flip direction
-        }
-
-        // Lower bound for the array
-        if (order_index == -1) {
-            order_index = 0;
-            dir = 1;  // Flip direction
-        }
+        job_state_machine_run();
     }
 }

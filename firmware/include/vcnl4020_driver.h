@@ -2,7 +2,10 @@
 #define __VCNL4020_DRIVER_H
 #include <stdbool.h>
 
+#include "i2c_driver.h"
 #include "stm32l0xx_hal.h"
+
+#define VCNL4020_MAX_I2C_SIZE 4U
 
 /*
     Command Register
@@ -41,7 +44,7 @@ union proximity_rate_register {
         enum proximity_rate
             proximity_rate : 3;  // Defines the samples per second for the
                                  // proximity sensor
-        uint8_t : 5;  // Unused
+        uint8_t : 5;             // Unused
     };
     uint8_t as_byte;
 };
@@ -79,7 +82,7 @@ union ir_led_current_register {
     struct __attribute__((packed)) {
         enum current_value current_value : 6;  // Defines what current draw
                                                // should be set for the led
-        uint8_t : 2;  // Reserved
+        uint8_t : 2;                           // Reserved
     };
     uint8_t as_byte;
 };
@@ -144,7 +147,7 @@ union interrupt_control_register {
         enum thresh_prox_als
             thresh_prox_als : 1;  // Choose between proximity and als getting to
                                   // trigger interrupts
-        bool thresh_enable : 1;  // Allow Enabling interrupts for thresholds
+        bool thresh_enable : 1;   // Allow Enabling interrupts for thresholds
         uint8_t : 3;  // Not allowing proximity or als data ready interrupts.
                       // also 1 extra for n/a
         enum interrupt_count interrupt_count : 3;
@@ -179,19 +182,51 @@ struct vcnl4020_config {
 };
 
 /*
+    Several states for this driver.
+    PRE_INIT - device is not ready for use yet
+    READY - all transactions are finished
+    PROXIMITY_PENDING - a proximity request is enqueued
+    ALS_PENDING - an ambient light request is enqueued
+    ALL_PENDING - both requests are enqueued (as one transaction)
+    ERROR - device had an error
+*/
+enum vcnl4020_state {
+    VCNL4020_PRE_INIT,
+    VCNL4020_READY,
+    VCNL4020_PENDING,
+    VCNL4020_ERROR
+};
+
+// Global interrupt flag
+enum vcnl4020_interrupt_status {
+    VCNL4020_INTERRUPT_CLEAR = 0,
+    VCNL4020_INTERRUPT_TRIGGERED,
+    VCNL4020_INTERRUPT_READING,
+    VCNL4020_INTERRUPT_WRITING
+};
+
+/*
     Context struct for the driver. Holds all relevant information for it to
    operate correctly
 */
 struct vcnl4020_context {
-    I2C_HandleTypeDef *i2c;
+    // i2c context for transmitting data
+    struct i2c_driver_context *i2c_context;
+    struct i2c_request request;
+    struct i2c_request it_request;
 
+    // Keep track of which state the driver is in
+    volatile enum vcnl4020_state state;
+    volatile enum vcnl4020_interrupt_status it_state;
     // Record the values read
     uint16_t proximity_cnt;
     uint16_t als_lux;
+
+    uint8_t i2c_transaction_buffer[VCNL4020_MAX_I2C_SIZE];
+    uint8_t it_status_buffer[1];
 };
 
-// Global interrupt flag
-extern volatile uint8_t vcnl4020_interrupt_flag;
+extern volatile int vcnl4020_interrupt_flag;
 
 /*
     Initalize the vcnl4020 sensor based on the user defined
@@ -202,43 +237,35 @@ extern volatile uint8_t vcnl4020_interrupt_flag;
     Prerequisite: the I2C_HandleTypeDef in vcnl4020_context must
     be a valid pointer in order for this function to work
 */
-void vcnl4020_driver_init(const struct vcnl4020_config *config,
-                          const struct vcnl4020_context *context);
+int vcnl4020_driver_init(const struct vcnl4020_config *config,
+                         struct vcnl4020_context *context);
 
 /*
-    Read the proximity value off the sensor and save it in the
-    context struct
-    'context' holds the relevant data for this driver to work
-*/
-void vcnl4020_driver_read_proximity(struct vcnl4020_context *context);
-
-/*
-    Read the ambient light value off the sensor and save it in
+    Convert the raw ambient light and proximity data received
+    from the i2c transaction into usable formats and save in
     the context struct
-    'context' holds the relevant data for this driver to work
 */
-void vcnl4020_driver_read_als(struct vcnl4020_context *context);
+void vcnl4020_driver_process_als_prox(struct vcnl4020_context *context);
 
 /*
-    Read both the proximity data and ambient light data off the
-    sensor in one i2c transaction
-    'context' holds the relvant data for this driver to work
+    Request ambient light and proximity data using i2c from the sensor
+
+    returns 0 if the i2c transaction was added sucessfully
 */
-void vcnl4020_driver_read_all(struct vcnl4020_context *context);
+int vcnl4020_driver_request_als_prox(struct vcnl4020_context *context);
 
 /*
-    Clears the interrupt flag for the driver, reads the status
-    register off the sensor and clears the sensor's internal
-    flag. Then calls the 'user_handler' function while passing
-    in the status register's value and 'user_handler_arg'
-    'context' holds the relevant data for this driver to work
-    'user_handler' is a function pointer to a user defined function
-        that is called to process an interrupt
-    'user_handler_arg' is a void pointer to any data the user may
-        want with their handler function
+    Request to read the status register for the interrupt for clearing it
+
+    returns 0 if the i2c transaction was added sucessfully
 */
-void vcnl4020_clear_interrupt(const struct vcnl4020_context *context,
-                              void (*user_handler)(uint8_t, void *),
-                              void *user_handler_arg);
+int vcnl4020_driver_request_it_clear_read(struct vcnl4020_context *context);
+
+/*
+    Request to write data to the status register for the interrupt to clear it
+
+    returns 0 if the i2c transaction was added sucessfully
+*/
+int vcnl4020_driver_request_it_clear_write(struct vcnl4020_context *context);
 
 #endif

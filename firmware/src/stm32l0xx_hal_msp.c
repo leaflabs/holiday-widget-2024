@@ -33,7 +33,6 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *uart) {
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_2 | GPIO_PIN_3);
 }
 
-
 void HAL_I2C_MspInit(I2C_HandleTypeDef *i2c) {
     (void)i2c;
 
@@ -48,4 +47,8 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef *i2c) {
     gpio.Pin = GPIO_PIN_6 | GPIO_PIN_7;
     gpio.Alternate = GPIO_AF1_I2C1;
     HAL_GPIO_Init(GPIOB, &gpio);
+
+    // Enable interrupts
+    HAL_NVIC_SetPriority(I2C1_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(I2C1_IRQn);
 }
