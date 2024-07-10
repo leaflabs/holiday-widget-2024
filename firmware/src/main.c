@@ -114,7 +114,7 @@ static void system_init() {
     GPIO_Init();
 
     // Set up the uart for communication with the computer
-    uart_logger_init();
+    uart_logger_init(USART2, 38400U);
 
     // Initalize the i2c device so it can send and receive
     i2c_driver_init(&i2c1_context, I2C1);

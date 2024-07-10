@@ -17,10 +17,10 @@ static const int transmitTimeout = 1000;
  * It must be called before using any functions in this file.
  *
  */
-void uart_logger_init() {
+void uart_logger_init(USART_TypeDef *instance, uint32_t baud_rate) {
     // Setup the Uart parameters
-    uart.Instance = USART2;
-    uart.Init.BaudRate = 9600;
+    uart.Instance = instance;
+    uart.Init.BaudRate = baud_rate;
     uart.Init.WordLength = UART_WORDLENGTH_8B;
     uart.Init.StopBits = UART_STOPBITS_1;
     uart.Init.Parity = UART_PARITY_NONE;
@@ -30,11 +30,6 @@ void uart_logger_init() {
     HAL_UART_Init(&uart);
 }
 
-/*
- * Logger takes in a format string and a varaible number
- * of arguments to be printed using the UART
- *
- */
 void uart_logger_send(const char *s, ...) {
     // This is the buffer that snprintf will write into
     char str[loggerBufferSize];
