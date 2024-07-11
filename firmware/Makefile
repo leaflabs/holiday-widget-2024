@@ -64,30 +64,29 @@ $(TARGET_ELF): $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 
 $(BUILD_DIR)/%.s.o: %.s
-	-mkdir -p $(dir $@)
+	@mkdir -p $(dir $@)
 	$(AS) $(ASFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.c.o: %.c
-	-mkdir -p $(dir $@)
+	@mkdir -p $(dir $@)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@ $(PROCESSOR_FLAG)
 
 
 .PHONY: clean upload
 clean:
-	rm -f \
-	$(OBJS) \
-	$(DEPS) \
-	$(TARGET_ELF)
+	rm -rf $(BUILD_DIR)
+	rm -f include/lmath_luts.h
 
 upload: $(TARGET_ELF)
 	openocd -f interface/stlink.cfg -f target/stm32l0.cfg -c "program $(TARGET_ELF) verify reset exit"
 
 # Code to build lut generating script
-build/lut_generator : scripts/lut_generator.c
-	gcc scripts/lut_generator.c -o build/lut_generator -Wall -lm
+$(BUILD_DIR)/lut_generator : scripts/lut_generator.c
+	@mkdir -p $(dir $@)
+	gcc scripts/lut_generator.c -o $(BUILD_DIR)/lut_generator -Wall -lm
 
 # Code to generate the lmath_luts.h
-include/lmath_luts.h : build/lut_generator
-	./build/lut_generator > ./include/lmath_luts.h
+include/lmath_luts.h : $(BUILD_DIR)/lut_generator
+	$(BUILD_DIR)/lut_generator > ./include/lmath_luts.h
 
 -include $(DEPS)
