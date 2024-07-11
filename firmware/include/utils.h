@@ -4,14 +4,15 @@
 #include "stm32l0xx_hal.h"
 
 /*
-    Prints out 'length' number of bytes to the console in binary
+    Prints out the contents of 'data' in binary over the uart.
+    Allows for printing an array of types in binary.
 
-    'bytes' is a pointer to an array of 'uint8_t's
-    'length' is the number of elements to print.
-
-    (Currently unused)
+    'data' is a pointer to the memory location to print.
+    'size' is the size of the type in bytes
+    'num_elements' is the number of elements to print. This can be
+        1 in cases of printing a single variable
 */
-void bit_print(uint8_t *bytes, int length);
+void bit_print(const void* const data, size_t size, size_t num_elements);
 
 /*
     Print out all available i2c devices associated with

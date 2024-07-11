@@ -178,7 +178,7 @@ int lis3dh_driver_init(struct lis3dh_config *config,
         uart_logger_send(
             "FATAL ERROR: Invalid threshold value. MSB is not 0 though it "
             "should be:\r\n");
-        bit_print(&threshold, 1);
+        bit_print(&threshold, sizeof(uint8_t), 1U);
         return -EINVAL;
     }
 
@@ -209,7 +209,7 @@ int lis3dh_driver_init(struct lis3dh_config *config,
         uart_logger_send(
             "FATAL ERROR: Invalid duration value. MSB is not 0 though it "
             "should be:\r\n");
-        bit_print(&duration, 1);
+        bit_print(&duration, sizeof(uint8_t), 1U);
         return -EINVAL;
     }
 

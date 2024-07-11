@@ -5,25 +5,40 @@
 #include "system_communication.h"
 #include "uart_logger.h"
 
-void bit_print(uint8_t *bytes, int length) {
-    // Iterate length times over the array
-    for (int l = 0; l < length; l++) {
-        // Get the element
-        uint8_t byte = bytes[l];
+/*
+    Helper function for bit_print which will print a single
+    type in binary. Every 8 bits will be seperated by a space
 
-        // Go throught all 8 bits but reverse because we want LSB on the right
-        for (int i = 7; i >= 0; i--) {
-            // Get the 'ith' bit from this byte and shift back to be either 1 or
-            // 0
-            uint8_t bit = (byte & (1 << i)) >> i;
-            uart_logger_send(
-                "%c",
-                bit + '0');  // print the bit as either '1' or '0' in ascii
+    'data' is a pointer to the memory location to print
+    'size' is the size of the type in bytes
+*/
+static void bit_print_helper(const uint8_t *const data, size_t size) {
+    for (size_t i = size; i >= 1; i--) {
+        uint8_t byte = data[i - 1];
+
+        for (int j = 7; j >= 0; j--) {
+            uint8_t bit = (byte >> j) & 1;
+            uart_logger_send("%c", bit + '0');
         }
+
+        // Seperate bytes, except for last one
+        if (i > 1) uart_logger_send(" ");
+    }
+}
+
+void bit_print(const void *const data, size_t size, size_t num_elements) {
+    if (num_elements == 0 || size == 0) return;
+
+    const uint8_t *const data_ = data;
+
+    for (size_t i = 0; i < num_elements - 1; i++) {
+        bit_print_helper(data_ + i * size, size);
+        uart_logger_send(", ");
     }
 
-    // And send a newline
-    uart_logger_send("\n\r");
+    // Last entry without a comma
+    bit_print_helper(data_ + (num_elements - 1) * size, size);
+    uart_logger_send("\r\n");
 }
 
 void print_available_i2c_devices(void) {
