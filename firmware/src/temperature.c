@@ -20,11 +20,11 @@ void temperature_run(void) {
     struct i2c_request *request = &tmp102_context.request;
 
     switch (tmp102_context.state) {
-        case TMP102_PRE_INIT:
+        case TMP102_PRE_INIT: {
             uart_logger_send("TMP102 not initalized properly\r\n");
-            break;
+        } break;
 
-        case TMP102_READY:
+        case TMP102_READY: {
             uart_logger_send("Temperature: %f [C] %f [F]\r\n",
                              tmp102_context.temperature,
                              (tmp102_context.temperature * 9.0f / 5.0f) + 32);
@@ -34,28 +34,28 @@ void temperature_run(void) {
                 tmp102_context.state = TMP102_ERROR;
             else
                 tmp102_context.state = TMP102_PENDING;
-            break;
+        } break;
 
-        case TMP102_PENDING:
+        case TMP102_PENDING: {
             switch (future_get_state(&request->future)) {
-                case FUTURE_WAITING:
+                case FUTURE_WAITING: {
                     // Do nothing
-                    break;
+                } break;
 
-                case FUTURE_FINISHED:
+                case FUTURE_FINISHED: {
                     tmp102_driver_process_temperature(&tmp102_context);
                     tmp102_context.state = TMP102_READY;
-                    break;
+                } break;
 
-                case FUTURE_ERROR:
+                case FUTURE_ERROR: {
                     tmp102_context.state = TMP102_ERROR;
-                    break;
+                } break;
             }
-            break;
+        } break;
 
-        case TMP102_ERROR:
+        case TMP102_ERROR: {
             uart_logger_send("[ERROR] TMP102 had an error\r\n");
             // Stay in this state
-            break;
+        } break;
     }
 }

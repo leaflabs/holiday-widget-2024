@@ -70,7 +70,7 @@ void ambient_light_run(void) {
 
     // First check if we have an interrupt to process
     switch (vcnl4020_context.it_state) {
-        case VCNL4020_INTERRUPT_CLEAR:
+        case VCNL4020_INTERRUPT_CLEAR: {
             /* Check if an interrupt needs to be processed */
             if (vcnl4020_interrupt_flag == 1) {
                 vcnl4020_context.it_state = VCNL4020_INTERRUPT_TRIGGERED;
@@ -79,11 +79,11 @@ void ambient_light_run(void) {
 
             /* State Machine Start */
             switch (vcnl4020_context.state) {
-                case VCNL4020_PRE_INIT:
+                case VCNL4020_PRE_INIT: {
                     uart_logger_send("VCNL4020 not initalized properly\r\n");
-                    break;
+                } break;
 
-                case VCNL4020_READY:
+                case VCNL4020_READY: {
                     uart_logger_send("Prox: %d [cnt], ALS: %d [lux]\r\n",
                                      vcnl4020_context.proximity_cnt,
                                      vcnl4020_context.als_lux);
@@ -94,50 +94,51 @@ void ambient_light_run(void) {
                         vcnl4020_context.state = VCNL4020_ERROR;
                     else
                         vcnl4020_context.state = VCNL4020_PENDING;
-                    break;
+                } break;
 
-                case VCNL4020_PENDING:
+                case VCNL4020_PENDING: {
                     switch (future_get_state(&request->future)) {
-                        case FUTURE_WAITING:
+                        case FUTURE_WAITING: {
                             // Do nothing
-                            break;
+                        } break;
 
-                        case FUTURE_FINISHED:
+                        case FUTURE_FINISHED: {
                             vcnl4020_driver_process_als_prox(&vcnl4020_context);
                             vcnl4020_context.state = VCNL4020_READY;
-                            break;
+                        } break;
 
-                        case FUTURE_ERROR:
+                        case FUTURE_ERROR: {
                             vcnl4020_context.state = VCNL4020_ERROR;
+                        } break;
                     }
-                    break;
+                } break;
 
-                case VCNL4020_ERROR:
+                case VCNL4020_ERROR: {
                     uart_logger_send("[ERROR] VCNL4020 had an error\r\n");
 
                     // Prevent leaving error state by an interrupt
                     vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
-                    break;
+                } break;
             }
             /* State Machine End */
-            break;
+        } break;
 
-        case VCNL4020_INTERRUPT_TRIGGERED:
+        case VCNL4020_INTERRUPT_TRIGGERED: {
             int ret = vcnl4020_driver_request_it_clear_read(&vcnl4020_context);
             if (ret < 0) {
                 vcnl4020_context.state = VCNL4020_ERROR;
                 vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
             } else
                 vcnl4020_context.it_state = VCNL4020_INTERRUPT_READING;
-            break;
+        } break;
 
-        case VCNL4020_INTERRUPT_READING:
+        case VCNL4020_INTERRUPT_READING: {
             switch (future_get_state(&it_request->future)) {
-                case FUTURE_WAITING:
+                case FUTURE_WAITING: {
                     // No action
-                    break;
+                } break;
 
-                case FUTURE_FINISHED:
+                case FUTURE_FINISHED: {
                     int ret = vcnl4020_driver_request_it_clear_write(
                         &vcnl4020_context);
                     if (ret < 0) {
@@ -145,31 +146,31 @@ void ambient_light_run(void) {
                         vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
                     } else
                         vcnl4020_context.it_state = VCNL4020_INTERRUPT_WRITING;
-                    break;
+                } break;
 
-                case FUTURE_ERROR:
+                case FUTURE_ERROR: {
                     vcnl4020_context.state = VCNL4020_ERROR;
                     vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
-                    break;
+                } break;
             }
-            break;
+        } break;
 
-        case VCNL4020_INTERRUPT_WRITING:
+        case VCNL4020_INTERRUPT_WRITING: {
             switch (future_get_state(&it_request->future)) {
-                case FUTURE_WAITING:
+                case FUTURE_WAITING: {
                     // No action
-                    break;
+                } break;
 
-                case FUTURE_FINISHED:
+                case FUTURE_FINISHED: {
                     uart_logger_send("\r\nVCNL4020 INTERRUPT FINISHED\r\n\r\n");
                     vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
-                    break;
+                } break;
 
-                case FUTURE_ERROR:
+                case FUTURE_ERROR: {
                     vcnl4020_context.state = VCNL4020_ERROR;
                     vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
-                    break;
+                } break;
             }
-            break;
+        } break;
     }
 }

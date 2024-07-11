@@ -10,7 +10,7 @@
  * based on an I2C_HandleTypeDef
  */
 #define CONTAINER_OF(ptr, type, field) \
-    ({ ((type *)(((char *)(ptr)) - offsetof(type, field))); })
+    ((type *)(((char *)(ptr)) - offsetof(type, field)))
 
 // 1000ms of timeout for blocking I2C transactions
 #define TIMEOUT 1000U

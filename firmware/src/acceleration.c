@@ -109,7 +109,7 @@ void acceleration_run(void) {
     struct i2c_request *it_request = &lis3dh_context.it_request;
 
     switch (lis3dh_context.it_state) {
-        case LIS3DH_INTERRUPT_CLEAR:
+        case LIS3DH_INTERRUPT_CLEAR: {
             /* Check if an interrupt needs to be processed */
             if (lis3dh_interrupt1_flag == 1) {
                 lis3dh_context.it_state = LIS3DH_INTERRUPT_TRIGGERED;
@@ -118,11 +118,11 @@ void acceleration_run(void) {
 
             /* State Machine Start */
             switch (lis3dh_context.state) {
-                case LIS3DH_PRE_INIT:
+                case LIS3DH_PRE_INIT: {
                     uart_logger_send("LIS3DH not initalized properly\r\n");
-                    break;
+                } break;
 
-                case LIS3DH_READY:
+                case LIS3DH_READY: {
                     uart_logger_send("Acceleration: %f %f %f [g]\r\n",
                                      lis3dh_context.x_acc, lis3dh_context.y_acc,
                                      lis3dh_context.z_acc);
@@ -133,62 +133,63 @@ void acceleration_run(void) {
                         lis3dh_context.state = LIS3DH_ERROR;
                     else
                         lis3dh_context.state = LIS3DH_PENDING;
-                    break;
+                } break;
 
-                case LIS3DH_PENDING:
+                case LIS3DH_PENDING: {
                     switch (future_get_state(&request->future)) {
-                        case FUTURE_WAITING:
+                        case FUTURE_WAITING: {
                             // Do nothing
-                            break;
+                        } break;
 
-                        case FUTURE_FINISHED:
+                        case FUTURE_FINISHED: {
                             lis3dh_driver_process_acceleration(&lis3dh_context);
                             lis3dh_context.state = LIS3DH_READY;
-                            break;
+                        } break;
 
-                        case FUTURE_ERROR:
+                        case FUTURE_ERROR: {
                             lis3dh_context.state = LIS3DH_ERROR;
+                        } break;
                     }
-                    break;
+                } break;
 
-                case LIS3DH_ERROR:
+                case LIS3DH_ERROR: {
                     uart_logger_send("[ERROR] LIS3DH had an error\r\n");
 
                     // Prevent leaving error state by interrupt
                     lis3dh_context.it_state = LIS3DH_INTERRUPT_CLEAR;
-                    break;
+                } break;
             }
             /* State Machine End */
-            break;
+        } break;
 
-        case LIS3DH_INTERRUPT_TRIGGERED:
+        case LIS3DH_INTERRUPT_TRIGGERED: {
             int ret = lis3dh_driver_request_it_clear(&lis3dh_context);
             if (ret < 0) {
                 lis3dh_context.state = LIS3DH_ERROR;
                 lis3dh_context.it_state = LIS3DH_INTERRUPT_CLEAR;
             } else
                 lis3dh_context.it_state = LIS3DH_INTERRUPT_CLEARING;
-            break;
+        } break;
 
-        case LIS3DH_INTERRUPT_CLEARING:
+        case LIS3DH_INTERRUPT_CLEARING: {
             switch (future_get_state(&it_request->future)) {
-                case FUTURE_WAITING:
+                case FUTURE_WAITING: {
                     // Do nothing
-                    break;
+                } break;
 
-                case FUTURE_FINISHED:
+                case FUTURE_FINISHED: {
                     lis3dh_context.it_state = LIS3DH_INTERRUPT_CLEAR;
                     uart_logger_send(
                         "\r\nLIS3DH INTERRUPT FINISHED: 0x%x\r\n\r\n",
                         it_request->buffer[0]);
-                    break;
+                } break;
 
-                case FUTURE_ERROR:
+                case FUTURE_ERROR: {
                     lis3dh_context.state = LIS3DH_ERROR;
                     lis3dh_context.it_state = LIS3DH_INTERRUPT_CLEAR;
-                    break;
+                } break;
             }
 
-            break;
+        } break;
     }
 }

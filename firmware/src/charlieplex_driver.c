@@ -279,7 +279,7 @@ void charlieplex_driver_draw(struct charlieplex_context *context) {
     uint32_t leds = context->leds;
 
     // Iterate over the list of instructions
-    for (int i = 0; i < sizeof(instrs) / sizeof(uint32_t); i++) {
+    for (uint32_t i = 0; i < sizeof(instrs) / sizeof(uint32_t); i++) {
         // Get the current instruction from the array.
         uint32_t instr = instrs[i];
 
@@ -290,41 +290,41 @@ void charlieplex_driver_draw(struct charlieplex_context *context) {
         switch (instr) {
             // Clear instruction. Turn all control lines to high impedance mode
             // which turns all leds off
-            case CLR:
+            case CLR: {
                 charlieplex_clear();
-                break;
+            } break;
 
             // Set up frame 1. Switch the control 0 and 4 gpio pins to HIGH
             // so future leds specified will only need to be brought low
-            case FRAME1:
+            case FRAME1: {
                 charlieplex_switch_on(CTRL0);
                 charlieplex_switch_on(CTRL4);
-                break;
+            } break;
 
             // Set up frame 2. Same execution as above
-            case FRAME2:
+            case FRAME2: {
                 charlieplex_switch_on(CTRL2);
                 charlieplex_switch_on(CTRL6);
-                break;
+            } break;
 
             // Set up frame 3. Same execution as above
-            case FRAME3:
+            case FRAME3: {
                 charlieplex_switch_on(CTRL1);
                 charlieplex_switch_on(CTRL5);
-                break;
+            } break;
 
             // Set up frame 4. Same execution as above
-            case FRAME4:
+            case FRAME4: {
                 charlieplex_switch_on(CTRL3);
                 charlieplex_switch_on(CTRL7);
-                break;
+            } break;
 
             /*
                 Default case is that we were provided an LED to turn on.
                 The instruction value is also the bit to check if the led
                 should be turned on (control line pulled LOW).
             */
-            default:
+            default: {
                 // Get the bit corrosponding to this LED
                 uint32_t bit = leds & (1 << instr);
 
@@ -344,7 +344,7 @@ void charlieplex_driver_draw(struct charlieplex_context *context) {
                 // Pass in the led to turn on. This is either an led specified
                 // in 'enum leds' or it is 0, which has no effect (DEFAULT_LED).
                 charlieplex_led_on(led);
-                break;
+            } break;
         }
     }
 }
