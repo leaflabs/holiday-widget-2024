@@ -193,11 +193,30 @@ static inline void charlieplex_switch_off(enum controls ctrl) {
     Notice the DEFAULT_CONTROL entry which is for dummy reads. This is to map
     the 'enum leds' indexes to this array correctly.
 */
-static const enum controls low[25] = {
+static const enum controls low[NUM_LEDS] = {
+    // The use of DEFAULT_CONTROL allows us to map the leds to a 5x5 matrix
     DEFAULT_CONTROL,  // Dummy slot to match up with 'enum leds'
-    CTRL1,           CTRL2, CTRL3, CTRL0, CTRL1, CTRL3, CTRL0, CTRL2,
-    CTRL3,           CTRL0, CTRL1, CTRL2, CTRL5, CTRL6, CTRL7, CTRL4,
-    CTRL5,           CTRL7, CTRL4, CTRL6, CTRL7, CTRL4, CTRL5, CTRL6};
+    CTRL2,           CTRL1,           CTRL5,           CTRL0,
+    CTRL1,           DEFAULT_CONTROL, DEFAULT_CONTROL,
+
+    CTRL6,           CTRL7,           CTRL6,           CTRL6,
+    CTRL2,           DEFAULT_CONTROL, DEFAULT_CONTROL,
+
+    CTRL3,           CTRL4,           CTRL3,           CTRL3,
+    CTRL4,           DEFAULT_CONTROL, DEFAULT_CONTROL,
+
+    CTRL5,           CTRL7,           CTRL5,           CTRL7,
+    CTRL0,           DEFAULT_CONTROL, DEFAULT_CONTROL,
+
+    CTRL2,           CTRL0,           CTRL4,           CTRL1,
+    DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL,
+
+    DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL,
+    DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL,
+
+    DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL,
+    DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL,
+};
 
 /*
     Turns on an led by switching the correct control line to LOW.
@@ -222,129 +241,97 @@ static inline void charlieplex_led_on(enum leds led) {
 }
 
 /*
-    When calling the 'draw' function, there are several steps to correctly
-    flash the leds. For easy readability and modifications and for performance
-    improvements, the list of 'instructions' are saved in this array.
+    Draw the leds specified in the argument
 
-    'CLR' is the action to 'Clear' all current leds. This sets the mode for all
-    GPIO pins to INPUT so they are 'disconnected' from the circuit.
-
-    'FRAMEx' is the action to bring HIGH the two control lines so that turning
-    on an LED only requires bringing the other control line. This instruction
-    must come before setting any leds.
-
-    'Dx' is the action to turn an led on by bringing its control line LOW.
-
-    Example:
-    FRAME1 -> Bring the control lines for frame 1 to high
-    D5, D7, D9... -> Bring the other control line to low if that pin is set
-    CLR -> Bring the control lines to INPUT so they turn off and are reset
-
-*/
-static const uint32_t instrs[] = {
-    // Inital clear
-    CLR,
-
-    // First frame
-    FRAME1, D5, D7, D9, D6, D8, D10, CLR,
-
-    // Second frame
-    FRAME2, D11, D12, D13, D14, D15, D16, CLR,
-
-    // Third frame
-    FRAME3, D17, D18, D19, D20, D21, D22, CLR,
-
-    // Fourth frame
-    FRAME4, D23, D24, D25, D26, D27, D28, CLR};
-
-/*
-    Draw the leds specified in the context struct.
-
-    Specifying an LED is as simple as taking the 'enum led' value
-    and setting the bit it corrosponds to.
-
-    Ex: To set D14 to be on:
-    uint32_t leds = 0;  // No leds on
-    leds |= (1 << D14); // Turn on D14 led
+    Specifying an LED is as simple as setting the led's index to itself.
+    To turn off an led, set it's value to 0.
 
     There is no concern for LEDs sharing control lines, that is
     already handled.
 
-    This is a constant time function. Specifying 1 led vs
-    all 24 leds will take the same time to light up and turn off.
-    This is due to avoiding branches specific to a particular led.
-
+    To fully simulate a 7x7 matrix, the dummy leds defined in 'enum leds'
+    are included, but just left as D_11 for simplicity. These leds do
+    consume cycles as the would in the real matrix but have no visual
+    effect here.
 */
-void charlieplex_driver_draw(struct charlieplex_context *context) {
-    uint32_t leds = context->leds;
+void charlieplex_driver_draw(uint8_t *leds) {
+    // Frame 1
+    charlieplex_switch_on(CTRL0);
+    charlieplex_switch_on(CTRL4);
 
-    // Iterate over the list of instructions
-    for (uint32_t i = 0; i < sizeof(instrs) / sizeof(uint32_t); i++) {
-        // Get the current instruction from the array.
-        uint32_t instr = instrs[i];
+    charlieplex_led_on(leds[D5]);
+    charlieplex_led_on(leds[D7]);
+    charlieplex_led_on(leds[D9]);
+    charlieplex_led_on(leds[D6]);
+    charlieplex_led_on(leds[D8]);
+    charlieplex_led_on(leds[D10]);
 
-        /*
-            Execute the correct functionality of the
-            instruction provided from the array.
-        */
-        switch (instr) {
-            // Clear instruction. Turn all control lines to high impedance mode
-            // which turns all leds off
-            case CLR: {
-                charlieplex_clear();
-            } break;
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
 
-            // Set up frame 1. Switch the control 0 and 4 gpio pins to HIGH
-            // so future leds specified will only need to be brought low
-            case FRAME1: {
-                charlieplex_switch_on(CTRL0);
-                charlieplex_switch_on(CTRL4);
-            } break;
+    charlieplex_clear();
 
-            // Set up frame 2. Same execution as above
-            case FRAME2: {
-                charlieplex_switch_on(CTRL2);
-                charlieplex_switch_on(CTRL6);
-            } break;
+    // Frame 2
+    charlieplex_switch_on(CTRL2);
+    charlieplex_switch_on(CTRL6);
 
-            // Set up frame 3. Same execution as above
-            case FRAME3: {
-                charlieplex_switch_on(CTRL1);
-                charlieplex_switch_on(CTRL5);
-            } break;
+    charlieplex_led_on(leds[D11]);
+    charlieplex_led_on(leds[D12]);
+    charlieplex_led_on(leds[D13]);
+    charlieplex_led_on(leds[D14]);
+    charlieplex_led_on(leds[D15]);
+    charlieplex_led_on(leds[D16]);
 
-            // Set up frame 4. Same execution as above
-            case FRAME4: {
-                charlieplex_switch_on(CTRL3);
-                charlieplex_switch_on(CTRL7);
-            } break;
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
 
-            /*
-                Default case is that we were provided an LED to turn on.
-                The instruction value is also the bit to check if the led
-                should be turned on (control line pulled LOW).
-            */
-            default: {
-                // Get the bit corrosponding to this LED
-                uint32_t bit = leds & (1 << instr);
+    charlieplex_clear();
 
-                // Shift the bit to the 0th index. Now it will either be a
-                // 1 or a 0. 1 meaning it was enabled. 0 meaning not enabled
-                uint8_t was_enabled = bit >> instr;
+    // Frame 3
+    charlieplex_switch_on(CTRL1);
+    charlieplex_switch_on(CTRL5);
 
-                /*
-                    Get the 'enum leds' value out of this by multiplying by the
-                    led value. So if instr was D7 (index 2 in 'enum leds'), we
-                    multiply 'was_enabled' by 2.
-                    If the bit was enabled (value of 1), the result is 2.
-                    If the bit was not enabled (value of 0), the result is 0
-                */
-                uint8_t led = was_enabled * instr;
+    charlieplex_led_on(leds[D17]);
+    charlieplex_led_on(leds[D18]);
+    charlieplex_led_on(leds[D19]);
+    charlieplex_led_on(leds[D20]);
+    charlieplex_led_on(leds[D21]);
+    charlieplex_led_on(leds[D22]);
 
-                // Pass in the led to turn on. This is either an led specified
-                // in 'enum leds' or it is 0, which has no effect (DEFAULT_LED).
-                charlieplex_led_on(led);
-            } break;
-        }
-    }
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+
+    charlieplex_clear();
+
+    // Frame 4
+    charlieplex_switch_on(CTRL3);
+    charlieplex_switch_on(CTRL7);
+
+    charlieplex_led_on(leds[D23]);
+    charlieplex_led_on(leds[D24]);
+    charlieplex_led_on(leds[D25]);
+    charlieplex_led_on(leds[D26]);
+    charlieplex_led_on(leds[D27]);
+    charlieplex_led_on(leds[D28]);
+
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+    charlieplex_led_on(leds[D_11]);
+
+    charlieplex_clear();
 }

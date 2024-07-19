@@ -9,25 +9,14 @@
 
     Drawing a frame requires setting which
     leds should be on, and then calling:
-    charlieplex_driver_draw(&context);
+    charlieplex_driver_draw(...);
 
-    Setting an led requires fliping the corrosponding bit
-    in 'leds' (specified in the context struct).
-    The '0th' bit of 'leds' is reserved. This is
-    utilized to checking if a bit is set by having
-    a zero value do nothing.
+    The input is an array of uint8_t's where each element corrosponds
+    to the enum value in 'enum leds'. To set an led, set the led's index
+    to itself. Ex: arr[D9] = D9;. To turn an led off, set it to 0:
+    arr[D9] = 0;
 
-    Example program:
-
-    struct charlieplex_context context = {0};
-
-    context.leds |= SET_LED(D5);  // Turn on LED D5
-    context.leds |= SET_LED(D14); // Turn on LED D14
-
-    // Draw the 'frame' we specified
-    charlieplex_driver_draw(&context);
-
-
+    Turning on and off LEDs:
     An LED is turned on if and only if its two GPIO pins (control lines) are
     pulled to their corrosponding state. In other terms, one GPIO pin is pulled
     HIGH and the other is pulled LOW. This allows current to flow from the one
@@ -55,30 +44,18 @@
     Performance metrics:
     - Running on an STM32L072
 
-    With 0  LEDs on: .017A
-    With 24 LEDs on: .035A
-    Current draw due to LEDs: .018A
+    Current draw per led: 3.92 mA
+    Max current draw per control line: 11.78 mA
 
     Per the datasheet:
-    Max current a single GPIO pin can source/sink: .025A
+    Max current a single GPIO pin can source/sink: 25 mA
     Therefore, this driver is within the current limit.
 
     Average time to draw a frame:
-    1.84 ms per frame.
+    With 24 leds being checked: 1.127 ms
+    With 49 leds being checked: 1.89 ms
 
 */
-
-// Turn on and LED
-#define SET_LED(x) (1 << x)
-
-/*
-    Context struct for charlieplexing driver.
-    Only stores the uint32_t for specifying which
-    leds to turn on
-*/
-struct charlieplex_context {
-    uint32_t leds;
-};
 
 /*
     List every control line (GPIO pin)
@@ -99,63 +76,86 @@ enum controls {
     CTRL7 = 0x8
 };
 
+// Size of the n x n matrix
+#define N_DIMENSIONS 7
+
+// Space for unused slots
+#define DUMMY_SLOTS 1
+
+// Number of leds and the size of the control array
+#define NUM_LEDS ((N_DIMENSIONS * N_DIMENSIONS) + DUMMY_SLOTS)
+
 /*
     List of all LEDs possible to turn on.
 
-    Turning on an led requries setting the correct bit in a 32 bit integer.
-    Taking the value from this enum and shifting 1 over that many positions
-    will enable the led. Ex: (1 << D5) has the mask to enable the D5 LED.
+    The DEFAULT_LED takes up the 0th index to allow for
+    writing 0 to have no effect. This is used to avoid checking
+    if an led is on or not.
 
-    The DEFAULT_LED takes up the 0 index to allow for dummy writes.
+    Setting an LED requires setting the led's value in an array to
+    itself. Ex: leds[D9] = D9;
 
-    The leds listed after the default are ordered so groups of 3 share the
-    same control line being HIGH.
+    As of now, not all leds are in the hardware so dummy slots
+    are added to simulate the full matrix. Leds that are
+    labeled as D_* are dummy slots.
 */
 enum leds {
     DEFAULT_LED,  // this is 0x0 and will not turn on any leds
-    D5,
     D7,
-    D9,
-    D11,
-    D12,
-    D13,
-    D17,
-    D18,
-    D19,
+    D5,
+    D6,
     D23,
     D24,
-    D25,
-    D6,
-    D8,
+    D_1,
+    D_2,
+
+    D28,
     D10,
-    D14,
-    D15,
-    D16,
-    D20,
+    D8,
     D21,
-    D22,
+    D25,
+    D_3,
+    D_4,
+
+    D9,
     D26,
+    D19,
+    D13,
+    D20,
+    D_5,
+    D_6,
+
     D27,
-    D28
-};
+    D16,
+    D15,
+    D22,
+    D11,
+    D_7,
+    D_8,
 
-/*
-    Specified in the .c file for the driver is an array of instructions
-    required to draw a 'frame' of the leds. This is a list of the other
-    instructions besides turning on an LED.
+    D18,
+    D17,
+    D14,
+    D12,
+    D_9,
+    D_10,
+    D_11,
 
-    Notice that the 'FRAMEx' and CLR values are mapped after the D28 led so they
-    have unique values when using a switch-case to evaluate instructions
-*/
-enum instructions {
-    // 'FRAMEx' instruction sets up a frame for drawing leds.
-    FRAME1 = (D28 + 1),
-    FRAME2 = (D28 + 2),
-    FRAME3 = (D28 + 3),
-    FRAME4 = (D28 + 4),
+    D_12,
+    D_13,
+    D_14,
+    D_15,
+    D_16,
+    D_17,
+    D_18,
 
-    // Clear instruction to turn off all leds
-    CLR = (D28 + 5)
+    D_19,
+    D_20,
+    D_21,
+    D_22,
+    D_23,
+    D_24,
+    D_25
 };
 
 /*
@@ -172,13 +172,9 @@ void charlieplex_driver_reset_pins(void);
 /*
     Draw a 'frame' of leds.
 
-    'context' is a pointer to the context struct for this driver.
-
-    In context:
-    'leds' is an adjustable mask for specifying which leds should be on.
-    Specify an led as 'on' by setting its bit to a 1 based on the 'enum leds'
-    value as the bit index.
+    'leds' is a pointer to an array of 50 elements. Each slot corrosponds to
+    the enum 'leds' defined above.
 */
-void charlieplex_driver_draw(struct charlieplex_context *context);
+void charlieplex_driver_draw(uint8_t *leds);
 
 #endif

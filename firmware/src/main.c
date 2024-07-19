@@ -1,6 +1,7 @@
 #include "acceleration.h"
 #include "ambient_light.h"
 #include "job_queue.h"
+#include "led_matrix.h"
 #include "system_communication.h"
 #include "temperature.h"
 #include "utils.h"
@@ -15,12 +16,17 @@ int main(void) {
     job_add(&temperature_setup, JOB_INIT);
     job_add(&acceleration_setup, JOB_INIT);
     job_add(&ambient_light_setup, JOB_INIT);
+    job_add(&led_matrix_setup, JOB_INIT);
 
     job_add(&system_communication_run, JOB_RUN_RUN);
 
     job_add(&temperature_run, JOB_RUN_RUN);
     job_add(&acceleration_run, JOB_RUN_RUN);
     job_add(&ambient_light_run, JOB_RUN_RUN);
+
+    job_add(&led_matrix_loader_run, JOB_RUN_RUN);
+    job_add(&led_matrix_assembler_run, JOB_RUN_RUN);
+    job_add(&led_matrix_drawer_run, JOB_RUN_RUN);
 
     while (1) {
         job_state_machine_run();
