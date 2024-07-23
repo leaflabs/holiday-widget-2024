@@ -62,12 +62,12 @@ void led_matrix_setup(void) {
     Use 'saved_animation' for now to demonstrate how this works
 */
 void led_matrix_loader_run(void) {
-    const int num_frames = sizeof(saved_animation) / sizeof(struct led_matrix);
+    const int num_frames = sizeof(test_animation) / sizeof(struct led_matrix);
 
     // If the assembler needs a new frame, get the new one
     if (led_matrix_context.assembler_needs_frame) {
         led_matrix_context.assembler_current_frame =
-            &saved_animation[led_matrix_context.image_loader_counter];
+            &test_animation[led_matrix_context.image_loader_counter];
 
         // Go to next frame and wrap if necessary
         led_matrix_context.image_loader_counter++;
@@ -91,7 +91,7 @@ void led_matrix_assembler_run(void) {
     // Counters for keeping track of which frames to set as 'on'
     int time_counter = 0;
     int time_on = led;  // The 'on time' is the value of the led in the matrix
-    int time_max = MAX_VALUE;
+    int time_max = LED_MATRIX_MAX_VALUE;
 
     // now go through each sub_frame and select which bits should be on
     for (int i = 0; i < LED_MATRIX_SUB_FRAME_COUNT; i++) {

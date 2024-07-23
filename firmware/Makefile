@@ -58,7 +58,7 @@ LDFLAGS   += -mthumb -nostdlib -lgcc -mcpu=$(CPU_TYPE) \
 
 # actual targets
 .PHONY: all
-all: include/lmath_luts.h $(TARGET_ELF)
+all: include/generated_animation_frames.h include/lmath_luts.h $(TARGET_ELF)
 
 $(TARGET_ELF): $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
@@ -76,6 +76,7 @@ $(BUILD_DIR)/%.c.o: %.c
 clean:
 	rm -rf $(BUILD_DIR)
 	rm -f include/lmath_luts.h
+	rm -f include/generated_animation_frames.h 
 
 upload: $(TARGET_ELF)
 	openocd -f interface/stlink.cfg -f target/stm32l0.cfg -c "program $(TARGET_ELF) verify reset exit"
@@ -88,5 +89,10 @@ $(BUILD_DIR)/lut_generator : scripts/lut_generator.c
 # Code to generate the lmath_luts.h
 include/lmath_luts.h : $(BUILD_DIR)/lut_generator
 	$(BUILD_DIR)/lut_generator > ./include/lmath_luts.h
+
+# Code to generate animation_frames.h
+include/generated_animation_frames.h : scripts/frame_generator.py
+	python3 scripts/frame_generator.py > ./include/generated_animation_frames.h
+
 
 -include $(DEPS)

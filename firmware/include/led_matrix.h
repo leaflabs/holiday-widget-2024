@@ -5,6 +5,22 @@
 #include "stm32l0xx_hal.h"
 
 /*
+    This determines how many subframes will show before going to
+    the next frame. This should be between 3 and 5 (inclusive) as
+    that yields a good duration while limiting the delay in the
+    assembler function.
+*/
+#define LED_MATRIX_SUB_FRAME_COUNT_POWER 4
+#define LED_MATRIX_SUB_FRAME_COUNT (1 << LED_MATRIX_SUB_FRAME_COUNT_POWER)
+
+/*
+    This is the max brightness of an led and must not change.
+    From testing, 4 leads to the least amount of flickering while
+    giving a range of brightness values
+*/
+#define LED_MATRIX_MAX_VALUE 4
+
+/*
     This is the storage format for saving a frame.
     The max value for an led is defined in the animation_frames.h
     file
