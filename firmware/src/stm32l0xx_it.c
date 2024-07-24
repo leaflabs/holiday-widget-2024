@@ -1,6 +1,7 @@
 #include "stm32l0xx_it.h"
 
 #include "lis3dh_driver.h"
+#include "music_player_core.h"
 #include "stm32l0xx_hal.h"
 #include "system_communication.h"
 #include "vcnl4020_driver.h"
@@ -57,4 +58,15 @@ void I2C1_IRQHandler(void) {
     I2C_HandleTypeDef *i2c = &i2c1_context.i2c;
     HAL_I2C_EV_IRQHandler(i2c);  // Event Handler
     HAL_I2C_ER_IRQHandler(i2c);  // Error Handler
+}
+
+/* DMA1 IRQ Handler for Channels 2 & 3 */
+void DMA1_Channel2_3_IRQHandler(void) {
+    HAL_DMA_IRQHandler(music_player.core.tim2_handle.hdma[TIM_DMA_ID_CC2]);
+    HAL_DMA_IRQHandler(music_player.core.dac_handle.DMA_Handle1);
+}
+
+/* DMA1 IRQ Handler for Channel 1 */
+void DMA1_Channel1_IRQHandler(void) {
+    HAL_DMA_IRQHandler(music_player.core.tim2_handle.hdma[TIM_DMA_ID_CC3]);
 }
