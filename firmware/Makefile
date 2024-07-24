@@ -88,11 +88,11 @@ $(BUILD_DIR)/lut_generator : scripts/lut_generator.c
 
 # Code to generate the lmath_luts.h
 include/lmath_luts.h : $(BUILD_DIR)/lut_generator
-	$(BUILD_DIR)/lut_generator > ./include/lmath_luts.h
+	$(BUILD_DIR)/lut_generator > ./include/lmath_luts.h || (rm -f include/lmath_luts.h; exit 1)
 
 # Code to generate animation_frames.h
 include/generated_animation_frames.h : scripts/frame_generator.py
-	python3 scripts/frame_generator.py > ./include/generated_animation_frames.h
+	python3 scripts/frame_generator.py > ./include/generated_animation_frames.h || (rm -f include/generated_animation_frames.h; exit 1)
 
 
 -include $(DEPS)
