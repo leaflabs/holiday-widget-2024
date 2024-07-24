@@ -18,6 +18,9 @@
 // bit location for CR0 and CR1 bits
 #define CR0_LOCATION 0x6
 
+// Enable shutdown mode bitmask
+#define SD_MSK 0x1
+
 int tmp102_driver_init(const struct tmp102_config *config,
                        struct tmp102_context *context) {
     struct i2c_request *request = &context->request;
@@ -47,6 +50,9 @@ int tmp102_driver_init(const struct tmp102_config *config,
     request->buffer[1] &= 0x3F;  // Clear the first two bits: 0b00111111
     request->buffer[1] |= (config->conversion_rate << CR0_LOCATION);
 
+    // Also turn of shutdown mode incase it was left on
+    request->buffer[0] &= ~SD_MSK;  // First bit
+
     request->action = I2C_WRITE;
     request->ireg = CONFIGURATION_REGISTER;
     request->num_bytes = 2;
@@ -58,6 +64,66 @@ int tmp102_driver_init(const struct tmp102_config *config,
 
     // Device is ready to use
     context->state = TMP102_READY;
+
+    return 0;
+}
+
+int tmp102_driver_enter_low_power(struct tmp102_context *context) {
+    struct i2c_request *request = &context->request;
+    struct i2c_driver_context *i2c_context = context->i2c_context;
+    int ret = 0;
+
+    /* Read the configuration register */
+    request->action = I2C_READ;
+    request->ireg = CONFIGURATION_REGISTER;
+    request->num_bytes = 2;
+
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
+
+    // First byte has the Shutdown Mode bit.
+    request->buffer[0] |= SD_MSK;
+
+    request->action = I2C_WRITE;
+    request->ireg = CONFIGURATION_REGISTER;
+    request->num_bytes = 2;
+
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
+
+    return 0;
+}
+
+int tmp102_driver_exit_low_power(struct tmp102_context *context) {
+    struct i2c_request *request = &context->request;
+    struct i2c_driver_context *i2c_context = context->i2c_context;
+    int ret = 0;
+
+    /* Read back the configuration register */
+    request->action = I2C_READ;
+    request->ireg = CONFIGURATION_REGISTER;
+    request->num_bytes = 2;
+
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
+
+    // First byte has the Shutdown Mode bit.
+    request->buffer[0] &= ~SD_MSK;
+
+    request->action = I2C_WRITE;
+    request->ireg = CONFIGURATION_REGISTER;
+    request->num_bytes = 2;
+
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
 
     return 0;
 }

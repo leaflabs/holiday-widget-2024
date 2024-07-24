@@ -109,4 +109,31 @@ void i2c_queue_process_one(struct i2c_driver_context *i2c_context);
 int i2c_blocking_enqueue(struct i2c_driver_context *i2c_context,
                          struct i2c_request *request);
 
+/*
+ * Reads the register specified in 'ireg', clears with the 'and_mask', sets
+ * with the 'or_mask' and then writes back the contents to the same register.
+ * Utilizes i2c_blocking_enqueue under the hood to ensure the transactions
+ * are finished before leaving.
+ *
+ * Best utilized in initalization functions or places where the blocking
+ * behavior is acceptable. Only works with registers that are 8 bits wide.
+ *
+ * To avoid performing the & operation, set 'and_mask' to 0xFF.
+ * To avoid performing the | operation, set 'or_mask' to 0x00
+ * To wipe a register, set the 'and_mask' to 0x00
+ */
+int i2c_clear_and_set_bits(struct i2c_driver_context *i2c_context,
+                           struct i2c_request *request, uint8_t ireg,
+                           uint8_t and_mask, uint8_t or_mask);
+
+/*
+ * Writes 'data' to the register specified in 'ireg'. Utilizes
+ * i2c_blocking_enqueue under the hood to ensure the transactions are finished
+ * before leaving.
+ *
+ * Best utilized in initalization functions or places where the blocking
+ * behavior is acceptable. Only works with registers that are 8 bits wide.
+ */
+int i2c_write_bits(struct i2c_driver_context *i2c_context,
+                   struct i2c_request *request, uint8_t ireg, uint8_t data);
 #endif

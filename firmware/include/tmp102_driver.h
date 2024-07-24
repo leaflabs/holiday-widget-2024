@@ -75,4 +75,18 @@ void tmp102_driver_process_temperature(struct tmp102_context *context);
 */
 int tmp102_driver_request_temperature(struct tmp102_context *context);
 
+/*
+ * Put the TMP102 sensor into shutdown mode. Turns off the sensor
+ * until the SD bit is set to 0 again.
+ *
+ * I2C transactions finish before leaving function
+ */
+int tmp102_driver_enter_low_power(struct tmp102_context *context);
+
+/*
+ * Puts the TMP102 sensor into regular mode.
+ *
+ * I2C transactions finish before leaving function
+ */
+int tmp102_driver_exit_low_power(struct tmp102_context *context);
 #endif

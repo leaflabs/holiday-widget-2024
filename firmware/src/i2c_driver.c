@@ -124,6 +124,52 @@ int i2c_blocking_enqueue(struct i2c_driver_context *i2c_context,
     return 0;
 }
 
+int i2c_clear_and_set_bits(struct i2c_driver_context *i2c_context,
+                           struct i2c_request *request, uint8_t ireg,
+                           uint8_t and_mask, uint8_t or_mask) {
+    int ret = 0;
+
+    // Read the register
+    request->action = I2C_READ;
+    request->ireg = ireg;
+    request->num_bytes = 1;
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
+
+    // Clear with and_mask, set with or_mask
+    request->buffer[0] &= and_mask;
+    request->buffer[0] |= or_mask;
+
+    // Write the data back
+    request->action = I2C_WRITE;
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
+    return 0;
+}
+
+int i2c_write_bits(struct i2c_driver_context *i2c_context,
+                   struct i2c_request *request, uint8_t ireg, uint8_t data) {
+    int ret = 0;
+
+    // Set up request
+    request->action = I2C_WRITE;
+    request->ireg = ireg;
+    request->num_bytes = 1;
+
+    request->buffer[0] = data;
+
+    // Write the data
+    ret = i2c_blocking_enqueue(i2c_context, request);
+    if (ret < 0 || future_is_errored(&request->future)) {
+        return -EIO;
+    }
+    return 0;
+}
+
 /* Callbacks */
 
 static void complete_callback(I2C_HandleTypeDef *i2c) {

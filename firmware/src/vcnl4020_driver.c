@@ -62,78 +62,41 @@ int vcnl4020_driver_init(const struct vcnl4020_config *config,
     request->future.error_number = 0;
 
     /*
-        First clear the command register just incase it has values.
-        We must read the old value to presreve the value of some bits
+        First clear the command register so we can adjust registers safely
     */
-    request->action = I2C_READ;
-    request->ireg = COMMAND_REGISTER;
-    request->num_bytes = 1;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
-    }
-
-    request->buffer[0] &= 0xE0;  // Clear last 5 bits: 11100000
-
-    // Now write it back
-    request->action = I2C_WRITE;
-    request->ireg = COMMAND_REGISTER;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_clear_and_set_bits(i2c_context, request, COMMAND_REGISTER, 0xE0,
+                                 0x00);  // Clear last 5 bits
+    if (ret < 0) {
+        return ret;
     }
 
     /* Set Register #2: Rate of proximity measurement */
-
-    request->action = I2C_WRITE;
-    request->ireg = PROXIMITY_RATE_REGISTER;
-    request->buffer[0] = config->proximity_rate_register.as_byte;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, PROXIMITY_RATE_REGISTER,
+                         config->proximity_rate_register.as_byte);
+    if (ret < 0) {
+        return ret;
     }
 
     /* Set Register #3: IR LED current value */
-
-    // Read the old value to preserve some bits
-    request->action = I2C_READ;
-    request->ireg = IR_LED_CURRENT_REGISTER;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
-    }
-
-    request->action = I2C_WRITE;
-    request->buffer[0] &= 0xC0;  // Clear last 6 bits: 11000000
-    request->buffer[0] |= config->ir_led_current_register.as_byte;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_clear_and_set_bits(
+        i2c_context, request, IR_LED_CURRENT_REGISTER, 0xC0,
+        config->ir_led_current_register.as_byte);  // Clear last 6 bits
+    if (ret < 0) {
+        return ret;
     }
 
     /* Set Register #4: Ambient Light Parameter Register */
-    request->action = I2C_WRITE;
-    request->ireg = AMBIENT_LIGHT_PARAMETER_REGISTER;
-    request->buffer[0] = config->ambient_light_parameter_register.as_byte;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, AMBIENT_LIGHT_PARAMETER_REGISTER,
+                         config->ambient_light_parameter_register.as_byte);
+    if (ret < 0) {
+        return ret;
     }
 
     /* Set Register #9: Interrupt Control Register */
-    request->action = I2C_WRITE;
-    request->ireg = INTERRUPT_CONTROL_REGISTER;
-    request->buffer[0] = config->interrupt_control_register.as_byte;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, INTERRUPT_CONTROL_REGISTER,
+                         config->interrupt_control_register.as_byte);
+    if (ret < 0) {
+        return ret;
     }
 
     /* Set Threshold values */
@@ -152,55 +115,46 @@ int vcnl4020_driver_init(const struct vcnl4020_config *config,
 
     /*
         Set Register #10:11: Low Threshold High and Low byte
-        - Send over the high (buffer[0]) and low (buffer[1]) byte for the low
-       threshold
     */
-    request->action = I2C_WRITE;
-    request->ireg = LOW_THRESHOLD_REGISTER_H;
-    request->num_bytes = 2;
-    request->buffer[0] = low >> 8;      // Get upper 8 bits
-    request->buffer[1] = low & (0xFF);  // Get lower 8 bits
+    ret = i2c_write_bits(i2c_context, request, LOW_THRESHOLD_REGISTER_H,
+                         low >> 8);  // Get upper 8 bits
+    if (ret < 0) {
+        return ret;
+    }
 
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, LOW_THRESHOLD_REGISTER_L,
+                         low & 0xFF);  // Get lower 8 bits
+    if (ret < 0) {
+        return ret;
     }
 
     /*
         Set Register #12:13: High Threshold High and Low byte
-        - Send over the high (buffer[0]) and low (buffer[1]) byte for the low
-       threshold
     */
-    request->action = I2C_WRITE;
-    request->ireg = HIGH_THRESHOLD_REGISTER_H;
-    request->buffer[0] = high >> 8;      // Get upper 8 bits
-    request->buffer[1] = high & (0xFF);  // Get lower 8 bits
+    ret = i2c_write_bits(i2c_context, request, HIGH_THRESHOLD_REGISTER_H,
+                         high >> 8);  // Get upper 8 bits
+    if (ret < 0) {
+        return ret;
+    }
 
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, HIGH_THRESHOLD_REGISTER_L,
+                         high & 0xFF);  // Get lower 8 bits
+    if (ret < 0) {
+        return ret;
     }
 
     /* Set Register #1: Command Register */
-
-    // First read the register to not overwrite the bits
-    request->action = I2C_READ;
-    request->ireg = COMMAND_REGISTER;
-    request->num_bytes = 1;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_clear_and_set_bits(
+        i2c_context, request, COMMAND_REGISTER, 0xFF,
+        config->command_register.as_byte |
+            ENABLE_SELF_TIMER);  // Enable the device now that we have finished
+                                 // adjusting the configurations
+    if (ret < 0) {
+        return ret;
     }
 
-    request->action = I2C_WRITE;
-    request->buffer[0] |= config->command_register.as_byte;
-    request->buffer[0] |= ENABLE_SELF_TIMER;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
-    }
+    // Now save what is enabled for low power mode
+    context->cmd_reg = config->command_register.as_byte;
 
     // Finally set up interrupts and their i2c request
     it_request->action = I2C_READ;
@@ -217,6 +171,29 @@ int vcnl4020_driver_init(const struct vcnl4020_config *config,
     context->state = VCNL4020_READY;
 
     return 0;
+}
+
+int vcnl4020_driver_enter_low_power(struct vcnl4020_context *context) {
+    struct i2c_driver_context *i2c_context = context->i2c_context;
+    struct i2c_request *request = &context->request;
+    int ret = 0;
+
+    // Disable all measurements and turn off the state machine
+    ret = i2c_clear_and_set_bits(i2c_context, request, COMMAND_REGISTER, 0xE0,
+                                 0x00);
+    return ret;
+}
+
+int vcnl4020_driver_exit_low_power(struct vcnl4020_context *context) {
+    struct i2c_driver_context *i2c_context = context->i2c_context;
+    struct i2c_request *request = &context->request;
+    int ret = 0;
+
+    // Reenable the measurements requested and turn on state machine
+    ret = i2c_clear_and_set_bits(i2c_context, request, COMMAND_REGISTER, 0xFF,
+                                 context->cmd_reg | ENABLE_SELF_TIMER);
+
+    return ret;
 }
 
 /*

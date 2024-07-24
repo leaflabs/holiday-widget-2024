@@ -270,4 +270,23 @@ void lis3dh_driver_process_acceleration(struct lis3dh_context *context);
 */
 int lis3dh_driver_request_it_clear(struct lis3dh_context *context);
 
+/*
+ * Puts the LIS3DH sensor in low power mode. Leaves on interrupts
+ * and reduces the data rate to save power.
+ *
+ * I2C transactions finish before leaving function
+ *
+ * This sensor is left on as it will be used to wake
+ * up the stm when moved
+ */
+int lis3dh_driver_enter_low_power(struct lis3dh_context *context);
+
+/*
+ * Puts the LIS3DH sensor into high resolution mode. Re-enables
+ * everything low power mode changed.
+ *
+ * I2C transactions finished before leaving function
+ */
+int lis3dh_driver_exit_low_power(struct lis3dh_context *context);
+
 #endif

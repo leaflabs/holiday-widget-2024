@@ -222,6 +222,9 @@ struct vcnl4020_context {
     uint16_t proximity_cnt;
     uint16_t als_lux;
 
+    // Record which features are enabled
+    uint8_t cmd_reg;
+
     uint8_t i2c_transaction_buffer[VCNL4020_MAX_I2C_SIZE];
     uint8_t it_status_buffer[1];
 };
@@ -267,5 +270,21 @@ int vcnl4020_driver_request_it_clear_read(struct vcnl4020_context *context);
     returns 0 if the i2c transaction was added sucessfully
 */
 int vcnl4020_driver_request_it_clear_write(struct vcnl4020_context *context);
+
+/*
+ * Disables the VCNL4020 sensor. Turns off proximity and
+ * ambient light readings.
+ *
+ * I2C transactions finish before leaving function
+ */
+int vcnl4020_driver_enter_low_power(struct vcnl4020_context *context);
+
+/*
+ * Re-enables the VCNL4020 sensor. Reverts to settings
+ * defined in the configuration struct.
+ *
+ * I2C transactions finish before leaving function
+ */
+int vcnl4020_driver_exit_low_power(struct vcnl4020_context *context);
 
 #endif

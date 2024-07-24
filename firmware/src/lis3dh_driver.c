@@ -33,6 +33,15 @@
 #define INT1_THS 0x32
 #define INT1_DURATION 0x33
 
+// Low power mode mask
+#define LP_MSK (1 << 3)
+
+// Bit position for the output data rate bits
+#define ODR_POS 0x4
+
+// Mask to wipe the output data rate bits
+#define ODR_MSK 0x0F
+
 // Flag for if the lis3dh interrupt was triggered
 volatile int lis3dh_interrupt1_flag = 0;
 
@@ -86,74 +95,45 @@ int lis3dh_driver_init(struct lis3dh_config *config,
     request->future.error_number = 0;
 
     // CTRL_REG1. Configures data rate and enabling an axis
-    request->action = I2C_WRITE;
-    request->ireg = CTRL_REG1;
-    request->num_bytes = 1;
-    request->buffer[0] = config->reg1.as_byte;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, CTRL_REG1, config->reg1.as_byte);
+    if (ret < 0) {
+        return ret;
     }
 
     // CTRL_REG2. Configures high pass filter and where it should be applied.
-    request->action = I2C_WRITE;
-    request->ireg = CTRL_REG2;
-    request->buffer[0] = config->reg2.as_byte;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, CTRL_REG2, config->reg2.as_byte);
+    if (ret < 0) {
+        return ret;
     }
 
-    // CTRL_REG3. Configures INT1 options
-    request->action = I2C_WRITE;
-    request->ireg = CTRL_REG3;
-    request->buffer[0] = config->reg3.as_byte;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    // CTRL_REG3. Configures high pass filter and where it should be applied.
+    ret = i2c_write_bits(i2c_context, request, CTRL_REG3, config->reg3.as_byte);
+    if (ret < 0) {
+        return ret;
     }
 
     // CTRL_REG4. Configure scale of data and high resolution on.
-    request->action = I2C_WRITE;
-    request->ireg = CTRL_REG4;
-    request->buffer[0] = config->reg4.as_byte;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, CTRL_REG4, config->reg4.as_byte);
+    if (ret < 0) {
+        return ret;
     }
 
     // CTRL_REG5. Configure where the interrupt signal goes.
-    request->action = I2C_WRITE;
-    request->ireg = CTRL_REG5;
-    request->buffer[0] = config->reg5.as_byte;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, CTRL_REG5, config->reg5.as_byte);
+    if (ret < 0) {
+        return ret;
     }
 
     // CTRL_REG6. Configure INT2 and polarity.
-    request->action = I2C_WRITE;
-    request->ireg = CTRL_REG6;
-    request->buffer[0] = config->reg6.as_byte;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, CTRL_REG6, config->reg6.as_byte);
+    if (ret < 0) {
+        return ret;
     }
 
     // INT1_CFG. Configure what triggers an INT1 interrupt
-    request->action = I2C_WRITE;
-    request->ireg = INT1_CFG;
-    request->buffer[0] = config->int1.as_byte;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, INT1_CFG, config->int1.as_byte);
+    if (ret < 0) {
+        return ret;
     }
 
     // Copy relevant values from config to context
@@ -182,13 +162,9 @@ int lis3dh_driver_init(struct lis3dh_config *config,
         return -EINVAL;
     }
 
-    request->action = I2C_WRITE;
-    request->ireg = INT1_THS;
-    request->buffer[0] = threshold;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, INT1_THS, threshold);
+    if (ret < 0) {
+        return ret;
     }
 
     // INT_DURATION. Configure how long an event has to be to be recognized
@@ -212,14 +188,9 @@ int lis3dh_driver_init(struct lis3dh_config *config,
         bit_print(&duration, sizeof(uint8_t), 1U);
         return -EINVAL;
     }
-
-    request->action = I2C_WRITE;
-    request->ireg = INT1_DURATION;
-    request->buffer[0] = duration;
-
-    ret = i2c_blocking_enqueue(i2c_context, request);
-    if (ret < 0 || future_is_errored(&request->future)) {
-        return -EIO;
+    ret = i2c_write_bits(i2c_context, request, INT1_DURATION, duration);
+    if (ret < 0) {
+        return ret;
     }
 
     // Finally set up interrupts and their i2c request
@@ -238,6 +209,54 @@ int lis3dh_driver_init(struct lis3dh_config *config,
     context->state = LIS3DH_READY;
 
     return 0;
+}
+
+int lis3dh_driver_enter_low_power(struct lis3dh_context *context) {
+    struct i2c_request *request = &context->request;
+    struct i2c_driver_context *i2c_context = context->i2c_context;
+    int ret = 0;
+
+    // To enter low power mode, set the lp bit on reg1 and clear in reg4
+    ret = i2c_clear_and_set_bits(i2c_context, request, CTRL_REG1, 0xFF, LP_MSK);
+    if (ret < 0) {
+        return ret;
+    }
+
+    ret =
+        i2c_clear_and_set_bits(i2c_context, request, CTRL_REG4, ~LP_MSK, 0x00);
+    if (ret < 0) {
+        return ret;
+    }
+
+    // Also slow down the clock to save power. 25 hz is a good example rate
+    ret = i2c_clear_and_set_bits(i2c_context, request, CTRL_REG1, ODR_MSK,
+                                 LIS3DH_25_HZ << ODR_POS);
+
+    return ret;
+}
+
+int lis3dh_driver_exit_low_power(struct lis3dh_context *context) {
+    struct i2c_request *request = &context->request;
+    struct i2c_driver_context *i2c_context = context->i2c_context;
+    int ret = 0;
+
+    // To exit low power mode, clear the lp bit on reg1 and set in reg4
+    ret =
+        i2c_clear_and_set_bits(i2c_context, request, CTRL_REG1, ~LP_MSK, 0x00);
+    if (ret < 0) {
+        return ret;
+    }
+
+    ret = i2c_clear_and_set_bits(i2c_context, request, CTRL_REG4, 0xFF, LP_MSK);
+    if (ret < 0) {
+        return ret;
+    }
+
+    // Adjust clock back to usual rate
+    ret = i2c_clear_and_set_bits(i2c_context, request, CTRL_REG1, ODR_MSK,
+                                 context->data_rate << ODR_POS);
+
+    return ret;
 }
 
 /*
