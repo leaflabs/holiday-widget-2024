@@ -2164,10 +2164,6 @@
 		(uuid "c2d2430d-405f-4973-a7bb-0f889abad70f")
 	)
 	(no_connect
-		(at 160.02 83.82)
-		(uuid "d3737ee9-261c-40ec-ad48-caa4e5f8199e")
-	)
-	(no_connect
 		(at 121.92 63.5)
 		(uuid "eeb82658-5d6f-4301-801d-3c043f22c4f0")
 	)
@@ -2786,6 +2782,16 @@
 	)
 	(wire
 		(pts
+			(xy 157.48 83.82) (xy 160.02 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4ca3b30f-fb83-4e53-a665-bc75698dba95")
+	)
+	(wire
+		(pts
 			(xy 157.48 116.84) (xy 160.02 116.84)
 		)
 		(stroke
@@ -3276,6 +3282,16 @@
 	)
 	(wire
 		(pts
+			(xy 157.48 53.34) (xy 160.02 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92c9aa90-b272-43df-96c5-cd6dd99a10ba")
+	)
+	(wire
+		(pts
 			(xy 217.17 30.48) (xy 219.71 30.48)
 		)
 		(stroke
@@ -3676,16 +3692,6 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 53.34) (xy 160.02 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cfd3ce6c-4e73-41f9-8b3e-815afd0dcc75")
-	)
-	(wire
-		(pts
 			(xy 157.48 124.46) (xy 160.02 124.46)
 		)
 		(stroke
@@ -4033,16 +4039,6 @@
 			(type default)
 		)
 		(uuid "f8e0956b-b2bc-4463-aada-ffa867395cca")
-	)
-	(wire
-		(pts
-			(xy 157.48 83.82) (xy 160.02 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fe240bab-ad9b-40ad-8b83-7828b3279bf2")
 	)
 	(rectangle
 		(start 143.51 156.21)
@@ -4449,7 +4445,7 @@
 		(uuid "31131793-8dcc-4771-b045-ef95f4190aac")
 	)
 	(label "UART.RX"
-		(at 160.02 53.34 0)
+		(at 160.02 83.82 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -5208,6 +5204,18 @@
 			(justify right)
 		)
 		(uuid "2dca4213-91f1-4d85-9211-1a9fe91998ed")
+	)
+	(hierarchical_label "AUDIO_IN"
+		(shape input)
+		(at 160.02 53.34 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "61680aa8-1424-4627-9d68-a9c64fb8f572")
 	)
 	(hierarchical_label "GPIO[0..7]"
 		(shape bidirectional)
