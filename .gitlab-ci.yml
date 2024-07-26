@@ -1,0 +1,84 @@
+# Define the pipeline stages
+stages:
+  # Stage for validating code formatting
+  - check
+  # Stage for validating firmware compilation
+  - build
+
+# Workflow rules determine when the pipeline should run
+workflow:
+  rules:
+    # Run pipeline on merge requests
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    # Run pipeline on tagged commits
+    - if: $CI_COMMIT_TAG
+    # Run pipeline on commits to the default branch
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# Job to check code formatting
+check_formatting:
+  # Docker image with formatting tools
+  image: registry.gitlab.leaflabs.com/internal-projects/holiday-widget/code-format
+  # Job can be interrupted by other jobs
+  interruptible: true
+  # Assign job to the 'check' stage
+  stage: check
+  variables:
+    # Directory in which to enforce formatting
+    ENFORCE_FORMAT_DIR: 'firmware'
+  script:
+    # Fetch the latest changes from the remote repository
+    - git fetch 
+    # Check formatting against the target branch
+    - git-clang-format -v --commit origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME -q --diff -- $ENFORCE_FORMAT_DIR
+  only:
+    # Only run this job for merge requests
+    - merge_requests
+
+# Job to build the firmware
+build_firmware:
+  # Docker image with build tools
+  image: registry.gitlab.leaflabs.com/internal-projects/holiday-widget/build-firmware
+  # Assign job to the 'build' stage
+  stage: build
+  tags:
+    # Tag to specify runner with Linux environment
+    - linux
+  before_script:
+    # Generate a unique fixed-length submodule hash:
+    #   - Gather the name and current commit hash of each
+    #     submodule and concatenate them into a single string
+    #   - Generate a SHA-256 hash of the concatenated string
+    #   - Extract the hash and assign it to the $SUBMODULE_HASH variable
+    #
+    # This is done to ensure a consistent format and length for the cache key
+    - |
+      SUBMODULE_HASH=$(git submodule foreach 'echo $name `git rev-parse HEAD`' | sha256sum | cut -d' ' -f1)
+      echo "Submodule hash: $SUBMODULE_HASH"
+  cache:
+    # Unique fixed-length cache key based on the submodule hash
+    key: "submodule-cache-${SUBMODULE_HASH}"
+    paths:
+      # Cache the Git submodules
+      - .git/modules/
+      # Cache the Git configuration
+      - .git/config
+  artifacts:
+    paths:
+      # Artifact: compiled firmware binary
+      - blink.elf
+      # Artifact: lookup table generator binary
+      - lut_generator
+  script:
+    # Recursively initialize and update submodules
+    - git submodule update --init --recursive
+    # Enter the 'firmware' directory
+    - cd firmware
+    # Clean previous build artifacts
+    - make clean
+    # Build the firmware
+    - make
+    # Copy the firmware binary to the root directory
+    - cp build/blink.elf ../blink.elf
+    # Copy the generated lookup tables to the root directory
+    - cp build/lut_generator ../lut_generator

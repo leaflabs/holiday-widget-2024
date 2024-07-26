@@ -1,0 +1,4 @@
+**/*
+!docker/build-firmware/Dockerfile
+!docker/code-format/Dockerfile
+!firmware/scripts/requirements.txt
