@@ -54,7 +54,7 @@ CFLAGS    += -mthumb -Wall -Wextra -c -mcpu=$(CPU_TYPE) \
 	-std=gnu11 -Os -flto -g -gdwarf-2
 LDFLAGS   += -mthumb -nostdlib -lgcc -mcpu=$(CPU_TYPE) \
 	-Wl,-T,$(LINK_MEM) -Wl,--gc-sections \
-	-msoft-float -Os -ffunction-sections -fdata-sections -flto -g -gdwarf-2
+	-msoft-float -Os -ffunction-sections -fdata-sections -flto -g -gdwarf-2 -Wl,--print-memory-usage
 
 # actual targets
 .PHONY: all
@@ -79,7 +79,7 @@ clean:
 	rm -f include/generated_animation_frames.h 
 
 upload: $(TARGET_ELF)
-	openocd -f interface/stlink.cfg -f target/stm32l0.cfg -c "program $(TARGET_ELF) verify reset exit"
+	openocd -f interface/stlink.cfg -f target/stm32l0_dual_bank.cfg -c "program $(TARGET_ELF) verify reset exit"
 
 # Code to build lut generating script
 $(BUILD_DIR)/lut_generator : scripts/lut_generator.c
