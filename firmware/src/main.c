@@ -4,7 +4,6 @@
 #include "led_matrix.h"
 #include "music_player.h"
 #include "system_communication.h"
-#include "temperature.h"
 #include "tones.h"
 #include "utils.h"
 #include "widget_system.h"
@@ -15,7 +14,6 @@ int main(void) {
     job_add(&system_communication_setup, JOB_INIT);
     job_add(&print_available_i2c_devices, JOB_INIT);
 
-    job_add(&temperature_setup, JOB_INIT);
     job_add(&acceleration_setup, JOB_INIT);
     job_add(&ambient_light_setup, JOB_INIT);
     job_add(&led_matrix_setup, JOB_INIT);
@@ -23,7 +21,6 @@ int main(void) {
 
     job_add(&system_communication_run, JOB_RUN_RUN);
 
-    job_add(&temperature_run, JOB_RUN_RUN);
     job_add(&acceleration_run, JOB_RUN_RUN);
     job_add(&ambient_light_run, JOB_RUN_RUN);
 
