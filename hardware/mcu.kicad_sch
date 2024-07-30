@@ -2923,6 +2923,16 @@
 	)
 	(wire
 		(pts
+			(xy 68.58 116.84) (xy 68.58 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7b3cb371-de3b-4a25-94ea-0834406dc4c8")
+	)
+	(wire
+		(pts
 			(xy 74.93 106.68) (xy 121.92 106.68)
 		)
 		(stroke
@@ -3040,6 +3050,16 @@
 			(type default)
 		)
 		(uuid "84e68ec3-9abe-4e15-b988-499b3ce0f954")
+	)
+	(wire
+		(pts
+			(xy 228.6 118.11) (xy 237.49 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "85293263-8c9e-48f0-a19f-c9dd61d0f8ee")
 	)
 	(wire
 		(pts
@@ -3383,6 +3403,16 @@
 	)
 	(wire
 		(pts
+			(xy 228.6 113.03) (xy 237.49 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bc280b29-5afd-4e02-8f89-a30902a1c500")
+	)
+	(wire
+		(pts
 			(xy 215.9 25.4) (xy 219.71 25.4)
 		)
 		(stroke
@@ -3640,6 +3670,16 @@
 			(type default)
 		)
 		(uuid "ec0cef7a-5b37-4832-838b-0c96415bbf74")
+	)
+	(wire
+		(pts
+			(xy 234.95 123.19) (xy 237.49 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee54b8ee-0a89-4f17-80d2-d15d21cff833")
 	)
 	(wire
 		(pts
@@ -4129,6 +4169,17 @@
 		(uuid "4e5f94fd-aa14-4bf7-8458-7e70c268ac63")
 	)
 	(label "GND"
+		(at 234.95 123.19 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5efa7880-2e39-4ca1-838f-1d0e52716707")
+	)
+	(label "GND"
 		(at 128.27 176.53 0)
 		(fields_autoplaced yes)
 		(effects
@@ -4337,6 +4388,17 @@
 		)
 		(uuid "9fd68446-e1b2-41c9-93e0-c34f09decb7a")
 	)
+	(label "I2C.SDA"
+		(at 228.6 118.11 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a276509f-6a21-4d7b-8d9d-55d129831afa")
+	)
 	(label "UART.RX"
 		(at 209.55 100.33 0)
 		(fields_autoplaced yes)
@@ -4369,6 +4431,17 @@
 			(justify left bottom)
 		)
 		(uuid "aac5b9fe-1e92-491d-b585-c8c3f67a24e6")
+	)
+	(label "I2C.SCL"
+		(at 228.6 113.03 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ad26a85e-2b09-44fe-8202-133bf07ab4ad")
 	)
 	(label "STAT_LED0"
 		(at 209.55 146.05 0)
@@ -4568,6 +4641,17 @@
 		)
 		(uuid "f1b50f9a-7f15-4f4f-ab43-3e8d79413470")
 	)
+	(label "GND"
+		(at 68.58 116.84 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f3b99559-d2a7-44fe-a620-4a8120032f5a")
+	)
 	(hierarchical_label "nRST"
 		(shape input)
 		(at 219.71 30.48 0)
@@ -4761,6 +4845,73 @@
 		(uuid "ee9b1567-0585-4778-8ad1-2a8f11566dff")
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 237.49 113.03 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "05e6e2d6-711b-4072-93d8-cce3dc283ff9")
+		(property "Reference" "TP7"
+			(at 242.57 111.7599 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 242.57 114.2999 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Leaf_Jumper:TestPoint_0.5mm_1mm"
+			(at 237.49 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 237.49 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 237.49 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9703e5ff-4179-4520-8988-1179117f2346")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
+					(reference "TP7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 40.64 170.18 0)
 		(unit 1)
@@ -4894,6 +5045,71 @@
 			(project "holiday-widget"
 				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
 					(reference "C8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 68.58 113.03 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "22d6c415-28a4-4caf-9fb2-7b817ec49205")
+		(property "Reference" "TP6"
+			(at 65.278 107.95 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 65.278 110.49 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Leaf_Jumper:TestPoint_0.5mm_1mm"
+			(at 68.58 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 68.58 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 68.58 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8c713d03-e121-4011-a40f-e7be4ff763db")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
+					(reference "TP6")
 					(unit 1)
 				)
 			)
@@ -6062,6 +6278,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 237.49 118.11 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "99f0b4bb-f7fd-4f03-8908-759d0af1e999")
+		(property "Reference" "TP8"
+			(at 242.57 116.8399 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 242.57 119.3799 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Leaf_Jumper:TestPoint_0.5mm_1mm"
+			(at 237.49 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 237.49 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 237.49 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0234dfa3-af15-4447-b778-ebbc632e11c3")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
+					(reference "TP8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 40.64 67.31 0)
 		(unit 1)
@@ -6261,6 +6544,73 @@
 			(project "holiday-widget"
 				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
 					(reference "TP4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 237.49 123.19 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ba40e54b-3d08-488b-9e83-223f5a80801a")
+		(property "Reference" "TP9"
+			(at 242.57 121.9199 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 242.57 124.4599 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Leaf_Jumper:TestPoint_0.5mm_1mm"
+			(at 237.49 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 237.49 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 237.49 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8b7ca1c3-8096-4a2e-b854-16b43252e5b6")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
+					(reference "TP9")
 					(unit 1)
 				)
 			)
