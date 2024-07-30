@@ -58,7 +58,9 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        "silk_over_copper|139192934|114454227|ac8cdf9e-a2cd-4450-95d8-b8aeeaf1aa3c|00000000-0000-0000-0000-000000000000"
+      ],
       "meta": {
         "version": 2
       },
