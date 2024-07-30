@@ -636,317 +636,6 @@
 				)
 			)
 		)
-		(symbol "Sensor_Temperature:TMP102xxDRL"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at -2.54 10.795 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify right)
-				)
-			)
-			(property "Value" "TMP102xxDRL"
-				(at -2.54 8.89 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify right)
-				)
-			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-563"
-				(at 1.27 -8.89 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tmp102.pdf"
-				(at 1.27 -11.43 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Description" "Digital Temperature Sensor, +/- 3 °C, low-Power, SMBus, 12 bit, Two-Wire Serial Interface, SOT-563"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "digital temperature sensor i2c smbus"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "SOT?563*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "TMP102xxDRL_0_1"
-				(rectangle
-					(start -7.62 7.62)
-					(end 7.62 -7.62)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "TMP102xxDRL_1_1"
-				(polyline
-					(pts
-						(xy 2.413 -0.635) (xy 3.048 -0.635)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.413 0) (xy 3.048 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.413 0.635) (xy 3.048 0.635)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.413 1.27) (xy 3.048 1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.413 1.905) (xy 2.413 -1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.413 1.905) (xy 3.048 1.905)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.683 1.905) (xy 3.683 -1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 3.048 -3.81)
-					(radius 1.27)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 3.683 -3.175)
-					(end 2.413 -1.27)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(arc
-					(start 3.683 1.905)
-					(mid 3.048 2.5373)
-					(end 2.413 1.905)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin input line
-					(at -10.16 2.54 0)
-					(length 2.54)
-					(name "SCL"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 -10.16 90)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin open_collector line
-					(at 10.16 5.08 180)
-					(length 2.54)
-					(name "ALERT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -10.16 -2.54 0)
-					(length 2.54)
-					(name "ADD0"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 10.16 270)
-					(length 2.54)
-					(name "V+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at -10.16 5.08 0)
-					(length 2.54)
-					(name "SDA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "holiday-widget:IMP23ABSU"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1463,10 +1152,6 @@
 		(uuid "ae513875-3ff3-44ca-a0a6-0006005352cc")
 	)
 	(no_connect
-		(at 185.42 113.03)
-		(uuid "dba23072-5268-422e-9359-ac41c5138437")
-	)
-	(no_connect
 		(at 180.34 60.96)
 		(uuid "f8b03bed-b7c9-4f47-b644-97c3092e06b1")
 	)
@@ -1497,16 +1182,6 @@
 			(type default)
 		)
 		(uuid "03cbc970-60c7-4c0b-bedc-640d107e814c")
-	)
-	(wire
-		(pts
-			(xy 194.31 96.52) (xy 194.31 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "061589da-5a04-4bff-b23e-d69d7f5a1658")
 	)
 	(wire
 		(pts
@@ -1710,16 +1385,6 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 104.14) (xy 175.26 107.95)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4eca5a48-2d22-44d7-95de-e574b450cf64")
-	)
-	(wire
-		(pts
 			(xy 114.3 41.91) (xy 113.03 41.91)
 		)
 		(stroke
@@ -1840,16 +1505,6 @@
 	)
 	(wire
 		(pts
-			(xy 194.31 110.49) (xy 193.04 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "79acc8bb-0efe-4414-8d51-926153290864")
-	)
-	(wire
-		(pts
 			(xy 193.04 69.85) (xy 194.31 69.85)
 		)
 		(stroke
@@ -1907,16 +1562,6 @@
 			(type default)
 		)
 		(uuid "9ed37f63-0fdd-4a0f-89fa-a94b77cf3c2a")
-	)
-	(wire
-		(pts
-			(xy 194.31 106.68) (xy 194.31 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a091d077-2bf3-4aeb-8dcb-f573d461f0df")
 	)
 	(bus
 		(pts
@@ -2030,16 +1675,6 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 130.81) (xy 173.99 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c3bd3c08-797b-470f-a01b-27cde87501ec")
-	)
-	(wire
-		(pts
 			(xy 111.76 111.76) (xy 111.76 109.22)
 		)
 		(stroke
@@ -2128,16 +1763,6 @@
 		)
 		(uuid "f9b34f64-55b2-459a-8f43-23d036296542")
 	)
-	(wire
-		(pts
-			(xy 175.26 128.27) (xy 175.26 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fc942a4e-b3a4-4ad0-8ac1-fc0c73d003e9")
-	)
 	(rectangle
 		(start 152.4 17.78)
 		(end 242.57 77.47)
@@ -2174,18 +1799,6 @@
 		)
 		(uuid 9c17afdc-feb6-4de9-9391-6c7b8319758b)
 	)
-	(rectangle
-		(start 153.67 88.9)
-		(end 217.17 135.89)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid d034f151-b3c2-4dab-aff7-6659f3a5565b)
-	)
 	(text "IMP23ABSU (MEMS Microphone)"
 		(exclude_from_sim no)
 		(at 94.742 91.186 0)
@@ -2195,17 +1808,6 @@
 			)
 		)
 		(uuid "2607f2d4-7cfc-4a2f-885f-415aecec4c5f")
-	)
-	(text "TMP102 (Temperature)\nI2C ADDR: 0x48"
-		(exclude_from_sim no)
-		(at 154.432 91.948 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "2dbe5861-6f87-4509-80f4-0cb182d9844b")
 	)
 	(text "Fine to leave NC by dsheet."
 		(exclude_from_sim no)
@@ -2236,16 +1838,6 @@
 			)
 		)
 		(uuid "5ceea485-2415-4817-b70c-a8397e836769")
-	)
-	(text "V+ Decoupling"
-		(exclude_from_sim no)
-		(at 205.486 97.79 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "9c1ce05b-6591-4713-8ad3-25694c1db1c9")
 	)
 	(text "NC is correct\nby dsheet"
 		(exclude_from_sim no)
@@ -2398,17 +1990,6 @@
 		)
 		(uuid "2ac7da99-5b32-4740-aeea-4fd596ea0e6c")
 	)
-	(label "I2C.SDA"
-		(at 165.1 113.03 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "37e90d20-9694-4f59-80b9-bab14bd4c6d8")
-	)
 	(label "GND"
 		(at 109.22 111.76 180)
 		(fields_autoplaced yes)
@@ -2452,17 +2033,6 @@
 			(justify left bottom)
 		)
 		(uuid "409129d9-c2c1-4ced-9149-1696cf4c13de")
-	)
-	(label "I2C.SCL"
-		(at 165.1 115.57 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "468e27cb-e6bc-4dd5-ae4c-4abee1bd8fc1")
 	)
 	(label "I2C.SDA"
 		(at 76.2 52.07 180)
@@ -2541,17 +2111,6 @@
 		)
 		(uuid "72ca776b-4d11-4dfe-8830-f737bd71cb29")
 	)
-	(label "VDD"
-		(at 194.31 96.52 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "7b7a45a7-5733-4c95-b458-e97f824ec04f")
-	)
 	(label "GND"
 		(at 158.75 55.88 180)
 		(fields_autoplaced yes)
@@ -2562,17 +2121,6 @@
 			(justify right bottom)
 		)
 		(uuid "90ec6b32-429a-41e2-9efc-b4486e378cb7")
-	)
-	(label "GND"
-		(at 165.1 120.65 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "9b71f1f7-6c19-41fd-8243-3aed84337b05")
 	)
 	(label "VDD"
 		(at 102.87 25.4 180)
@@ -2596,17 +2144,6 @@
 		)
 		(uuid "b6b2f876-2bcc-4a45-b8f4-f6b57794074a")
 	)
-	(label "GND"
-		(at 193.04 110.49 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "b6ef04e3-9928-4c1c-b74d-de79028fea31")
-	)
 	(label "VCNL4020_INT"
 		(at 49.53 121.92 0)
 		(fields_autoplaced yes)
@@ -2628,17 +2165,6 @@
 			(justify right bottom)
 		)
 		(uuid "cff31842-17ba-443c-a998-f7c7945e4e18")
-	)
-	(label "VDD"
-		(at 175.26 104.14 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "d2edf0f5-25d8-43de-affe-a6085e4804b0")
 	)
 	(label "I2C.SCL"
 		(at 52.07 107.95 0)
@@ -2672,17 +2198,6 @@
 			(justify right bottom)
 		)
 		(uuid "dd51d9f1-f676-4585-ad4d-cdd7ebe6d781")
-	)
-	(label "GND"
-		(at 173.99 130.81 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "ed9387fc-ad11-41b2-9c54-15a5439c928c")
 	)
 	(label "I2C.SDA"
 		(at 52.07 110.49 0)
@@ -3136,87 +2651,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Sensor_Temperature:TMP102xxDRL")
-		(at 175.26 118.11 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "64bc6542-5eae-44d5-98d3-f0acdab84812")
-		(property "Reference" "U5"
-			(at 181.356 108.966 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TMP102xxDRL"
-			(at 190.5 118.618 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-563"
-			(at 176.53 127 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tmp102.pdf"
-			(at 176.53 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Digital Temperature Sensor, +/- 3 °C, low-Power, SMBus, 12 bit, Two-Wire Serial Interface, SOT-563"
-			(at 175.26 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "4"
-			(uuid "0373ebbf-4ca5-4673-a3e6-91d5da9c757e")
-		)
-		(pin "6"
-			(uuid "2241b6f0-e3b7-421f-97fb-aab6f45b8374")
-		)
-		(pin "2"
-			(uuid "2a7d156e-b132-4034-a5f7-d953991c9268")
-		)
-		(pin "3"
-			(uuid "812b02be-909c-42f7-9e3a-a88cf217460f")
-		)
-		(pin "5"
-			(uuid "8ec3bba5-bd91-4f22-b213-94c90ea7fec3")
-		)
-		(pin "1"
-			(uuid "378b14dd-50fc-45e2-b791-458daf4900b9")
-		)
-		(instances
-			(project "holiday-widget"
-				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/d503417e-2320-4d5e-a577-7c7a809fa6f5"
-					(reference "U5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 97.79 107.95 0)
 		(unit 1)
@@ -3351,76 +2785,6 @@
 			(project "holiday-widget"
 				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/d503417e-2320-4d5e-a577-7c7a809fa6f5"
 					(reference "C20")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 194.31 102.87 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7dc1dfad-46fb-4d0a-b588-b47e60312b61")
-		(property "Reference" "C18"
-			(at 198.12 101.5999 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10n"
-			(at 198.12 104.1399 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
-			(at 195.2752 106.68 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 194.31 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 194.31 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c8e428ab-9dc5-4974-acb2-34db04ce4ec5")
-		)
-		(pin "2"
-			(uuid "195a0acb-e360-4245-87d5-ac19a242cf65")
-		)
-		(instances
-			(project "holiday-widget"
-				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/d503417e-2320-4d5e-a577-7c7a809fa6f5"
-					(reference "C18")
 					(unit 1)
 				)
 			)
