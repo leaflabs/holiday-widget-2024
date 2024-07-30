@@ -639,6 +639,10 @@
     [
       "a55ea924-f9da-4eb7-9a51-aee60932cddf",
       "LED Output1"
+    ],
+    [
+      "fa3bd56f-0b1b-432d-bd70-57e74b33c7b1",
+      "Audio Amp"
     ]
   ],
   "text_variables": {}

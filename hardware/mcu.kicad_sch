@@ -2132,10 +2132,6 @@
 		(uuid "4bd77d46-f533-4588-a07f-26eb03024609")
 	)
 	(no_connect
-		(at 160.02 111.76)
-		(uuid "4eb2e550-2448-4717-9a0d-a177438d5cad")
-	)
-	(no_connect
 		(at 160.02 96.52)
 		(uuid "703f8f1f-b9dc-4262-b18c-bacd93c2cde9")
 	)
@@ -3012,6 +3008,16 @@
 	)
 	(wire
 		(pts
+			(xy 157.48 111.76) (xy 171.45 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "73944ab2-b696-498f-961d-34e07f3bfb41")
+	)
+	(wire
+		(pts
 			(xy 114.3 165.1) (xy 114.3 161.29)
 		)
 		(stroke
@@ -3282,7 +3288,7 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 53.34) (xy 160.02 53.34)
+			(xy 157.48 53.34) (xy 171.45 53.34)
 		)
 		(stroke
 			(width 0)
@@ -4009,16 +4015,6 @@
 			(type default)
 		)
 		(uuid "f200d5fb-d8c3-464b-aa2e-7b8ff3cef931")
-	)
-	(wire
-		(pts
-			(xy 157.48 111.76) (xy 160.02 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f2cf3e05-1f4d-4b05-ab90-dbb196456ec8")
 	)
 	(wire
 		(pts
@@ -5205,9 +5201,21 @@
 		)
 		(uuid "2dca4213-91f1-4d85-9211-1a9fe91998ed")
 	)
+	(hierarchical_label "AUDIO_AMP_EN"
+		(shape output)
+		(at 171.45 111.76 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3a5c24ee-f419-4df0-a509-82ee47c3f103")
+	)
 	(hierarchical_label "AUDIO_IN"
 		(shape input)
-		(at 160.02 53.34 0)
+		(at 171.45 53.34 0)
 		(fields_autoplaced yes)
 		(effects
 			(font

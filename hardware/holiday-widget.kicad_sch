@@ -1170,16 +1170,6 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 118.11) (xy 166.37 118.11)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2196b358-ef1f-406b-bcf7-ee47295badbe")
-	)
-	(wire
-		(pts
 			(xy 39.37 95.25) (xy 43.18 95.25)
 		)
 		(stroke
@@ -1187,6 +1177,16 @@
 			(type default)
 		)
 		(uuid "2d35c28f-7542-4d9b-ad46-2dcb6a944825")
+	)
+	(wire
+		(pts
+			(xy 152.4 139.7) (xy 143.51 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33661c6b-c741-4aa1-a6fa-897c941b6a29")
 	)
 	(wire
 		(pts
@@ -1210,6 +1210,26 @@
 	)
 	(wire
 		(pts
+			(xy 156.21 116.84) (xy 171.45 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4433294b-3ab7-4a18-bdb3-cd4f701925b7")
+	)
+	(wire
+		(pts
+			(xy 171.45 130.81) (xy 180.34 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "558b737d-6b90-4a86-9c58-d8dc56292c43")
+	)
+	(wire
+		(pts
 			(xy 168.91 60.96) (xy 170.18 60.96)
 		)
 		(stroke
@@ -1227,6 +1247,16 @@
 			(type default)
 		)
 		(uuid "5abdc2e4-cad1-45ba-91f2-daa3412da659")
+	)
+	(wire
+		(pts
+			(xy 180.34 135.89) (xy 177.8 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "621b2a04-3d92-4e68-bf1b-585baf4c2e49")
 	)
 	(wire
 		(pts
@@ -1250,6 +1280,16 @@
 	)
 	(wire
 		(pts
+			(xy 184.15 123.19) (xy 181.61 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6649f638-a001-4f11-a836-38d2a2cc4337")
+	)
+	(wire
+		(pts
 			(xy 179.07 63.5) (xy 179.07 66.04)
 		)
 		(stroke
@@ -1257,6 +1297,16 @@
 			(type default)
 		)
 		(uuid "6d26b36a-e6da-41a6-afdd-c8110d2e2ae0")
+	)
+	(wire
+		(pts
+			(xy 180.34 130.81) (xy 180.34 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6fcaf50c-f006-4229-bcbc-b7ca9fadae09")
 	)
 	(wire
 		(pts
@@ -1277,16 +1327,6 @@
 			(type default)
 		)
 		(uuid "73330766-3aa3-46af-8a9f-106c48797fe2")
-	)
-	(wire
-		(pts
-			(xy 166.37 123.19) (xy 184.15 123.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "760ab90b-8580-45f1-bf07-f2b0505b4651")
 	)
 	(wire
 		(pts
@@ -1330,6 +1370,26 @@
 	)
 	(wire
 		(pts
+			(xy 143.51 139.7) (xy 143.51 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7c98747d-7a29-4a24-b7f8-55d44f5f9d8a")
+	)
+	(wire
+		(pts
+			(xy 148.59 144.78) (xy 152.4 144.78)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7f88a041-5124-4bb9-a86e-37879f370089")
+	)
+	(wire
+		(pts
 			(xy 195.58 71.12) (xy 195.58 90.17)
 		)
 		(stroke
@@ -1340,6 +1400,26 @@
 	)
 	(wire
 		(pts
+			(xy 143.51 125.73) (xy 158.75 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "86b2c67a-af64-402b-9dd8-0454e2fb20b5")
+	)
+	(wire
+		(pts
+			(xy 171.45 116.84) (xy 171.45 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8a806f97-3675-4005-b5ea-a3270e812544")
+	)
+	(wire
+		(pts
 			(xy 106.68 90.17) (xy 110.49 90.17)
 		)
 		(stroke
@@ -1347,6 +1427,16 @@
 			(type default)
 		)
 		(uuid "8e1c07d8-3e1a-4611-8423-42c73b6a7392")
+	)
+	(wire
+		(pts
+			(xy 181.61 138.43) (xy 177.8 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8e20e1c6-2e22-4838-9268-3a26c663a3c9")
 	)
 	(wire
 		(pts
@@ -1380,6 +1470,16 @@
 	)
 	(wire
 		(pts
+			(xy 158.75 125.73) (xy 158.75 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b062b31c-94fc-413f-a319-99e8048af9fe")
+	)
+	(wire
+		(pts
 			(xy 156.21 111.76) (xy 184.15 111.76)
 		)
 		(stroke
@@ -1387,6 +1487,16 @@
 			(type default)
 		)
 		(uuid "b4079459-f38d-48ca-a5ab-6aec3caea8eb")
+	)
+	(wire
+		(pts
+			(xy 158.75 119.38) (xy 156.21 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba16c1f6-166a-43be-b19c-1408f1a6157a")
 	)
 	(wire
 		(pts
@@ -1450,13 +1560,13 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 118.11) (xy 166.37 123.19)
+			(xy 181.61 123.19) (xy 181.61 138.43)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "d9a29f8b-dc71-4cc8-8b84-0132d1eecbc8")
+		(uuid "d42baae9-3b82-4e57-b5a8-5ff5c7908a92")
 	)
 	(wire
 		(pts
@@ -1487,6 +1597,16 @@
 			(type default)
 		)
 		(uuid "ee4f069b-0914-46fc-82e0-7a2c0e1a9be9")
+	)
+	(wire
+		(pts
+			(xy 148.59 147.32) (xy 152.4 147.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fb5bb914-2fe5-4337-aede-d20f030ddce5")
 	)
 	(bus
 		(pts
@@ -1561,6 +1681,17 @@
 			(justify right bottom)
 		)
 		(uuid "30db09c9-afcb-4e3e-a839-bc77d4e116ef")
+	)
+	(label "GND"
+		(at 148.59 147.32 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "54ed0b0d-1d2b-421b-a47e-d2f074fa4f6a")
 	)
 	(label "SPI.DIN"
 		(at 247.65 129.54 180)
@@ -1748,6 +1879,17 @@
 			(justify right bottom)
 		)
 		(uuid "a3e306ce-8e71-45a7-805e-58f9f463e433")
+	)
+	(label "VDD"
+		(at 148.59 144.78 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ab8ddcdc-1331-4665-a289-d7a48dbff0c5")
 	)
 	(label "UART{UART}"
 		(at 158.75 104.14 0)
@@ -2668,7 +2810,7 @@
 			(uuid "ae79b713-f86a-400a-a46d-d2f38acb6571")
 		)
 		(pin "AUDIO_IN" input
-			(at 156.21 118.11 0)
+			(at 156.21 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2797,6 +2939,16 @@
 			)
 			(uuid "8a3a17b8-69dc-4889-a52e-443ee9b61312")
 		)
+		(pin "AUDIO_AMP_EN" output
+			(at 156.21 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "323c56a5-8321-4b96-9c0e-9cb5314a5532")
+		)
 		(instances
 			(project "holiday-widget"
 				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b"
@@ -2899,6 +3051,94 @@
 			(project "holiday-widget"
 				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b"
 					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 152.4 132.715)
+		(size 25.4 17.145)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "fa3bd56f-0b1b-432d-bd70-57e74b33c7b1")
+		(property "Sheetname" "Audio Amp"
+			(at 152.4 132.0034 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "audio_amp.kicad_sch"
+			(at 152.4 150.4446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "AUDIO_OUT" output
+			(at 152.4 139.7 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "839b4369-fc03-433a-b09b-c71db2469329")
+		)
+		(pin "V_REF" input
+			(at 152.4 144.78 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "7e121edb-dd3b-4e92-8dd8-08249299e02b")
+		)
+		(pin "GND" input
+			(at 152.4 147.32 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "b5aa0a92-57d5-473c-a89b-97dff17ac0b2")
+		)
+		(pin "AUDIO_AMP_EN" input
+			(at 177.8 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "15818ac7-1343-4b95-8442-0b434dbc6875")
+		)
+		(pin "AUDIO_IN" input
+			(at 177.8 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "7e36bc17-e424-4c49-8029-a1442d420af7")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b"
+					(page "8")
 				)
 			)
 		)
