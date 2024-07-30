@@ -346,232 +346,6 @@
 				)
 			)
 		)
-		(symbol "Connector_Generic:Conn_01x05"
-			(pin_names
-				(offset 1.016) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "J"
-				(at 0 7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "Conn_01x05"
-				(at 0 -7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "connector"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Connector*:*_1x??_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Conn_01x05_1_1"
-				(rectangle
-					(start -1.27 -4.953)
-					(end 0 -5.207)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 -2.413)
-					(end 0 -2.667)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 2.667)
-					(end 0 2.413)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 5.207)
-					(end 0 4.953)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 6.35)
-					(end 1.27 -6.35)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin passive line
-					(at -5.08 5.08 0)
-					(length 3.81)
-					(name "Pin_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 2.54 0)
-					(length 3.81)
-					(name "Pin_2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 3.81)
-					(name "Pin_3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 -2.54 0)
-					(length 3.81)
-					(name "Pin_4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 -5.08 0)
-					(length 3.81)
-					(name "Pin_5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "Connector_Generic:Conn_02x05_Odd_Even"
 			(pin_names
 				(offset 1.016) hide)
@@ -1508,16 +1282,6 @@
 		)
 		(uuid "ba4e60a2-4f3f-435d-888e-6e5b9fbebcd5")
 	)
-	(bus
-		(pts
-			(xy 156.21 101.6) (xy 158.75 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bd80cf91-b605-4ac3-9fd2-aaa8299ab7a4")
-	)
 	(wire
 		(pts
 			(xy 179.07 71.12) (xy 179.07 80.01)
@@ -1547,16 +1311,6 @@
 			(type default)
 		)
 		(uuid "c787b57f-70a7-4e98-bcc1-030afc36d41b")
-	)
-	(bus
-		(pts
-			(xy 85.09 100.33) (xy 110.49 100.33)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d1021af5-cb44-4e0a-8a82-60223cafc803")
 	)
 	(wire
 		(pts
@@ -1649,28 +1403,6 @@
 		)
 		(uuid "0686c682-0699-4063-be0a-399b2b6c8370")
 	)
-	(label "SPI{SPI}"
-		(at 158.75 101.6 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "1766aa62-3b1d-47fd-9454-d94caff5a6b0")
-	)
-	(label "SPI.DOUT"
-		(at 247.65 132.08 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "2e173ede-7d7b-40ae-8ad9-fb1e45198065")
-	)
 	(label "UART.RX"
 		(at 247.65 102.87 180)
 		(fields_autoplaced yes)
@@ -1693,28 +1425,6 @@
 		)
 		(uuid "54ed0b0d-1d2b-421b-a47e-d2f074fa4f6a")
 	)
-	(label "SPI.DIN"
-		(at 247.65 129.54 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "5fb280c0-6031-4442-82fe-e340b9f3104c")
-	)
-	(label "I2C.SDA"
-		(at 247.65 74.93 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "600a2414-24e7-4695-95ff-89a0c5999cbc")
-	)
 	(label "VDD"
 		(at 212.09 118.11 0)
 		(fields_autoplaced yes)
@@ -1736,17 +1446,6 @@
 			(justify right bottom)
 		)
 		(uuid "63ceeb59-992b-4e6c-a7f5-8eba6eb42da9")
-	)
-	(label "VDD"
-		(at 247.65 124.46 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "674d97be-25d4-4a8d-8fa3-873b346e4000")
 	)
 	(label "VDC_EX"
 		(at 57.15 29.21 180)
@@ -1781,17 +1480,6 @@
 		)
 		(uuid "6ee2c2a6-7958-4f32-b224-181d27306f4d")
 	)
-	(label "GND"
-		(at 247.65 134.62 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "710ec596-e631-4384-b48d-15f1f8d988ba")
-	)
 	(label "VDD"
 		(at 168.91 60.96 180)
 		(fields_autoplaced yes)
@@ -1824,28 +1512,6 @@
 			(justify right bottom)
 		)
 		(uuid "8620e635-a5c3-420c-bdfe-86932df85eec")
-	)
-	(label "SPI.SCK"
-		(at 247.65 127 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "8826cebc-320e-4537-8a14-97d6fb7341b7")
-	)
-	(label "GND"
-		(at 247.65 77.47 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "92bb46d2-51aa-4e38-bc3b-83be6eb36e6c")
 	)
 	(label "VDD"
 		(at 133.35 55.88 0)
@@ -1901,28 +1567,6 @@
 			(justify left bottom)
 		)
 		(uuid "bb952bae-db37-4477-8c85-d48b5148adf1")
-	)
-	(label "I2C.SCL"
-		(at 247.65 72.39 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "be302403-e96d-486d-9cff-cad7578e20af")
-	)
-	(label "VDD"
-		(at 247.65 69.85 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "ca20b725-1cdb-443e-8442-694e81297416")
 	)
 	(label "VDC_BAT"
 		(at 111.76 53.34 180)
@@ -2180,161 +1824,6 @@
 			(project "holiday-widget"
 				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b"
 					(reference "J5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x04")
-		(at 252.73 72.39 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "5a8062db-20ba-4213-ac4c-c20ca8338ed5")
-		(property "Reference" "J1"
-			(at 255.27 72.3899 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "I2C"
-			(at 255.27 74.9299 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_1x04_P1.27mm_Vertical"
-			(at 252.73 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 252.73 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 252.73 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "cd81456a-fb41-4e93-9301-375b80c1b586")
-		)
-		(pin "2"
-			(uuid "edead739-ea2c-4742-83e0-2380a2792a9d")
-		)
-		(pin "3"
-			(uuid "0fa878ff-a941-4ab2-bf29-0cc56d5f30ec")
-		)
-		(pin "4"
-			(uuid "827e0c63-55dd-40fb-a8a9-789e109a421c")
-		)
-		(instances
-			(project "holiday-widget"
-				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b"
-					(reference "J1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x05")
-		(at 252.73 129.54 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6b256b4f-f294-44cb-bf85-ede90b279416")
-		(property "Reference" "J3"
-			(at 255.27 128.2699 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "SPI"
-			(at 255.27 130.8099 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_1x05_P1.27mm_Vertical"
-			(at 252.73 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 252.73 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x05, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 252.73 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "b3348908-7030-4f74-aeb9-55ed88263674")
-		)
-		(pin "3"
-			(uuid "5a8ea68e-3fb8-4618-852d-90d132107326")
-		)
-		(pin "4"
-			(uuid "6541eae5-46f0-4ea0-87f6-ed8bf5a62fc4")
-		)
-		(pin "5"
-			(uuid "1e8c92e0-8cb7-4311-b1ce-9a84ebc666eb")
-		)
-		(pin "1"
-			(uuid "f09b0b34-d119-48c9-9b43-355040876317")
-		)
-		(instances
-			(project "holiday-widget"
-				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b"
-					(reference "J3")
 					(unit 1)
 				)
 			)
@@ -2613,16 +2102,6 @@
 			)
 			(uuid "50766db3-3f9f-4603-9e8d-05760f3badb9")
 		)
-		(pin "GPIO[0..7]" bidirectional
-			(at 85.09 100.33 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-			(uuid "8421ca8c-0d40-4b2f-8dc6-7925d49732fd")
-		)
 		(pin "AUDIO_EN" input
 			(at 85.09 115.57 0)
 			(effects
@@ -2829,16 +2308,6 @@
 			)
 			(uuid "403bb11b-fadc-4838-a935-53b5ba4f4102")
 		)
-		(pin "SPI{SPI}" bidirectional
-			(at 156.21 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-			(uuid "76e24f23-a561-4eb0-b771-216e02a97c38")
-		)
 		(pin "UART{UART}" bidirectional
 			(at 156.21 104.14 0)
 			(effects
@@ -2858,16 +2327,6 @@
 				(justify right)
 			)
 			(uuid "d2685c90-6517-4a96-ab5c-684dadd0d268")
-		)
-		(pin "GPIO[0..7]" bidirectional
-			(at 110.49 100.33 180)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-			(uuid "ef3938a0-ba1f-4d35-9eab-0b7945539053")
 		)
 		(pin "STAT_LED[0..3]" output
 			(at 110.49 105.41 180)
