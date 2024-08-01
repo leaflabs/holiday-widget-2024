@@ -902,9 +902,19 @@
 		)
 		(uuid "0c7a80cd-9d28-43d8-8155-1ec20ad7ba45")
 	)
+	(wire
+		(pts
+			(xy 175.26 109.22) (xy 175.26 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "10ac2e86-e2c9-4cd7-87c0-d55a584edfbd")
+	)
 	(bus
 		(pts
-			(xy 156.21 104.14) (xy 158.75 104.14)
+			(xy 156.21 100.33) (xy 158.75 100.33)
 		)
 		(stroke
 			(width 0)
@@ -964,6 +974,26 @@
 	)
 	(wire
 		(pts
+			(xy 156.21 116.84) (xy 161.29 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f77d1ae-4ee9-4e6d-8ec6-dc16bf67fbc7")
+	)
+	(wire
+		(pts
+			(xy 171.45 111.76) (xy 171.45 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3fdf2ea3-10e5-4a5e-bf42-f84c3f0a15b9")
+	)
+	(wire
+		(pts
 			(xy 106.68 92.71) (xy 110.49 92.71)
 		)
 		(stroke
@@ -984,23 +1014,23 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 116.84) (xy 171.45 116.84)
+			(xy 161.29 116.84) (xy 161.29 128.27)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "4433294b-3ab7-4a18-bdb3-cd4f701925b7")
+		(uuid "43adb4ab-565c-46f7-816b-84d45b3152a1")
 	)
 	(wire
 		(pts
-			(xy 171.45 130.81) (xy 180.34 130.81)
+			(xy 161.29 128.27) (xy 180.34 128.27)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "558b737d-6b90-4a86-9c58-d8dc56292c43")
+		(uuid "4c90f81d-c328-4ffc-98f7-c18a06b32100")
 	)
 	(wire
 		(pts
@@ -1021,6 +1051,16 @@
 			(type default)
 		)
 		(uuid "5abdc2e4-cad1-45ba-91f2-daa3412da659")
+	)
+	(wire
+		(pts
+			(xy 171.45 116.84) (xy 184.15 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5e26cbf4-b266-45ec-91c2-0c0bcdc2348f")
 	)
 	(wire
 		(pts
@@ -1074,7 +1114,7 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 130.81) (xy 180.34 135.89)
+			(xy 180.34 128.27) (xy 180.34 135.89)
 		)
 		(stroke
 			(width 0)
@@ -1114,7 +1154,7 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 114.3) (xy 184.15 114.3)
+			(xy 156.21 109.22) (xy 175.26 109.22)
 		)
 		(stroke
 			(width 0)
@@ -1184,16 +1224,6 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 116.84) (xy 171.45 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8a806f97-3675-4005-b5ea-a3270e812544")
-	)
-	(wire
-		(pts
 			(xy 106.68 90.17) (xy 110.49 90.17)
 		)
 		(stroke
@@ -1214,6 +1244,16 @@
 	)
 	(wire
 		(pts
+			(xy 156.21 111.76) (xy 171.45 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9cefc843-1c0e-4b9b-9601-6757410794f2")
+	)
+	(wire
+		(pts
 			(xy 156.21 92.71) (xy 198.12 92.71)
 		)
 		(stroke
@@ -1221,6 +1261,16 @@
 			(type default)
 		)
 		(uuid "a0727052-a725-4e44-b3eb-f153bbb6ceb5")
+	)
+	(wire
+		(pts
+			(xy 175.26 114.3) (xy 184.15 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a0da3da4-3dfb-4472-a3c7-93180e712f36")
 	)
 	(wire
 		(pts
@@ -1254,13 +1304,23 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 111.76) (xy 184.15 111.76)
+			(xy 156.21 106.68) (xy 179.07 106.68)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "b4079459-f38d-48ca-a5ab-6aec3caea8eb")
+	)
+	(wire
+		(pts
+			(xy 179.07 111.76) (xy 184.15 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b76dd6ad-cb67-4b80-9e02-0751bef414d6")
 	)
 	(wire
 		(pts
@@ -1304,7 +1364,7 @@
 	)
 	(bus
 		(pts
-			(xy 181.61 118.11) (xy 184.15 118.11)
+			(xy 181.61 119.38) (xy 184.15 119.38)
 		)
 		(stroke
 			(width 0)
@@ -1321,6 +1381,16 @@
 			(type default)
 		)
 		(uuid "d42baae9-3b82-4e57-b5a8-5ff5c7908a92")
+	)
+	(wire
+		(pts
+			(xy 179.07 106.68) (xy 179.07 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dbc12389-8fa2-4e16-99d3-e6b8cb0a148e")
 	)
 	(wire
 		(pts
@@ -1364,7 +1434,7 @@
 	)
 	(bus
 		(pts
-			(xy 156.21 106.68) (xy 158.75 106.68)
+			(xy 156.21 102.87) (xy 158.75 102.87)
 		)
 		(stroke
 			(width 0)
@@ -1393,7 +1463,7 @@
 		(uuid "d41980d2-29f5-4f64-bd2b-8a13dd698628")
 	)
 	(label "I2C{I2C}"
-		(at 158.75 106.68 0)
+		(at 158.75 102.87 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1437,7 +1507,7 @@
 		(uuid "63cdece9-ffc0-408a-8b9b-072dac931ce6")
 	)
 	(label "I2C{I2C}"
-		(at 181.61 118.11 180)
+		(at 181.61 119.38 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1558,7 +1628,7 @@
 		(uuid "ab8ddcdc-1331-4665-a289-d7a48dbff0c5")
 	)
 	(label "UART{UART}"
-		(at 158.75 104.14 0)
+		(at 158.75 100.33 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2309,7 +2379,7 @@
 			(uuid "403bb11b-fadc-4838-a935-53b5ba4f4102")
 		)
 		(pin "UART{UART}" bidirectional
-			(at 156.21 104.14 0)
+			(at 156.21 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2319,7 +2389,7 @@
 			(uuid "003167e5-4ad8-4002-87d8-529119a583cd")
 		)
 		(pin "I2C{I2C}" bidirectional
-			(at 156.21 106.68 0)
+			(at 156.21 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2349,7 +2419,7 @@
 			(uuid "2f0a750c-fff0-49e0-851d-c2f7db9e3768")
 		)
 		(pin "VCNL4020_INT" input
-			(at 156.21 111.76 0)
+			(at 156.21 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2357,16 +2427,6 @@
 				(justify right)
 			)
 			(uuid "8fe43dc3-53f8-4c7a-a9ce-2146f1a95ee8")
-		)
-		(pin "LIS3DH_INT" input
-			(at 156.21 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-			(uuid "22a69f3f-6fa1-4b07-9f7b-9158c28a2d2d")
 		)
 		(pin "GND" input
 			(at 110.49 92.71 180)
@@ -2407,6 +2467,26 @@
 				(justify right)
 			)
 			(uuid "323c56a5-8321-4b96-9c0e-9cb5314a5532")
+		)
+		(pin "IMU_INT1" input
+			(at 156.21 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "daa0c1a5-fa2f-4ace-9df8-c91ab0c24b5e")
+		)
+		(pin "IMU_INT2" input
+			(at 156.21 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+			(uuid "20bde80c-198b-440a-8ef2-4486a724b3cc")
 		)
 		(instances
 			(project "holiday-widget"
@@ -2457,7 +2537,7 @@
 			(uuid "7dce0f4e-8da9-4ae5-90ed-04b981408786")
 		)
 		(pin "I2C{I2C}" bidirectional
-			(at 184.15 118.11 180)
+			(at 184.15 119.38 180)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2475,16 +2555,6 @@
 				(justify left)
 			)
 			(uuid "745a3ace-638d-4560-82fe-4c320f5a3d3e")
-		)
-		(pin "LIS3DH_INT" output
-			(at 184.15 114.3 180)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-			(uuid "b9159e1a-1640-4d22-9820-d58604813648")
 		)
 		(pin "VDD" input
 			(at 208.28 118.11 0)
@@ -2505,6 +2575,26 @@
 				(justify right)
 			)
 			(uuid "a9e17ca7-25fc-4653-84d5-552fcf4bf778")
+		)
+		(pin "IMU_INT1" output
+			(at 184.15 114.3 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "9928339a-21d8-4475-9eea-5d5c468d4b3c")
+		)
+		(pin "IMU_INT2" output
+			(at 184.15 116.84 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "4674a5ed-475f-424e-bced-906b9c2bee0c")
 		)
 		(instances
 			(project "holiday-widget"

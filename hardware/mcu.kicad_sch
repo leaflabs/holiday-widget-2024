@@ -2144,10 +2144,6 @@
 		(uuid "50f962e2-c00b-42b1-be6a-7d35671605c0")
 	)
 	(no_connect
-		(at 157.48 63.5)
-		(uuid "5b7bd3ef-1a71-4f6d-8f15-5f6e701a361c")
-	)
-	(no_connect
 		(at 157.48 71.12)
 		(uuid "7df5ae67-b118-4b0d-ae08-ad87b790315a")
 	)
@@ -2624,6 +2620,16 @@
 			(type default)
 		)
 		(uuid "283a86b3-12e7-43b8-9778-a52b7169ee31")
+	)
+	(wire
+		(pts
+			(xy 157.48 63.5) (xy 171.45 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "299375b1-99ef-455d-86f1-7a939b6e1a94")
 	)
 	(wire
 		(pts
@@ -4818,7 +4824,7 @@
 		)
 		(uuid "0a3a486c-72a0-41d3-bf50-80833e3cde93")
 	)
-	(hierarchical_label "LIS3DH_INT"
+	(hierarchical_label "IMU_INT1"
 		(shape input)
 		(at 171.45 60.96 0)
 		(fields_autoplaced yes)
@@ -4889,6 +4895,18 @@
 			(justify left)
 		)
 		(uuid "7eec1b6b-e3ab-49ed-a42d-7ee97993267c")
+	)
+	(hierarchical_label "IMU_INT2"
+		(shape input)
+		(at 171.45 63.5 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "84469fab-94aa-4b10-a998-3b7a7c08d636")
 	)
 	(hierarchical_label "STAT_LED[0..1]"
 		(shape output)
