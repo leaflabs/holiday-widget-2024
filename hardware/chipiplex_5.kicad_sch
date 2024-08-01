@@ -1,0 +1,3930 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "c40a7f69-5c90-4153-bed3-4111854dc50b")
+	(paper "A4")
+	(title_block
+		(title "Holiday Widget")
+		(date "2024-05-15")
+		(rev "1.0")
+	)
+	(lib_symbols
+		(symbol "Device:LED"
+			(pin_numbers hide)
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LED"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Light emitting diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "LED diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "LED_0_1"
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "LED_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Device:R"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Transistor_BJT:MMBT3906"
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at 5.08 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "MMBT3906"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+				(at 5.08 -1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/pzt3906-d.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Description" "-0.2A Ic, -40V Vce, Small Signal PNP Transistor, SOT-23"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "PNP Transistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SOT?23*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MMBT3906_0_1"
+				(polyline
+					(pts
+						(xy 0.635 0.635) (xy 2.54 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.635 -0.635) (xy 2.54 -2.54) (xy 2.54 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.635 1.905) (xy 0.635 -1.905) (xy 0.635 -1.905)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.286 -1.778) (xy 1.778 -2.286) (xy 1.27 -1.27) (xy 2.286 -1.778) (xy 2.286 -1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 1.27 0)
+					(radius 2.8194)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "MMBT3906_1_1"
+				(pin input line
+					(at -5.08 0 0)
+					(length 5.715)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "E"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 5.08 270)
+					(length 2.54)
+					(name "C"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(junction
+		(at 246.38 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "40b5c39b-e82c-4cdc-8434-d5de0484ff26")
+	)
+	(junction
+		(at 254 48.26)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4c71b3fb-9196-4c21-ba9b-a455f24b0138")
+	)
+	(junction
+		(at 48.26 48.26)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5c1f2528-62cb-4665-aecd-569f8781d10a")
+	)
+	(junction
+		(at 146.05 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "762baa1c-e7c0-403c-99e9-c0f75bf4ec5b")
+	)
+	(junction
+		(at 40.64 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "79957bff-e95d-47e4-9e28-03ce97796e5c")
+	)
+	(junction
+		(at 91.44 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a5937ade-cbed-4ade-a5c5-a88ce5a14bd3")
+	)
+	(junction
+		(at 196.85 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a6569e02-fdde-4735-a18c-e962f5e77858")
+	)
+	(junction
+		(at 153.67 48.26)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a740c283-9047-4647-b307-0c675cc85612")
+	)
+	(junction
+		(at 204.47 48.26)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "da095f02-b106-4591-9270-1ed329915cb0")
+	)
+	(junction
+		(at 99.06 48.26)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f7279358-2b2c-437a-8656-d4929d318880")
+	)
+	(wire
+		(pts
+			(xy 26.67 146.05) (xy 29.21 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "07f13e60-f4a0-4730-9183-1d2032aff9c8")
+	)
+	(wire
+		(pts
+			(xy 153.67 63.5) (xy 153.67 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "169209a4-6aae-4a0f-90e8-86d46eed8e22")
+	)
+	(wire
+		(pts
+			(xy 48.26 48.26) (xy 53.34 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1af2c008-21a9-4ef9-9b4d-90db7297d6ca")
+	)
+	(wire
+		(pts
+			(xy 204.47 63.5) (xy 204.47 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1afa1b6e-41cc-4979-967f-e5c2ebe9ba0e")
+	)
+	(wire
+		(pts
+			(xy 146.05 55.88) (xy 146.05 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "345beab3-cacb-43cc-bf29-cb367e32dbf1")
+	)
+	(wire
+		(pts
+			(xy 196.85 48.26) (xy 204.47 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "347ba180-bf8e-433c-ae82-e6b13277f1f7")
+	)
+	(wire
+		(pts
+			(xy 99.06 48.26) (xy 99.06 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f905199-7720-43bb-9193-68e09e6e4279")
+	)
+	(wire
+		(pts
+			(xy 40.64 55.88) (xy 40.64 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "486d59f0-27fb-4f8d-bcea-9a407d129a18")
+	)
+	(wire
+		(pts
+			(xy 153.67 66.04) (xy 149.86 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b582001-1060-4fc2-a488-cf7d1356b2f7")
+	)
+	(wire
+		(pts
+			(xy 48.26 48.26) (xy 48.26 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e96cc4b-b119-46df-8a0e-67e08e6cef24")
+	)
+	(wire
+		(pts
+			(xy 246.38 55.88) (xy 246.38 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "51637eac-86e9-417f-ab0b-a8450adf0dff")
+	)
+	(wire
+		(pts
+			(xy 204.47 48.26) (xy 204.47 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54064ad5-64b4-444a-b8ce-8e6f63502c7b")
+	)
+	(wire
+		(pts
+			(xy 40.64 48.26) (xy 48.26 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5475a77e-3835-4217-8350-5f1ded9d1107")
+	)
+	(wire
+		(pts
+			(xy 246.38 48.26) (xy 254 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "582d9a0c-38bb-49a8-865b-7aaef5359ec5")
+	)
+	(wire
+		(pts
+			(xy 254 48.26) (xy 259.08 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "592984e7-5f5c-42eb-8ee8-fd1d2876d057")
+	)
+	(wire
+		(pts
+			(xy 254 48.26) (xy 254 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5c1c9f5d-2a67-4f89-b87b-130f64081bbb")
+	)
+	(wire
+		(pts
+			(xy 34.29 58.42) (xy 40.64 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "677cc49a-50eb-463d-bafb-32f43b00076c")
+	)
+	(wire
+		(pts
+			(xy 91.44 48.26) (xy 99.06 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "759cc039-0b20-4c8c-adcc-69948efad35d")
+	)
+	(wire
+		(pts
+			(xy 153.67 48.26) (xy 153.67 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8756286e-2986-4f08-a72a-976c74a2259d")
+	)
+	(wire
+		(pts
+			(xy 139.7 58.42) (xy 146.05 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8885ce65-ec3d-400a-ad8a-083c1a3d22c3")
+	)
+	(wire
+		(pts
+			(xy 254 63.5) (xy 254 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a354ad0d-f32d-4d80-aa4e-ace3986b31da")
+	)
+	(wire
+		(pts
+			(xy 254 66.04) (xy 250.19 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "af7249fd-5d9b-4f27-b02b-bdca7e9f4c24")
+	)
+	(wire
+		(pts
+			(xy 99.06 66.04) (xy 95.25 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c45ff175-f83b-4a50-af1d-3bfbe65bde74")
+	)
+	(wire
+		(pts
+			(xy 85.09 58.42) (xy 91.44 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cceba9b1-59cd-4e84-9080-8530795487a5")
+	)
+	(wire
+		(pts
+			(xy 153.67 48.26) (xy 158.75 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cdc80242-1f6c-4fd3-ad64-17c3c373a65f")
+	)
+	(wire
+		(pts
+			(xy 190.5 58.42) (xy 196.85 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d08f06a8-4944-4af9-b5a8-a5067a97b35a")
+	)
+	(wire
+		(pts
+			(xy 48.26 66.04) (xy 44.45 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e22dd767-5356-4955-99fe-c59a76e52a15")
+	)
+	(wire
+		(pts
+			(xy 146.05 48.26) (xy 153.67 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e3d93e8a-b09d-4581-b14c-881fd60e529b")
+	)
+	(wire
+		(pts
+			(xy 99.06 63.5) (xy 99.06 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e3e8ffb8-2c2a-4992-af37-0562ba4bb18e")
+	)
+	(wire
+		(pts
+			(xy 99.06 48.26) (xy 104.14 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eacf0d97-9bb9-419c-84eb-db65f6fa2141")
+	)
+	(wire
+		(pts
+			(xy 204.47 48.26) (xy 209.55 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0a4fd19-841c-4f7f-9f11-f2483b8f2e54")
+	)
+	(wire
+		(pts
+			(xy 91.44 55.88) (xy 91.44 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f1c83664-112c-4785-a002-b2a1fd64380e")
+	)
+	(wire
+		(pts
+			(xy 240.03 58.42) (xy 246.38 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f225efe5-c1d4-4a2b-8fbd-348b2032e3a8")
+	)
+	(wire
+		(pts
+			(xy 196.85 55.88) (xy 196.85 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f38c53c7-6b3d-4bdf-ad3c-0682dffa4312")
+	)
+	(wire
+		(pts
+			(xy 48.26 63.5) (xy 48.26 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f6c9155d-cf96-475b-864f-afeb82c6aa5f")
+	)
+	(wire
+		(pts
+			(xy 204.47 66.04) (xy 200.66 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fc1238bc-a8b5-42a4-aeb6-833bcd822117")
+	)
+	(text "Chipiplexing circuit source: \nhttps://www.edn.com/chipiplexing-efficiently-drives-multiple-leds-using-few-microcontroller-ports/"
+		(exclude_from_sim no)
+		(at 93.218 181.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "0708b378-f15f-4576-a3bb-f277ab52f87b")
+	)
+	(text "PNP VBE(min)=0.65V, and as long as the LEDs chosen have a diode drop 1.9V or\nhigher, the resistor will limit current out of each pin to 15mA (which is the \nmax allowed). May want to increase resistance for safety. Will use larg(er)\npackage resistors on control pins for adjustment if desired.\n"
+		(exclude_from_sim no)
+		(at 62.992 26.924 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "51238f0e-5b24-464d-8ef0-b5fbeed954b3")
+	)
+	(label "GND"
+		(at 200.66 66.04 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "03f5e8c9-0d78-404d-b046-e1cdc802d160")
+	)
+	(label "CTRL2"
+		(at 203.2 106.68 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "05195186-539a-4999-be5f-9fb2871d6dac")
+	)
+	(label "CTRL0"
+		(at 97.79 78.74 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "095a8e22-1f0d-4666-b88c-a4111689b50d")
+	)
+	(label "CTRL0"
+		(at 203.2 78.74 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0b1f3059-773f-435e-9073-cd58a6760f21")
+	)
+	(label "CTRL0"
+		(at 46.99 71.12 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0d4700f1-2d2c-4c30-9a97-32477a2b7b99")
+	)
+	(label "CTRL3"
+		(at 152.4 105.41 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1b063fb5-3cb0-404e-b2a0-16d8729b65ed")
+	)
+	(label "CTRL4"
+		(at 46.99 120.65 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2271ee78-8e5f-477f-9b40-53681cd5c8a4")
+	)
+	(label "GND"
+		(at 250.19 66.04 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "25a7e944-0b12-4bc3-baaf-7a4b9e41918a")
+	)
+	(label "CTRL1"
+		(at 97.79 113.03 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "30d7388d-d54f-499f-9643-c841af9bbc7d")
+	)
+	(label "GND"
+		(at 44.45 66.04 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "381963c8-c212-4560-b8ff-8568af987170")
+	)
+	(label "GND"
+		(at 149.86 66.04 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3ba45eb5-8a0d-4651-8517-8a26c3e966bc")
+	)
+	(label "CTRL3"
+		(at 252.73 120.65 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3cce426c-ae3e-406a-8bd9-e9c0c00234d8")
+	)
+	(label "CTRL0"
+		(at 46.99 99.06 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3d8850c9-ba22-41cd-b5fc-7ff4e3da99bc")
+	)
+	(label "CTRL2"
+		(at 152.4 83.82 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4a81f61a-595b-430b-b287-8eb2da286667")
+	)
+	(label "CTRL4"
+		(at 203.2 120.65 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4f7a8623-0244-4be9-bb95-750af555010d")
+	)
+	(label "CTRL0"
+		(at 46.99 85.09 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "616394ca-f82f-46da-b142-2fe8c3b78a5d")
+	)
+	(label "CTRL4"
+		(at 252.73 85.09 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "61e7791c-df0c-442d-bcc5-de3557d326a3")
+	)
+	(label "CTRL1"
+		(at 46.99 78.74 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "672e268d-a4a4-4ec1-a9c5-6caba9c5b286")
+	)
+	(label "CTRL4"
+		(at 252.73 71.12 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "682e9997-3dbf-418e-871c-3c0dee7af78d")
+	)
+	(label "GND"
+		(at 29.21 146.05 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6ca9ae38-fbce-4119-8559-154d5244e907")
+	)
+	(label "CTRL0"
+		(at 46.99 113.03 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6cac7b1a-44be-46bc-b681-dbeb2e0408bd")
+	)
+	(label "CTRL1"
+		(at 252.73 92.71 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6d3b474e-9737-4b5c-800c-5b044c354ae0")
+	)
+	(label "CTRL2"
+		(at 152.4 69.85 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6e6943e8-c1dd-4b68-9505-59d00581d05c")
+	)
+	(label "CTRL1"
+		(at 152.4 91.44 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "83c019b8-a555-4466-9460-dc81eb2e9178")
+	)
+	(label "GND"
+		(at 95.25 66.04 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8ca603b0-8266-4904-b13c-3785f5091a89")
+	)
+	(label "CTRL0"
+		(at 252.73 78.74 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "91ea5557-ba01-4225-ad38-2840869b8e0c")
+	)
+	(label "CTRL4"
+		(at 252.73 99.06 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "96a0096a-e937-4588-920f-df02d787fe00")
+	)
+	(label "CTRL0"
+		(at 53.34 48.26 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9c0740c8-e2f2-4f89-a11e-24d56f9685ed")
+	)
+	(label "CTRL0"
+		(at 152.4 77.47 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9c741d3f-5cf0-41a7-97e2-425f947eae00")
+	)
+	(label "CTRL3"
+		(at 203.2 85.09 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9d3432fe-d0fc-47dd-9d4c-dd804b734728")
+	)
+	(label "CTRL2"
+		(at 158.75 48.26 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a5af424f-3a91-49ac-a255-6b5ab0db2086")
+	)
+	(label "CTRL3"
+		(at 46.99 106.68 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b4777e54-44df-478d-9759-978d5ffca019")
+	)
+	(label "CTRL3"
+		(at 209.55 48.26 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b9525267-4223-4aec-834b-3cef500587bb")
+	)
+	(label "CTRL1"
+		(at 104.14 48.26 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ba679635-c19c-476d-b89e-f78e0b582f83")
+	)
+	(label "CTRL3"
+		(at 203.2 113.03 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "beac267f-ceec-4154-9812-c719b292272f")
+	)
+	(label "CTRL1"
+		(at 97.79 85.09 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d023c4f9-b6dc-465d-ab25-659348915a43")
+	)
+	(label "CTRL1"
+		(at 203.2 92.71 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d616b154-e6c9-4008-b765-5d181a3f708e")
+	)
+	(label "CTRL4"
+		(at 152.4 119.38 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d678dda0-6721-45b8-aa65-87bc757b0320")
+	)
+	(label "CTRL1"
+		(at 97.79 71.12 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d8067c49-cd40-4fa7-a2d4-b6980f468f9d")
+	)
+	(label "CTRL2"
+		(at 152.4 97.79 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "df1b9ec4-ccd7-4172-a8e7-0c390e6f3942")
+	)
+	(label "CTRL4"
+		(at 252.73 113.03 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "dfaa68b0-9acd-43ba-9497-f0fcbbe8e646")
+	)
+	(label "CTRL4"
+		(at 259.08 48.26 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e02d5dac-c206-4739-8e1b-e43624619963")
+	)
+	(label "CTRL2"
+		(at 252.73 106.68 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e15e1dcd-e504-4a7c-9a02-f323ea344bb8")
+	)
+	(label "CTRL2"
+		(at 46.99 92.71 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e58ea8c8-3dd7-42e7-a623-f28a76141d2a")
+	)
+	(label "CTRL1"
+		(at 97.79 99.06 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e7a60a99-62c8-48d5-a51a-3ec9af533e76")
+	)
+	(label "CTRL3"
+		(at 97.79 106.68 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ec6ea8d2-e540-45f1-960b-b8f4dd943833")
+	)
+	(label "CTRL4"
+		(at 97.79 120.65 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "efb8dac7-7335-4362-8ac3-ec21a8c85efc")
+	)
+	(label "CTRL2"
+		(at 97.79 92.71 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f0226958-486f-40f8-8ced-b10b2b98427d")
+	)
+	(label "CTRL3"
+		(at 203.2 71.12 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f9a51007-7610-4181-a55d-2b68cca00818")
+	)
+	(label "CTRL2"
+		(at 152.4 111.76 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fa75c016-47d3-4f94-a297-6c00334cce65")
+	)
+	(label "CTRL3"
+		(at 203.2 99.06 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fd8fd38a-8fff-4a0b-9da7-6a8d9b90c28c")
+	)
+	(hierarchical_label "LED_CTRL_PIN_2"
+		(shape input)
+		(at 139.7 58.42 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1671c1bd-b2d4-45aa-86aa-82dbb49908c9")
+	)
+	(hierarchical_label "LED_CTRL_PIN_0"
+		(shape input)
+		(at 34.29 58.42 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "274e811d-3665-4d8f-8223-777045bae89d")
+	)
+	(hierarchical_label "LED_CTRL_PIN_4"
+		(shape input)
+		(at 240.03 58.42 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2c2e5553-70b0-4fb6-bc42-2be5a1467abc")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 26.67 146.05 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9537b4a4-1aa5-4c06-b7a9-a866b3ed2403")
+	)
+	(hierarchical_label "LED_CTRL_PIN_3"
+		(shape input)
+		(at 190.5 58.42 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c6779ca5-28e4-4acf-aee6-003cfbbd8155")
+	)
+	(hierarchical_label "LED_CTRL_PIN_1"
+		(shape input)
+		(at 85.09 58.42 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "de32ac35-f4df-4813-84c8-8d5be5a7e90b")
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 97.79 102.87 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "136ed8fc-4209-4632-b804-06dfb44f42d5")
+		(property "Reference" "D34"
+			(at 101.6 103.1874 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 101.6 105.7274 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 97.79 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.79 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 97.79 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "062c66a0-82d9-4b55-b0cf-3ef1ef0db781")
+		)
+		(pin "2"
+			(uuid "4b30c9fd-a3a6-494f-a819-610b2945da02")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D34")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D19")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 203.2 88.9 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1819e022-331f-477f-8e94-68795d32a95f")
+		(property "Reference" "D39"
+			(at 207.01 89.2174 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 207.01 91.7574 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 203.2 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 203.2 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 203.2 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4b8ef9f7-e433-47c6-8aec-ff12566adf6c")
+		)
+		(pin "2"
+			(uuid "78a8a427-a351-4493-87e8-096911fc08b3")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D39")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D24")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 203.2 74.93 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "20aac473-f6a4-4128-982c-5287b984c37f")
+		(property "Reference" "D38"
+			(at 207.01 75.2474 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 207.01 77.7874 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 203.2 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 203.2 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 203.2 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ce8707c8-6c04-4907-a220-351c11b5007f")
+		)
+		(pin "2"
+			(uuid "31f20a7a-36db-4bd8-9112-2d0b51e1385e")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D38")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D23")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D26")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:MMBT3906")
+		(at 151.13 58.42 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "28067dc2-4d61-4388-a161-4e61797cface")
+		(property "Reference" "Q11"
+			(at 156.21 57.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MMBT3906"
+			(at 156.21 59.6899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 156.21 56.515 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/pzt3906-d.pdf"
+			(at 151.13 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "-0.2A Ic, -40V Vce, Small Signal PNP Transistor, SOT-23"
+			(at 151.13 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2367eea7-1f45-49fe-ba72-cbe4a4fd1e20")
+		)
+		(pin "3"
+			(uuid "ee1667ca-23cc-4914-8fb5-25355e537d1b")
+		)
+		(pin "2"
+			(uuid "e0d40e45-3f0f-4e03-a902-373ef9325559")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "Q11")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "Q3")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "Q7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 97.79 116.84 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2e1c8fc7-14bc-4cfb-a68e-01cfdc185d42")
+		(property "Reference" "D70"
+			(at 101.6 117.1574 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 101.6 119.6974 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 97.79 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.79 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 97.79 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d663ff37-c846-4cfb-92b4-de4151aa587c")
+		)
+		(pin "2"
+			(uuid "c239bf89-4505-44ce-baec-4813f3c8abea")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D70")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D71")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D72")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 203.2 102.87 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4104b070-21fc-4435-a4c0-787aa41853e2")
+		(property "Reference" "D40"
+			(at 207.01 103.1874 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 207.01 105.7274 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 203.2 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 203.2 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 203.2 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7018f90f-c061-4e41-8099-668b18e6730e")
+		)
+		(pin "2"
+			(uuid "035a90f9-4883-4456-90c8-942eb261fa20")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D40")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D25")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D28")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 46.99 74.93 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "435a2d77-1045-4446-bac3-458e6b8348d0")
+		(property "Reference" "D29"
+			(at 50.8 75.2474 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 50.8 77.7874 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 46.99 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 46.99 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 46.99 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "28155a42-beb9-4ba1-af77-3b03465d24d8")
+		)
+		(pin "2"
+			(uuid "33319c31-74e5-4a5a-ab48-d0a7392f9136")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D29")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D5")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 97.79 88.9 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4b80a3b8-5dcf-4923-9bb8-c8dc0d514433")
+		(property "Reference" "D33"
+			(at 101.6 89.2174 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 101.6 91.7574 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 97.79 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.79 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 97.79 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "09cae903-26d6-4180-af49-c5e37f8ffb97")
+		)
+		(pin "2"
+			(uuid "2496f6e4-0f5d-4611-b5f5-7c923632ac39")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D33")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D18")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 91.44 52.07 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5118f7f4-0f34-4867-ad8d-5cdd0ab3df32")
+		(property "Reference" "R34"
+			(at 88.9 50.7999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "50"
+			(at 88.9 53.3399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+			(at 89.662 52.07 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 91.44 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 91.44 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "444e0319-3954-4da7-bf31-49a5cafa378c")
+		)
+		(pin "2"
+			(uuid "153b1187-291b-4709-aeb1-52be377ab8fa")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "R34")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "R16")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "R20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 246.38 52.07 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "61264e5a-a1c8-4a20-8ad5-75f2e002a9d6")
+		(property "Reference" "R42"
+			(at 243.84 50.7999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "50"
+			(at 243.84 53.3399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+			(at 244.602 52.07 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 246.38 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 246.38 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f73835a5-4b56-4250-882e-3ffc82de3982")
+		)
+		(pin "2"
+			(uuid "19dd571a-575e-4ef9-a40f-02a1f43da610")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "R42")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "R43")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "R44")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 152.4 73.66 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "628ed485-583d-4b38-b8ad-6a1b1e3fb02c")
+		(property "Reference" "D35"
+			(at 156.21 73.9774 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 156.21 76.5174 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 152.4 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 152.4 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 152.4 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f8f8ccd8-7fd4-4ecd-a2f9-2fdbb3917f76")
+		)
+		(pin "2"
+			(uuid "ac6209fe-84d0-4b87-ae83-1fbab88d47f9")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D35")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D11")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 252.73 102.87 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6358664b-65c8-4609-8e86-1fade333f50f")
+		(property "Reference" "D56"
+			(at 256.54 103.1874 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 256.54 105.7274 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 252.73 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 252.73 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 252.73 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "151db675-d13f-40ee-bd98-af1992cce464")
+		)
+		(pin "2"
+			(uuid "5013e521-d090-46f2-9399-36ffd09f95fd")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D56")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D59")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D62")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 97.79 74.93 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6996d946-4166-4790-a4b1-26c2eebf6e7d")
+		(property "Reference" "D32"
+			(at 101.6 75.2474 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 101.6 77.7874 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 97.79 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.79 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 97.79 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5f5182c8-4227-49c8-b9b5-9bf389c3fc57")
+		)
+		(pin "2"
+			(uuid "b82a619a-2e11-44e5-9438-9017c9b2b9ad")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D32")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D17")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 146.05 52.07 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8a9a6a46-864a-4dff-8133-2bc5663b5f5f")
+		(property "Reference" "R35"
+			(at 143.51 50.7999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "50"
+			(at 143.51 53.3399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+			(at 144.272 52.07 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 146.05 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 146.05 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6ab65fed-e57f-4f6e-b985-1d5cd1a2638a")
+		)
+		(pin "2"
+			(uuid "35fb7a7c-87db-4a57-8e05-a0802d545713")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "R35")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "R17")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "R21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 46.99 102.87 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8bd962aa-d458-49b5-9139-631294e217e4")
+		(property "Reference" "D31"
+			(at 50.8 103.1874 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 50.8 105.7274 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 46.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 46.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 46.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "949533e3-bb11-4acb-9620-4fa8ca082649")
+		)
+		(pin "2"
+			(uuid "46b45926-6d4e-4db4-abc0-6718832a8393")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D31")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D9")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:MMBT3906")
+		(at 96.52 58.42 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8cb1daa3-bf45-4891-aae4-e55941d73ec1")
+		(property "Reference" "Q10"
+			(at 101.6 57.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MMBT3906"
+			(at 101.6 59.6899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 101.6 56.515 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/pzt3906-d.pdf"
+			(at 96.52 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "-0.2A Ic, -40V Vce, Small Signal PNP Transistor, SOT-23"
+			(at 96.52 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0096fea4-0ba6-4c41-b788-881647b341d3")
+		)
+		(pin "3"
+			(uuid "38455afa-22d0-4f5f-9758-4e3776d3f6a0")
+		)
+		(pin "2"
+			(uuid "c73ddfbd-340a-4fbd-9733-56eaf57f2703")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "Q10")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "Q2")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "Q6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 46.99 116.84 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9e2b864a-9209-40ee-b93f-bb74f247e684")
+		(property "Reference" "D66"
+			(at 50.8 117.1574 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 50.8 119.6974 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 46.99 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 46.99 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 46.99 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3000bfa9-5239-4b2b-82e3-81560357cfb0")
+		)
+		(pin "2"
+			(uuid "5076de25-11f5-4ca7-8a9d-8f0c76a0cf53")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D66")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D67")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D68")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 152.4 101.6 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9f2ec8b5-61ee-46d5-b454-1fc31a78af7d")
+		(property "Reference" "D37"
+			(at 156.21 101.9174 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 156.21 104.4574 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 152.4 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 152.4 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 152.4 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5d0d2f36-417e-42e7-914c-6ecc0a2c09bb")
+		)
+		(pin "2"
+			(uuid "bac2863a-5cb1-419f-abec-a92baeeb8ded")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D37")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D13")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 203.2 116.84 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a8dcdfc4-e411-40ca-937e-9f6dfe1ed691")
+		(property "Reference" "D78"
+			(at 207.01 117.1574 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 207.01 119.6974 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 203.2 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 203.2 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 203.2 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1f5d3132-726f-4f71-b9e6-9dbc2c763861")
+		)
+		(pin "2"
+			(uuid "86b1c2f2-fca2-49b1-b810-beb7a218c5dd")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D78")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D79")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D80")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 252.73 74.93 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "afef69e9-2da3-4e2c-82e4-d7eb414667a9")
+		(property "Reference" "D54"
+			(at 256.54 75.2474 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 256.54 77.7874 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 252.73 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 252.73 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 252.73 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d9c2c4a3-19f9-40db-b1b3-b85a71ed16f9")
+		)
+		(pin "2"
+			(uuid "616f284d-366a-44bf-afe8-5fd781077301")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D54")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D57")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D60")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 46.99 88.9 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b18f679d-47fe-46aa-8a42-cd89b7a12ef3")
+		(property "Reference" "D30"
+			(at 50.8 89.2174 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 50.8 91.7574 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 46.99 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 46.99 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 46.99 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "68815935-d584-436c-948a-1cee434938eb")
+		)
+		(pin "2"
+			(uuid "f320beea-61cd-4efb-ba54-3c98358662ca")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D30")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D7")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 152.4 87.63 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bef79046-71c8-40db-bbf1-4750c2b1a223")
+		(property "Reference" "D36"
+			(at 156.21 87.9474 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 156.21 90.4874 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 152.4 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 152.4 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 152.4 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e5bc8ac0-f2fb-4f74-a988-1fa6272ec249")
+		)
+		(pin "2"
+			(uuid "236d96ed-a33b-469f-850e-9e9a9fc66997")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D36")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D12")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 196.85 52.07 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bfc19084-4489-442d-a834-321b57cfbcce")
+		(property "Reference" "R36"
+			(at 194.31 50.7999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "50"
+			(at 194.31 53.3399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+			(at 195.072 52.07 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 196.85 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 196.85 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "943e5b85-a299-453a-a8d7-de1a5c6fc7e0")
+		)
+		(pin "2"
+			(uuid "8f1762d2-dad8-4c22-96ef-6d81b61db82c")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "R36")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "R18")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "R22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:MMBT3906")
+		(at 45.72 58.42 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c0e8ab2e-570d-4502-85fb-d07b04e80509")
+		(property "Reference" "Q9"
+			(at 50.8 57.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MMBT3906"
+			(at 50.8 59.6899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 50.8 56.515 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/pzt3906-d.pdf"
+			(at 45.72 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "-0.2A Ic, -40V Vce, Small Signal PNP Transistor, SOT-23"
+			(at 45.72 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "24845e81-ade1-4f0b-b348-6e2e538b0be6")
+		)
+		(pin "3"
+			(uuid "a4e11c0f-5bf8-4990-8661-c5c2cb7e9f6a")
+		)
+		(pin "2"
+			(uuid "01f1b2e3-49fd-42a5-a743-033db2642d1d")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "Q9")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "Q1")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "Q5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:MMBT3906")
+		(at 251.46 58.42 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c2b39286-d3a6-4b1d-9054-515d5802f7c4")
+		(property "Reference" "Q17"
+			(at 256.54 57.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MMBT3906"
+			(at 256.54 59.6899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 256.54 56.515 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/pzt3906-d.pdf"
+			(at 251.46 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "-0.2A Ic, -40V Vce, Small Signal PNP Transistor, SOT-23"
+			(at 251.46 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c9d8abb7-5ba0-4a13-8523-f57d0cb0b6c7")
+		)
+		(pin "3"
+			(uuid "eeee75c6-1220-4424-8d7d-f347204f2504")
+		)
+		(pin "2"
+			(uuid "38864ec5-0386-4913-ac66-08ce4149775f")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "Q17")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "Q18")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "Q19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 252.73 116.84 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c6aeba4f-095f-4589-ae48-d5c08ef87e88")
+		(property "Reference" "D82"
+			(at 256.54 117.1574 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 256.54 119.6974 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 252.73 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 252.73 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 252.73 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7d8c2f13-1004-40de-b169-96dcf7791c61")
+		)
+		(pin "2"
+			(uuid "1d179b6d-667a-45a9-b5b9-53e4d6ee82d9")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D82")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D83")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D84")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transistor_BJT:MMBT3906")
+		(at 201.93 58.42 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c9343cb8-fcd1-4601-8488-2d5e11cc1c6f")
+		(property "Reference" "Q12"
+			(at 207.01 57.1499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MMBT3906"
+			(at 207.01 59.6899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 207.01 56.515 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/pzt3906-d.pdf"
+			(at 201.93 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "-0.2A Ic, -40V Vce, Small Signal PNP Transistor, SOT-23"
+			(at 201.93 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ed3da6ce-b72a-416e-b550-fd9030bdb748")
+		)
+		(pin "3"
+			(uuid "cd81a2bb-423d-474d-9b5a-ac0795b7eb46")
+		)
+		(pin "2"
+			(uuid "db681d74-6d3f-4e2b-9773-728aac08c8a1")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "Q12")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "Q4")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "Q8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 252.73 88.9 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d184adf9-5577-4b8c-af8a-06b2ce157290")
+		(property "Reference" "D55"
+			(at 256.54 89.2174 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 256.54 91.7574 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 252.73 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 252.73 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 252.73 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "706c53a8-194e-4c27-a573-438417fe3a59")
+		)
+		(pin "2"
+			(uuid "37d96eca-861c-4f3e-9ba1-9756a29aa6fa")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D55")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D58")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D61")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 152.4 115.57 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d22bf39c-d618-49ad-9c02-46f95234c6c8")
+		(property "Reference" "D74"
+			(at 156.21 115.8874 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 156.21 118.4274 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
+			(at 152.4 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 152.4 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 152.4 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "abc7229c-e788-4655-8e63-6a107ea4393a")
+		)
+		(pin "2"
+			(uuid "dfe2a5d1-8170-4e8d-ac6b-928b1bc3d822")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "D74")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "D75")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "D76")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 40.64 52.07 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fa0be8b6-4f6d-4f50-83e2-def7d0009bb0")
+		(property "Reference" "R33"
+			(at 38.1 50.7999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "50"
+			(at 38.1 53.3399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+			(at 38.862 52.07 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 40.64 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 40.64 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9bee292a-2a86-48da-b64f-917b1891be5b")
+		)
+		(pin "2"
+			(uuid "110df3fd-3c2e-4474-9278-9ed608a8af9d")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/00cf998d-e4a1-4a22-8ba8-d5d4d57b1c62"
+					(reference "R33")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/46bf3b19-1647-4409-ae4c-bb996d695482"
+					(reference "R15")
+					(unit 1)
+				)
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/0fdb39f4-f262-4df8-82d6-8f176468da30/a55ea924-f9da-4eb7-9a51-aee60932cddf"
+					(reference "R19")
+					(unit 1)
+				)
+			)
+		)
+	)
+)

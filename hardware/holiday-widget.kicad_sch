@@ -2082,7 +2082,7 @@
 				(hide yes)
 			)
 		)
-		(pin "LED_CTRL[0..7]" input
+		(pin "LED_CTRL[0..13]" input
 			(at 85.09 102.87 0)
 			(effects
 				(font
@@ -2092,7 +2092,7 @@
 			)
 			(uuid "0e8f5d45-d71b-48c1-a8ec-2ce16b319a99")
 		)
-		(pin "STAT_LED[0..3]" input
+		(pin "STAT_LED[0..1]" input
 			(at 85.09 105.41 0)
 			(effects
 				(font
@@ -2298,7 +2298,7 @@
 			)
 			(uuid "58c7bb5a-12dc-4010-bd8f-1cd277e7dc55")
 		)
-		(pin "LED[0..7]" output
+		(pin "LED[0..13]" output
 			(at 110.49 102.87 180)
 			(effects
 				(font
@@ -2328,7 +2328,7 @@
 			)
 			(uuid "d2685c90-6517-4a96-ab5c-684dadd0d268")
 		)
-		(pin "STAT_LED[0..3]" output
+		(pin "STAT_LED[0..1]" output
 			(at 110.49 105.41 180)
 			(effects
 				(font
