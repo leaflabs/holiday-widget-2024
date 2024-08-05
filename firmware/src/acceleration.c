@@ -4,7 +4,20 @@
 #include "system_communication.h"
 #include "uart_logger.h"
 
-static struct lis3dh_context lis3dh_context = {.i2c_context = &i2c1_context};
+extern struct driver_comm acceleration_comm;
+
+static struct lis3dh_context lis3dh_context = {.i2c_context = &i2c1_context,
+                                               .comm = &acceleration_comm};
+
+// Function to save the context data to the communication device for
+// acceleration data
+static void acceleration_update_data(struct driver_comm *comm,
+                                     struct lis3dh_context *context) {
+    comm->results.type = DATA_ACC;
+    comm->results.data.acceleration.x = context->x_acc;
+    comm->results.data.acceleration.y = context->y_acc;
+    comm->results.data.acceleration.z = context->z_acc;
+}
 
 void acceleration_setup(void) {
     static struct lis3dh_config lis3dh_config = {
@@ -107,6 +120,7 @@ void acceleration_setup(void) {
 void acceleration_run(void) {
     struct i2c_request *request = &lis3dh_context.request;
     struct i2c_request *it_request = &lis3dh_context.it_request;
+    struct driver_comm *comm = lis3dh_context.comm;
 
     switch (lis3dh_context.it_state) {
         case LIS3DH_INTERRUPT_CLEAR: {
@@ -123,16 +137,35 @@ void acceleration_run(void) {
                 } break;
 
                 case LIS3DH_READY: {
-                    uart_logger_send("Acceleration: %f %f %f [g]\r\n",
-                                     lis3dh_context.x_acc, lis3dh_context.y_acc,
-                                     lis3dh_context.z_acc);
+                    switch (comm->request.type) {
+                        case REQUEST_TYPE_NONE: {
+                            // Nothing to do so leave
+                        } break;
 
-                    int ret =
-                        lis3dh_driver_request_acceleration(&lis3dh_context);
-                    if (ret < 0)
-                        lis3dh_context.state = LIS3DH_ERROR;
-                    else
-                        lis3dh_context.state = LIS3DH_PENDING;
+                        case REQUEST_TYPE_DATA: {
+                            comm->request.status = REQUEST_STATUS_RECEIVED;
+                            int ret = lis3dh_driver_request_acceleration(
+                                &lis3dh_context);
+                            if (ret < 0)
+                                lis3dh_context.state = LIS3DH_ERROR;
+                            else
+                                lis3dh_context.state = LIS3DH_PENDING;
+
+                        } break;
+
+                        case REQUEST_TYPE_ENTER_LP: {
+                            comm->request.status = REQUEST_STATUS_RECEIVED;
+                            lis3dh_driver_enter_low_power(&lis3dh_context);
+                            comm->request.status = REQUEST_STATUS_FINISHED;
+
+                        } break;
+
+                        case REQUEST_TYPE_EXIT_LP: {
+                            comm->request.status = REQUEST_STATUS_RECEIVED;
+                            lis3dh_driver_exit_low_power(&lis3dh_context);
+                            comm->request.status = REQUEST_STATUS_FINISHED;
+                        } break;
+                    }
                 } break;
 
                 case LIS3DH_PENDING: {
@@ -144,6 +177,9 @@ void acceleration_run(void) {
                         case FUTURE_FINISHED: {
                             lis3dh_driver_process_acceleration(&lis3dh_context);
                             lis3dh_context.state = LIS3DH_READY;
+                            // Update the communication values
+                            comm->request.status = REQUEST_STATUS_FINISHED;
+                            acceleration_update_data(comm, &lis3dh_context);
                         } break;
 
                         case FUTURE_ERROR: {

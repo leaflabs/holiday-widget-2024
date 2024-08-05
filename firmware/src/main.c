@@ -6,6 +6,7 @@
 #include "system_communication.h"
 #include "tones.h"
 #include "utils.h"
+#include "widget_controller.h"
 #include "widget_system.h"
 
 int main(void) {
@@ -24,10 +25,12 @@ int main(void) {
     job_add(&acceleration_run, JOB_RUN_RUN);
     job_add(&ambient_light_run, JOB_RUN_RUN);
 
-    job_add(&led_matrix_loader_run, JOB_RUN_RUN);
-    job_add(&led_matrix_assembler_run, JOB_RUN_RUN);
-    job_add(&led_matrix_drawer_run, JOB_RUN_RUN);
-    job_add(&music_player_run, JOB_RUN_RUN);
+    job_add(&widget_controller_run, JOB_RUN_RUN);
+
+    //    job_add(&led_matrix_loader_run, JOB_RUN_RUN);
+    //    job_add(&led_matrix_assembler_run, JOB_RUN_RUN);
+    //    job_add(&led_matrix_drawer_run, JOB_RUN_RUN);
+    //    job_add(&music_player_run, JOB_RUN_RUN);
 
     while (1) {
         job_state_machine_run();

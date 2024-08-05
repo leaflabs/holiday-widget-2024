@@ -4,8 +4,17 @@
 #include "uart_logger.h"
 #include "vcnl4020_driver.h"
 
-static struct vcnl4020_context vcnl4020_context = {.i2c_context =
-                                                       &i2c1_context};
+extern struct driver_comm ambient_light_comm;
+
+static struct vcnl4020_context vcnl4020_context = {.i2c_context = &i2c1_context,
+                                                   .comm = &ambient_light_comm};
+
+static void ambient_light_update_data(struct driver_comm *comm,
+                                      struct vcnl4020_context *context) {
+    comm->results.type = DATA_ALS;
+    comm->results.data.ambient_light.proximity = context->proximity_cnt;
+    comm->results.data.ambient_light.als = context->als_lux;
+}
 
 void ambient_light_setup(void) {
     const struct vcnl4020_config vcnl4020_config = {
@@ -67,6 +76,7 @@ void ambient_light_setup(void) {
 void ambient_light_run(void) {
     struct i2c_request *request = &vcnl4020_context.request;
     struct i2c_request *it_request = &vcnl4020_context.it_request;
+    struct driver_comm *comm = vcnl4020_context.comm;
 
     // First check if we have an interrupt to process
     switch (vcnl4020_context.it_state) {
@@ -84,16 +94,34 @@ void ambient_light_run(void) {
                 } break;
 
                 case VCNL4020_READY: {
-                    uart_logger_send("Prox: %d [cnt], ALS: %d [lux]\r\n",
-                                     vcnl4020_context.proximity_cnt,
-                                     vcnl4020_context.als_lux);
+                    switch (comm->request.type) {
+                        case REQUEST_TYPE_NONE: {
+                            // Do nothing
+                        } break;
 
-                    int ret =
-                        vcnl4020_driver_request_als_prox(&vcnl4020_context);
-                    if (ret < 0)
-                        vcnl4020_context.state = VCNL4020_ERROR;
-                    else
-                        vcnl4020_context.state = VCNL4020_PENDING;
+                        case REQUEST_TYPE_DATA: {
+                            int ret = vcnl4020_driver_request_als_prox(
+                                &vcnl4020_context);
+                            if (ret < 0)
+                                vcnl4020_context.state = VCNL4020_ERROR;
+                            else
+                                vcnl4020_context.state = VCNL4020_PENDING;
+
+                        } break;
+
+                        case REQUEST_TYPE_ENTER_LP: {
+                            comm->request.status = REQUEST_STATUS_RECEIVED;
+                            vcnl4020_driver_enter_low_power(&vcnl4020_context);
+                            comm->request.status = REQUEST_STATUS_FINISHED;
+
+                        } break;
+
+                        case REQUEST_TYPE_EXIT_LP: {
+                            comm->request.status = REQUEST_STATUS_RECEIVED;
+                            vcnl4020_driver_exit_low_power(&vcnl4020_context);
+                            comm->request.status = REQUEST_STATUS_FINISHED;
+                        } break;
+                    }
                 } break;
 
                 case VCNL4020_PENDING: {
@@ -105,6 +133,9 @@ void ambient_light_run(void) {
                         case FUTURE_FINISHED: {
                             vcnl4020_driver_process_als_prox(&vcnl4020_context);
                             vcnl4020_context.state = VCNL4020_READY;
+                            // Update communication values
+                            comm->request.status = REQUEST_STATUS_FINISHED;
+                            ambient_light_update_data(comm, &vcnl4020_context);
                         } break;
 
                         case FUTURE_ERROR: {

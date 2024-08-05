@@ -4,6 +4,7 @@
 #include "i2c_driver.h"
 #include "stdbool.h"
 #include "stm32l0xx_hal.h"
+#include "system_communication.h"
 
 #define LIS3DH_MAX_I2C_SIZE 6U
 
@@ -220,6 +221,8 @@ struct lis3dh_context {
 
     struct i2c_request request;
     struct i2c_request it_request;
+
+    struct driver_comm *comm;
 
     // Record the state of the driver
     volatile enum lis3dh_state state;

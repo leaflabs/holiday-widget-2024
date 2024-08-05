@@ -4,6 +4,7 @@
 
 #include "i2c_driver.h"
 #include "stm32l0xx_hal.h"
+#include "system_communication.h"
 
 #define VCNL4020_MAX_I2C_SIZE 4U
 
@@ -214,6 +215,8 @@ struct vcnl4020_context {
     struct i2c_driver_context *i2c_context;
     struct i2c_request request;
     struct i2c_request it_request;
+
+    struct driver_comm *comm;
 
     // Keep track of which state the driver is in
     volatile enum vcnl4020_state state;
