@@ -4117,7 +4117,7 @@
 		)
 		(uuid e36ec970-40cf-4af7-b604-6b85a3ecbaed)
 	)
-	(text "Capacitors specified in AN4467. C1 and C6 can be tantalum. No provision for VDD_USB, so just added another 100nF."
+	(text "Capacitors specified in AN4467. No provision for VDD_USB, so just added another 100nF."
 		(exclude_from_sim no)
 		(at 102.108 191.77 0)
 		(effects

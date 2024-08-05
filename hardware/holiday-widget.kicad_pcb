@@ -29441,7 +29441,7 @@
 				)
 			)
 		)
-		(property "Value" "OPA355NA"
+		(property "Value" "OPA504"
 			(at 0 2.4 90)
 			(layer "F.Fab")
 			(uuid "84ebc938-63bd-462d-84bf-828cf3e6c2c1")
@@ -29465,7 +29465,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/opa355.pdf"
+		(property "Datasheet" "https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/2303080930_analogysemi-OPA504ASOT236_C5349830.pdf"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -29478,7 +29478,7 @@
 				)
 			)
 		)
-		(property "Description" "200MHz, CMOS, Operational amplifier, with shutdown, SOT-23-6"
+		(property "Description" "5V, High-Precision, Ultra-Low-Power Operational Amplifiers"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -35848,7 +35848,7 @@
 		(path "/d503417e-2320-4d5e-a577-7c7a809fa6f5/6fa941cc-ce8a-498e-b179-7787aa0df399")
 		(sheetname "Sensors")
 		(sheetfile "sensors.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -0.146267 0.51)
 			(end 0.146267 0.51)
