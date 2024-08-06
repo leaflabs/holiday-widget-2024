@@ -4,89 +4,154 @@
 
 #include "animation_frames.h"
 #include "charlieplex_driver.h"
+#include "system_communication.h"
 
-/*
-    Private context for the functions in this file to communicate with
-    each other. Defines the 'API's for the functions
-*/
-struct led_matrix_context {
-    /*
-        API for the loader/assembler functions:
-        'assembler_current_frame' is the led_matrix to reference when
-            generating sub_frames
-        'assembler_needs_frame' is the flag the assembler sets to 1 when it
-       needs a new frame. This must be handled before the assembler is ran again
-    */
-    struct led_matrix *assembler_current_frame;
-    bool assembler_needs_frame;
-
-    /*
-        API for the assembler/drawer functions:
-        'front' points to the array of data that the drawer should be displaying
-        'back' points to the array of datat that the assembler should write to
-
-        Since these buffers must be 'global' for the two functions to use,
-       'img1' and 'img2' are the physical locations that the subframes are
-       stored. Never reference these directly.
-
-    */
-    uint8_t img1[LED_MATRIX_SUB_FRAME_COUNT][NUM_LEDS];
-    uint8_t img2[LED_MATRIX_SUB_FRAME_COUNT][NUM_LEDS];
-    uint8_t (*front)[LED_MATRIX_SUB_FRAME_COUNT][NUM_LEDS];
-    uint8_t (*back)[LED_MATRIX_SUB_FRAME_COUNT][NUM_LEDS];
-
-    /* Variables used in the job functions */
-    int image_loader_counter;
-    int assembler_cur_row;
-    int assembler_cur_col;
-    int draw_job_counter;
+/* Type to represent the led matrix thats usable for the charlieplex code */
+struct matrix_instance {
+    uint8_t matrix[NUM_LEDS];
 };
 
-static struct led_matrix_context led_matrix_context = {
-    .assembler_current_frame = NULL,
-    .assembler_needs_frame = true,
-    .img1 = {{0}},
-    .img2 = {{0}},
-    .front = &led_matrix_context.img1,
-    .back = &led_matrix_context.img2,
-    .image_loader_counter = 0,
-    .assembler_cur_row = 0,
-    .assembler_cur_col = 0,
-    .draw_job_counter = 0};
+/* Container of matrix_instances to make a single frame */
+struct frame_instance {
+    struct matrix_instance sub_frame[LED_MATRIX_SUB_FRAME_COUNT];
+};
+
+struct led_matrix_context {
+    struct led_matrix matrix_buff[LED_MATRIX_BUFFER_SIZE];
+    struct frame_instance frame_buff[LED_MATRIX_BUFFER_SIZE];
+    struct driver_comm_shared_memory *comm;
+};
+
+extern struct driver_comm_shared_memory led_matrix_comm;
+
+static struct led_matrix_context led_matrix_context = {.comm =
+                                                           &led_matrix_comm};
+
+/*
+ * Helper functions to get the entry from an index
+ */
+struct led_matrix *get_matrix_entry(struct led_matrix_context *context,
+                                    int num) {
+    return &context->matrix_buff[num];
+}
+struct frame_instance *get_frame_entry(struct led_matrix_context *context,
+                                       int num) {
+    return &context->frame_buff[num];
+}
+
+uint32_t get_anim_length(enum animation_map anim) {
+    return animation_map_lens[anim];
+}
 
 void led_matrix_setup(void) {
     charlieplex_driver_init();
 }
 
-/*
-    Use 'saved_animation' for now to demonstrate how this works
-*/
 void led_matrix_loader_run(void) {
-    const int num_frames = sizeof(test_animation) / sizeof(struct led_matrix);
+    struct led_matrix_context *context = &led_matrix_context;
+    struct driver_comm_shared_memory *comm = context->comm;
 
-    // If the assembler needs a new frame, get the new one
-    if (led_matrix_context.assembler_needs_frame) {
-        led_matrix_context.assembler_current_frame =
-            &test_animation[led_matrix_context.image_loader_counter];
-
-        // Go to next frame and wrap if necessary
-        led_matrix_context.image_loader_counter++;
-        if (led_matrix_context.image_loader_counter >= num_frames)
-            led_matrix_context.image_loader_counter = 0;
-
-        led_matrix_context.assembler_needs_frame = false;
+    // Is this task active?
+    bool loader_on = comm->data.led_matrix.loader.active;
+    if (!loader_on) {
+        return;
     }
+
+    int cur_row = comm->data.led_matrix.loader.row;
+    int cur_col = comm->data.led_matrix.loader.col;
+    enum animation_map input_anim = comm->data.led_matrix.loader.input_anim;
+    int input_frame = comm->data.led_matrix.loader.input_frame;
+    int output_slot = comm->data.led_matrix.loader.output_slot;
+
+    struct led_matrix *output = get_matrix_entry(context, output_slot);
+    struct led_matrix *input = animation_map_values[input_anim];
+
+    // Copy a single led over pre frame. This matches the rate of the renderer
+    output->mat[cur_row][cur_col] = input[input_frame].mat[cur_row][cur_col];
+
+    // Update index values
+    cur_col++;
+    if (cur_col >= N_DIMENSIONS) {
+        cur_col = 0;
+        cur_row++;
+    }
+    if (cur_row >= N_DIMENSIONS) {
+        cur_row = 0;
+
+        // We finished, so request a new frame to load
+        comm->data.led_matrix.loader.finished = true;
+    }
+
+    // Update values
+    comm->data.led_matrix.loader.row = cur_row;
+    comm->data.led_matrix.loader.col = cur_col;
+}
+
+void led_matrix_renderer_run(void) {
+    struct led_matrix_context *context = &led_matrix_context;
+    struct driver_comm_shared_memory *comm = context->comm;
+
+    // Is this task active?
+    bool renderer_on = comm->data.led_matrix.renderer.active;
+    if (!renderer_on) {
+        return;
+    }
+
+    int cur_row = comm->data.led_matrix.renderer.row;
+    int cur_col = comm->data.led_matrix.renderer.col;
+    int output_slot = comm->data.led_matrix.renderer.output_slot;
+
+    struct led_matrix *output = get_matrix_entry(context, output_slot);
+
+    /*
+     * TODO: Write software renderer
+     *      Each call of this function should process a single led
+     */
+
+    // For now, saving as max brightness
+    output->mat[cur_row][cur_col] = LED_MATRIX_MAX_VALUE;
+
+    // Update index values
+    cur_col++;
+    if (cur_col >= N_DIMENSIONS) {
+        cur_col = 0;
+        cur_row++;
+    }
+    if (cur_row >= N_DIMENSIONS) {
+        cur_row = 0;
+
+        // We finished, so request a new slot to render to
+        comm->data.led_matrix.renderer.finished = true;
+    }
+
+    // Update values
+    comm->data.led_matrix.renderer.row = cur_row;
+    comm->data.led_matrix.renderer.col = cur_col;
 }
 
 void led_matrix_assembler_run(void) {
+    struct led_matrix_context *context = &led_matrix_context;
+    struct driver_comm_shared_memory *comm = context->comm;
+
+    // Is this task active?
+    bool assembler_on = comm->data.led_matrix.assembler.active;
+    if (!assembler_on) {
+        return;
+    }
+
+    int cur_row = comm->data.led_matrix.assembler.row;
+    int cur_col = comm->data.led_matrix.assembler.col;
+    int input_slot = comm->data.led_matrix.assembler.input_slot;
+    int output_slot = comm->data.led_matrix.assembler.output_slot;
+
+    struct led_matrix *input = get_matrix_entry(context, input_slot);
+    struct frame_instance *output = get_frame_entry(context, output_slot);
+
     // We need the index of the led so we can assign that element to itself
-    int index = led_matrix_context.assembler_cur_row * N_DIMENSIONS +
-                led_matrix_context.assembler_cur_col + DUMMY_SLOTS;
+    int index = cur_row * N_DIMENSIONS + cur_col + DUMMY_SLOTS;
 
     // Get the value for this led
-    uint32_t led = led_matrix_context.assembler_current_frame
-                       ->mat[led_matrix_context.assembler_cur_row]
-                            [led_matrix_context.assembler_cur_col];
+    uint32_t led = input->mat[cur_row][cur_col];
 
     // Counters for keeping track of which frames to set as 'on'
     int time_counter = 0;
@@ -99,40 +164,64 @@ void led_matrix_assembler_run(void) {
 
         // Set or unset the led
         if (time_counter < time_on) {
-            (*led_matrix_context.back)[i][index] = index;
+            output->sub_frame[i].matrix[index] = index;
         } else {
-            (*led_matrix_context.back)[i][index] = 0U;
+            output->sub_frame[i].matrix[index] = 0U;
         }
         time_counter++;
     }
 
     // Update index values
-    led_matrix_context.assembler_cur_col++;
-    if (led_matrix_context.assembler_cur_col >= N_DIMENSIONS) {
-        led_matrix_context.assembler_cur_col = 0;
-        led_matrix_context.assembler_cur_row++;
+    cur_col++;
+    if (cur_col >= N_DIMENSIONS) {
+        cur_col = 0;
+        cur_row++;
     }
-    if (led_matrix_context.assembler_cur_row >= N_DIMENSIONS) {
-        led_matrix_context.assembler_cur_row = 0;
+    if (cur_row >= N_DIMENSIONS) {
+        cur_row = 0;
 
-        // This frame is finished so request a new one
-        led_matrix_context.assembler_needs_frame = true;
-
-        // Flip buffers as we are done now.
-        // This gives the drawer a new buffer and us the old buffer to overwrite
-        uint8_t(*temp)[LED_MATRIX_SUB_FRAME_COUNT][NUM_LEDS] =
-            led_matrix_context.front;
-        led_matrix_context.front = led_matrix_context.back;
-        led_matrix_context.back = temp;
+        // Finished so request new data
+        comm->data.led_matrix.assembler.finished = true;
     }
+
+    // Update values
+    comm->data.led_matrix.assembler.row = cur_row;
+    comm->data.led_matrix.assembler.col = cur_col;
 }
 
-void led_matrix_drawer_run() {
-    // Draw the current subframe
-    charlieplex_driver_draw(
-        (*led_matrix_context.front)[led_matrix_context.draw_job_counter]);
+void led_matrix_drawer_run(void) {
+    struct led_matrix_context *context = &led_matrix_context;
+    struct driver_comm_shared_memory *comm = context->comm;
 
-    // Continue around the array
-    led_matrix_context.draw_job_counter++;
-    led_matrix_context.draw_job_counter &= (LED_MATRIX_SUB_FRAME_COUNT - 1);
+    // Is this task active?
+    bool drawer_on = comm->data.led_matrix.drawer.active;
+    if (!drawer_on) {
+        return;
+    }
+
+    int sub_frame_cntr = comm->data.led_matrix.drawer.sub_frame_cntr;
+    int duration_cntr = comm->data.led_matrix.drawer.duration_cntr;
+    int num_draws = comm->data.led_matrix.drawer.num_draws;
+
+    int input_slot = comm->data.led_matrix.drawer.input_slot;
+    struct frame_instance *input = get_frame_entry(context, input_slot);
+
+    // Draw the current subframe
+    charlieplex_driver_draw(input->sub_frame[sub_frame_cntr].matrix);
+
+    // Check for end of drawing or looping around the frame
+    sub_frame_cntr++;
+    duration_cntr++;
+    if (duration_cntr >= num_draws) {
+        duration_cntr = 0;
+        sub_frame_cntr = 0;
+        comm->data.led_matrix.drawer.finished = true;
+    }
+    if (sub_frame_cntr >= LED_MATRIX_SUB_FRAME_COUNT) {
+        sub_frame_cntr = 0;
+    }
+
+    // Update values
+    comm->data.led_matrix.drawer.sub_frame_cntr = sub_frame_cntr;
+    comm->data.led_matrix.drawer.duration_cntr = duration_cntr;
 }

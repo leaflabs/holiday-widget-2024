@@ -5,28 +5,28 @@
 #include "i2c_driver.h"
 #include "uart_logger.h"
 
-bool request_is_finished(struct driver_comm *comm) {
+bool request_is_finished(struct driver_comm_message_passing *comm) {
     return comm->request.status == REQUEST_STATUS_FINISHED;
 }
 
-bool request_is_received(struct driver_comm *comm) {
+bool request_is_received(struct driver_comm_message_passing *comm) {
     return comm->request.status == REQUEST_STATUS_RECEIVED;
 }
 
-bool request_is_not_seen(struct driver_comm *comm) {
+bool request_is_not_seen(struct driver_comm_message_passing *comm) {
     return comm->request.status == REQUEST_STATUS_UNSEEN;
 }
 
-bool request_is_no_request(struct driver_comm *comm) {
+bool request_is_no_request(struct driver_comm_message_passing *comm) {
     return comm->request.type == REQUEST_TYPE_NONE;
 }
 
-bool request_is_time_ready(struct driver_comm *comm) {
+bool request_is_time_ready(struct driver_comm_message_passing *comm) {
     return (HAL_GetTick() - comm->timing.last_time) > comm->timing.delay_ms;
 }
 
 /* Used to see if a driver has nothing to process */
-bool request_is_not_busy(struct driver_comm *comm) {
+bool request_is_not_busy(struct driver_comm_message_passing *comm) {
     return request_is_finished(comm) || request_is_no_request(comm);
 }
 

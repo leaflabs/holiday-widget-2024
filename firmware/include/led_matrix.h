@@ -21,6 +21,22 @@
 #define LED_MATRIX_MAX_VALUE 4
 
 /*
+ * Defines how large the buffers are for storing assembled, loaded and
+ * renderered frames
+ */
+#define LED_MATRIX_BUFFER_SIZE 4
+
+/*
+ * Create a map so the widget controller can reference animation frames
+ *      Note: New animations must be added here (and remapped in
+ *      include/animation_frames.h so they be referenced).
+ */
+enum animation_map {
+    ANIM_TEST_ANIMATION,
+    ANIM_SAVED_ANIMATION,
+};
+
+/*
     This is the storage format for saving a frame.
     The max value for an led is defined in the animation_frames.h
     file
@@ -67,26 +83,39 @@ struct led_matrix {
     A new frame is drawn by swapping the front and back buffer pointers.
 */
 
+/* Provide access to the lengths of the animations */
+uint32_t get_anim_length(enum animation_map anim);
+
 /*
     Setup the led matrix's gpio pins
 */
 void led_matrix_setup(void);
 
 /*
-    Load the next frame of animation if requested by the assembler
-*/
+ * Loads the animation frame specified one pixel per iteration.
+ * Data is stored in the specified slot in 'matrix_buff' for the context.
+ * Signals when finished.
+ */
 void led_matrix_loader_run(void);
 
 /*
-    Assemble a set of subframes based on a single frame.
-    Update the front buffer for the drawer function
-    when assembling is complete and request a new frame
-*/
+ * This function only focuses on rendering stuff
+ * Renders a single led per iteration. Stores the data in the specified slot
+ * in 'matrix_buff' for the context. Signals when finished.
+ */
+void led_matrix_renderer_run(void);
+
+/*
+ * Assembles all the subframes for a single led per iteration.
+ * Signals when finished.
+ */
 void led_matrix_assembler_run(void);
 
 /*
-    Draw the subframes to the led matrix.
-*/
+ * Draws a single subframe per iteration. It will automatically wrap around
+ * the subframe and end once it has drawn 'num_draws' sub_frames
+ * Signals when finished.
+ */
 void led_matrix_drawer_run(void);
 
 #endif /* __LED_MATRIX_H__ */

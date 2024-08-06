@@ -4,16 +4,15 @@
 #include "uart_logger.h"
 #include "vcnl4020_driver.h"
 
-extern struct driver_comm ambient_light_comm;
+extern struct driver_comm_message_passing ambient_light_comm;
 
 static struct vcnl4020_context vcnl4020_context = {.i2c_context = &i2c1_context,
                                                    .comm = &ambient_light_comm};
 
-static void ambient_light_update_data(struct driver_comm *comm,
+static void ambient_light_update_data(struct driver_comm_message_passing *comm,
                                       struct vcnl4020_context *context) {
-    comm->results.type = DATA_ALS;
-    comm->results.data.ambient_light.proximity = context->proximity_cnt;
-    comm->results.data.ambient_light.als = context->als_lux;
+    comm->data.ambient_light.proximity = context->proximity_cnt;
+    comm->data.ambient_light.als = context->als_lux;
 }
 
 void ambient_light_setup(void) {
@@ -76,7 +75,7 @@ void ambient_light_setup(void) {
 void ambient_light_run(void) {
     struct i2c_request *request = &vcnl4020_context.request;
     struct i2c_request *it_request = &vcnl4020_context.it_request;
-    struct driver_comm *comm = vcnl4020_context.comm;
+    struct driver_comm_message_passing *comm = vcnl4020_context.comm;
 
     // First check if we have an interrupt to process
     switch (vcnl4020_context.it_state) {

@@ -1,6 +1,8 @@
 #include "widget_controller.h"
 
+#include "led_matrix.h"
 #include "system_communication.h"
+#include "uart_logger.h"
 
 // Regular operation for 10 seconds, 5 seconds of sleep mode
 #define WAKE_MS 10000
@@ -27,12 +29,15 @@ struct widget_context {
  *
  * Define in delay_ms how many miliseconds between sending requests
  */
-struct driver_comm acceleration_comm = {
+// Message passing communication
+struct driver_comm_message_passing acceleration_comm = {
     .request = {.type = REQUEST_TYPE_NONE, .status = REQUEST_STATUS_UNSEEN},
     .timing = {.delay_ms = 500}};
-struct driver_comm ambient_light_comm = {
+struct driver_comm_message_passing ambient_light_comm = {
     .request = {.type = REQUEST_TYPE_NONE, .status = REQUEST_STATUS_UNSEEN},
     .timing = {.delay_ms = 1000}};
+// Shared memory communication
+struct driver_comm_shared_memory led_matrix_comm = {0};
 
 static struct widget_context context = {.state = WIDGET_PREINIT, .timer = 0};
 
@@ -55,13 +60,40 @@ static void set_all_exit_lp(void) {
     ambient_light_comm.request.status = REQUEST_STATUS_UNSEEN;
     ambient_light_comm.request.type = REQUEST_TYPE_EXIT_LP;
 }
+void widget_controller_setup(void) {
+    uart_logger_send("[Widget controller initalization]\r\n");
+
+    // Turn on all led_matrix functions that we need
+    led_matrix_comm.data.led_matrix.loader.active = true;
+    led_matrix_comm.data.led_matrix.renderer.active = false;
+    led_matrix_comm.data.led_matrix.assembler.active = true;
+    led_matrix_comm.data.led_matrix.drawer.active = true;
+
+    // Set to finished so the first cycle of the state machine gives them jobs
+    led_matrix_comm.data.led_matrix.loader.finished = true;
+    led_matrix_comm.data.led_matrix.assembler.finished = true;
+    led_matrix_comm.data.led_matrix.drawer.finished = true;
+
+    // Stay at the same rate as the other functions
+    led_matrix_comm.data.led_matrix.drawer.num_draws = NUM_LEDS - DUMMY_SLOTS;
+
+    /*
+     * Set which slots to start in. For now, oscillate between first two slots
+     * And alternate which inputs and outputs match up so they don't overwrite
+     * each other
+     */
+    led_matrix_comm.data.led_matrix.loader.output_slot = 0;
+    led_matrix_comm.data.led_matrix.assembler.input_slot = 1;
+    led_matrix_comm.data.led_matrix.assembler.output_slot = 0;
+    led_matrix_comm.data.led_matrix.drawer.input_slot = 1;
+
+    context.state = WIDGET_BASIC;
+}
 
 void widget_controller_run(void) {
     switch (context.state) {
         case WIDGET_PREINIT: {
-            uart_logger_send("[Widget controller initalization]\r\n");
-            context.state = WIDGET_BASIC;
-
+            // Nothing
         } break;
 
         case WIDGET_BASIC: {
@@ -70,9 +102,9 @@ void widget_controller_run(void) {
                 acceleration_comm.request.type = REQUEST_TYPE_NONE;
 
                 uart_logger_send("Acceleration: %f %f %f [g]\r\n",
-                                 acceleration_comm.results.data.acceleration.x,
-                                 acceleration_comm.results.data.acceleration.y,
-                                 acceleration_comm.results.data.acceleration.z);
+                                 acceleration_comm.data.acceleration.x,
+                                 acceleration_comm.data.acceleration.y,
+                                 acceleration_comm.data.acceleration.z);
             }
 
             if (request_is_no_request(&acceleration_comm) &&
@@ -89,8 +121,8 @@ void widget_controller_run(void) {
 
                 uart_logger_send(
                     "Light: %d %d\r\n",
-                    ambient_light_comm.results.data.ambient_light.proximity,
-                    ambient_light_comm.results.data.ambient_light.als);
+                    ambient_light_comm.data.ambient_light.proximity,
+                    ambient_light_comm.data.ambient_light.als);
             }
 
             if (request_is_no_request(&acceleration_comm) &&
@@ -101,10 +133,56 @@ void widget_controller_run(void) {
                 ambient_light_comm.timing.last_time = HAL_GetTick();
             }
 
+            /*
+             * Process Led matrix functions
+             */
+            if (led_matrix_comm.data.led_matrix.loader.finished) {
+                led_matrix_comm.data.led_matrix.loader.finished = false;
+
+                // Now set the details
+                led_matrix_comm.data.led_matrix.loader.input_anim =
+                    ANIM_TEST_ANIMATION;
+
+                // Cycle through the frames
+                led_matrix_comm.data.led_matrix.loader.input_frame++;
+                if (led_matrix_comm.data.led_matrix.loader.input_frame >=
+                    get_anim_length(
+                        led_matrix_comm.data.led_matrix.loader.input_anim)) {
+                    led_matrix_comm.data.led_matrix.loader.input_frame = 0;
+                }
+
+                // For now, alternate between first two slots
+                led_matrix_comm.data.led_matrix.loader.output_slot++;
+                led_matrix_comm.data.led_matrix.loader.output_slot &= 1;
+            }
+
+            if (led_matrix_comm.data.led_matrix.assembler.finished) {
+                led_matrix_comm.data.led_matrix.assembler.finished = false;
+
+                // Alternate between first two slots
+                led_matrix_comm.data.led_matrix.assembler.input_slot++;
+                led_matrix_comm.data.led_matrix.assembler.input_slot &= 1;
+                led_matrix_comm.data.led_matrix.assembler.output_slot++;
+                led_matrix_comm.data.led_matrix.assembler.output_slot &= 1;
+            }
+
+            if (led_matrix_comm.data.led_matrix.drawer.finished) {
+                led_matrix_comm.data.led_matrix.drawer.finished = false;
+
+                // Alternate between first two slots
+                led_matrix_comm.data.led_matrix.drawer.input_slot++;
+                led_matrix_comm.data.led_matrix.drawer.input_slot &= 1;
+            }
+
             // Lets enter low power mode
             if (HAL_GetTick() - context.timer > WAKE_MS) {
                 uart_logger_send("[Entering Low Power Mode]\r\n");
                 context.state = WIDGET_ENTER_LP1;
+
+                // Turn off led matrix functions
+                led_matrix_comm.data.led_matrix.loader.active = false;
+                led_matrix_comm.data.led_matrix.assembler.active = false;
+                led_matrix_comm.data.led_matrix.drawer.active = false;
             }
         } break;
 
@@ -172,7 +250,13 @@ void widget_controller_run(void) {
 
                 context.timer = HAL_GetTick();  // Reset the timer
 
+                // Turn on led matrix functions
+                led_matrix_comm.data.led_matrix.loader.active = true;
+                led_matrix_comm.data.led_matrix.assembler.active = true;
+                led_matrix_comm.data.led_matrix.drawer.active = true;
+
                 // Go back to normal mode
+                uart_logger_send("[In Basic Mode]\r\n");
                 context.state = WIDGET_BASIC;
             }
 

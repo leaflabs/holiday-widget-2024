@@ -216,7 +216,7 @@ struct vcnl4020_context {
     struct i2c_request request;
     struct i2c_request it_request;
 
-    struct driver_comm *comm;
+    struct driver_comm_message_passing *comm;
 
     // Keep track of which state the driver is in
     volatile enum vcnl4020_state state;

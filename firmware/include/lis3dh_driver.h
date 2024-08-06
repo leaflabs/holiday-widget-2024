@@ -222,7 +222,7 @@ struct lis3dh_context {
     struct i2c_request request;
     struct i2c_request it_request;
 
-    struct driver_comm *comm;
+    struct driver_comm_message_passing *comm;
 
     // Record the state of the driver
     volatile enum lis3dh_state state;

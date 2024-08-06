@@ -4,19 +4,18 @@
 #include "system_communication.h"
 #include "uart_logger.h"
 
-extern struct driver_comm acceleration_comm;
+extern struct driver_comm_message_passing acceleration_comm;
 
 static struct lis3dh_context lis3dh_context = {.i2c_context = &i2c1_context,
                                                .comm = &acceleration_comm};
 
 // Function to save the context data to the communication device for
 // acceleration data
-static void acceleration_update_data(struct driver_comm *comm,
+static void acceleration_update_data(struct driver_comm_message_passing *comm,
                                      struct lis3dh_context *context) {
-    comm->results.type = DATA_ACC;
-    comm->results.data.acceleration.x = context->x_acc;
-    comm->results.data.acceleration.y = context->y_acc;
-    comm->results.data.acceleration.z = context->z_acc;
+    comm->data.acceleration.x = context->x_acc;
+    comm->data.acceleration.y = context->y_acc;
+    comm->data.acceleration.z = context->z_acc;
 }
 
 void acceleration_setup(void) {
@@ -120,7 +119,7 @@ void acceleration_setup(void) {
 void acceleration_run(void) {
     struct i2c_request *request = &lis3dh_context.request;
     struct i2c_request *it_request = &lis3dh_context.it_request;
-    struct driver_comm *comm = lis3dh_context.comm;
+    struct driver_comm_message_passing *comm = lis3dh_context.comm;
 
     switch (lis3dh_context.it_state) {
         case LIS3DH_INTERRUPT_CLEAR: {
