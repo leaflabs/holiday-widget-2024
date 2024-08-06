@@ -4,13 +4,7 @@
 
 #include "stm32l0xx_hal.h"
 #include "uart_logger.h"
-
-/*
- * This is used to allow us to find the encompasing i2c_driver_context struct
- * based on an I2C_HandleTypeDef
- */
-#define CONTAINER_OF(ptr, type, field) \
-    ((type *)(((char *)(ptr)) - offsetof(type, field)))
+#include "utils.h"
 
 // 1000ms of timeout for blocking I2C transactions
 #define TIMEOUT 1000U

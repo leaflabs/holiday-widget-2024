@@ -3,6 +3,9 @@
 
 #include "stm32l0xx_hal.h"
 
+#define CONTAINER_OF(ptr, type, field) \
+    ((type *)(((char *)(ptr)) - offsetof(type, field)))
+
 /*
     Prints out the contents of 'data' in binary over the uart.
     Allows for printing an array of types in binary.

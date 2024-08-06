@@ -173,14 +173,14 @@ static const uint32_t DECK_THE_HALLS_DURATIONS[] = {
 /** All Song Look-Up Table **/
 
 /* Notes Look-Up Table */
-static const uint32_t *NOTES[] = {
+__attribute__((__used__)) static const uint32_t *NOTES[] = {
     JINGLE_BELLS_NOTES,
     WE_WISH_YOU_A_MERRY_CHRISTMAS_NOTES,
     DECK_THE_HALLS_NOTES,
 };
 
 /* Durations Look-Up Table */
-static const uint32_t *DURATIONS[] = {
+__attribute__((__used__)) static const uint32_t *DURATIONS[] = {
     JINGLE_BELLS_DURATIONS,
     WE_WISH_YOU_A_MERRY_CHRISTMAS_DURATIONS,
     DECK_THE_HALLS_DURATIONS,

@@ -1,121 +1,118 @@
 #include "music_player.h"
 
-static struct music_player_context context = {
-    .current_song = NO_SONG,
-    .error = MUSIC_PLAYER_NO_ERROR,
-    .state = MUSIC_PLAYER_UNINITIALIZED};
+#include "uart_logger.h"
+#include "utils.h"
 
-/* This function is called if an error occurs on the duration transfer DMA
- * Channel */
-void duration_transfer_error_callback(DMA_HandleTypeDef *hdma) {
-    UNUSED(hdma);
-    context.error = MUSIC_PLAYER_DURATIONS_DMA_ERROR;
-}
+#define GEN_ERROR_STRING(error) [error] = #error
 
-/* This function is called if an error occurs on the note transfer DMA Channel
- */
-void note_transfer_error_callback(DMA_HandleTypeDef *hdma) {
-    UNUSED(hdma);
-    context.error = MUSIC_PLAYER_NOTES_DMA_ERROR;
-}
+static const char *const error_strings[] = {
+    GEN_ERROR_STRING(MUSIC_PLAYER_NO_ERROR),
+    GEN_ERROR_STRING(MUSIC_PLAYER_INITIALIZATION_ERROR),
+    GEN_ERROR_STRING(MUSIC_PLAYER_DAC_DMA_ERROR),
+    GEN_ERROR_STRING(MUSIC_PLAYER_DURATIONS_DMA_ERROR),
+    GEN_ERROR_STRING(MUSIC_PLAYER_NOTES_DMA_ERROR),
+    GEN_ERROR_STRING(MUSIC_PLAYER_RUN_ERROR),
+    GEN_ERROR_STRING(MUSIC_PLAYER_STOP_ERROR),
+};
 
-/* This function is called whenever a song ends */
-void song_complete_callback(DMA_HandleTypeDef *hdma) {
-    UNUSED(hdma);
-    context.current_song = NO_SONG;
-}
-
-/* This function is called whenever a DAC error occurs on Channel 1 */
-void dac_error_callback(DAC_HandleTypeDef *hdac) {
-    UNUSED(hdac);
-    context.error = MUSIC_PLAYER_DAC_DMA_ERROR;
-}
+/* Global Music Player Instance */
+struct music_player music_player = (struct music_player){
+    .config =
+        (struct music_player_config){
+            .audio_out_pin = GPIO_PIN(A, 4),
+            .pam8302a_driver = &pam8302a_driver,
+        },
+    .context =
+        (struct music_player_context){
+            .current_song = NO_SONG,
+            .error = MUSIC_PLAYER_NO_ERROR,
+            .state = MUSIC_PLAYER_UNINITIALIZED,
+        },
+};
 
 /* Set up the music player */
 void music_player_setup(void) {
-    static const struct music_player_config config = {
-        .duration_transfer_error_callback = duration_transfer_error_callback,
-        .note_transfer_error_callback = note_transfer_error_callback,
-        .song_complete_callback = song_complete_callback,
-        .dac_error_callback = dac_error_callback};
-    if ((context.error = music_player_core_init(&config, &context)) != 0) {
-        context.state = MUSIC_PLAYER_ERROR;
+    struct music_player_context *context = &music_player.context;
+
+    if ((context->error = music_player_core_init(&music_player)) != 0) {
+        context->state = MUSIC_PLAYER_ERROR;
     } else {
-        context.state = MUSIC_PLAYER_READY;
+        context->state = MUSIC_PLAYER_READY;
     }
+    context->current_song = NO_SONG;
 }
 
 /* Run through the music player's state machine */
 void music_player_run(void) {
-    switch (context.state) {
+    struct music_player_context *context = &music_player.context;
+    switch (context->state) {
         case MUSIC_PLAYER_UNINITIALIZED:
             /* Music Player Uninitialized */
             uart_logger_send("Music Player not initialized properly\r\n");
-
             break;
         case MUSIC_PLAYER_READY:
             /* Music Player Ready */
-            if (context.current_song != NO_SONG) {
-                if ((context.error =
-                         music_player_core_play_song(context.current_song))) {
-                    context.state = MUSIC_PLAYER_ERROR;
+            if (context->current_song != NO_SONG) {
+                if ((context->error = music_player_core_play_song(
+                         &music_player, context->current_song))) {
+                    context->state = MUSIC_PLAYER_ERROR;
                 } else {
-                    context.state = MUSIC_PLAYER_BUSY;
+                    context->state = MUSIC_PLAYER_BUSY;
                 }
             }
             break;
         case MUSIC_PLAYER_BUSY:
             /* Music Player Busy */
-            if (context.current_song == NO_SONG) {
-                if ((context.error = music_player_core_abort_song())) {
-                    context.state = MUSIC_PLAYER_ERROR;
+            if (context->current_song == NO_SONG) {
+                if ((context->error =
+                         music_player_core_abort_song(&music_player))) {
+                    context->state = MUSIC_PLAYER_ERROR;
                 } else {
-                    context.state = MUSIC_PLAYER_READY;
+                    context->state = MUSIC_PLAYER_READY;
                 }
             }
             break;
         case MUSIC_PLAYER_ERROR:
             /* Music Player Error */
-            switch (context.error) {
-                case MUSIC_PLAYER_DAC_DMA_ERROR:
-                    break;
-                case MUSIC_PLAYER_DURATIONS_DMA_ERROR:
-                    break;
-                case MUSIC_PLAYER_NOTES_DMA_ERROR:
-                    break;
-                case MUSIC_PLAYER_RUN_ERROR:
-                    break;
+            switch (context->error) {
+                case MUSIC_PLAYER_NO_ERROR:             /* fallthrough */
+                case MUSIC_PLAYER_INITIALIZATION_ERROR: /* fallthrough */
+                case MUSIC_PLAYER_DAC_DMA_ERROR:        /* fallthrough */
+                case MUSIC_PLAYER_DURATIONS_DMA_ERROR:  /* fallthrough */
+                case MUSIC_PLAYER_NOTES_DMA_ERROR:      /* fallthrough */
+                case MUSIC_PLAYER_RUN_ERROR:            /* fallthrough */
                 case MUSIC_PLAYER_STOP_ERROR:
+                    uart_logger_send(error_strings[context->error]);
                     break;
-                case MUSIC_PLAYER_INITIALIZATION_ERROR:
-                    break;
-                case MUSIC_PLAYER_NO_ERROR:
+                default:
+                    uart_logger_send("Unknown Music Player Error:%d\r\n",
+                                     context->error);
                     break;
             }
-            uart_logger_send("In MUSIC_PLAYER_ERROR\r\n");
             break;
         default:
             /* Switching over enumerated type so you should never be here */
             uart_logger_send("Unsupported Music Player State: %d\r\n",
-                             context.state);
+                             context->state);
             break;
     }
 }
 
 /* Play the provided song - returns MUSIC_PLAYER_RUN_ERROR on failure */
-enum music_player_error music_player_play_song(enum Song song) {
-    if (context.state == MUSIC_PLAYER_READY) {
-        context.current_song = song;
+enum music_player_error music_player_play_song(
+    struct music_player *music_player, enum Song song) {
+    if (music_player->context.state == MUSIC_PLAYER_READY) {
+        music_player->context.current_song = song;
         return MUSIC_PLAYER_NO_ERROR;
     }
-
     return MUSIC_PLAYER_RUN_ERROR;
 }
 
 /* Stop the current song - returns MUSIC_PLAYER_STOP_ERROR on failure */
-enum music_player_error music_player_abort_song() {
-    if (context.state == MUSIC_PLAYER_BUSY) {
-        context.current_song = NO_SONG;
+enum music_player_error music_player_abort_song(
+    struct music_player *music_player) {
+    if (music_player->context.state == MUSIC_PLAYER_BUSY) {
+        music_player->context.current_song = NO_SONG;
         return MUSIC_PLAYER_NO_ERROR;
     }
 
@@ -123,11 +120,12 @@ enum music_player_error music_player_abort_song() {
 }
 
 /* Returns true if a song is currently playing, else false */
-bool music_player_is_song_playing() {
-    return context.current_song == NO_SONG;
+bool music_player_is_song_playing(struct music_player *music_player) {
+    return music_player->context.current_song == NO_SONG;
 }
 
 /* Returns music player error code */
-enum music_player_error music_player_get_error() {
-    return context.error;
+enum music_player_error music_player_get_error(
+    struct music_player *music_player) {
+    return music_player->context.error;
 }

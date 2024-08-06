@@ -1,7 +1,7 @@
 #include "stm32l0xx_it.h"
 
 #include "lis3dh_driver.h"
-#include "music_player_core.h"
+#include "music_player.h"
 #include "stm32l0xx_hal.h"
 #include "system_communication.h"
 #include "vcnl4020_driver.h"
@@ -62,11 +62,13 @@ void I2C1_IRQHandler(void) {
 
 /* DMA1 IRQ Handler for Channels 2 & 3 */
 void DMA1_Channel2_3_IRQHandler(void) {
-    HAL_DMA_IRQHandler(music_player.core.tim2_handle.hdma[TIM_DMA_ID_CC2]);
-    HAL_DMA_IRQHandler(music_player.core.dac_handle.DMA_Handle1);
+    struct music_player_config *cfg = &music_player.config;
+    HAL_DMA_IRQHandler(&cfg->hdma_tim2_notes);
+    HAL_DMA_IRQHandler(&cfg->hdma_dac);
 }
 
 /* DMA1 IRQ Handler for Channel 1 */
 void DMA1_Channel1_IRQHandler(void) {
-    HAL_DMA_IRQHandler(music_player.core.tim2_handle.hdma[TIM_DMA_ID_CC3]);
+    struct music_player_config *cfg = &music_player.config;
+    HAL_DMA_IRQHandler(&cfg->hdma_tim2_durations);
 }
