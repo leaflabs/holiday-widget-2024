@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 
+#include "entity.h"
 #include "led_matrix.h"
 #include "stm32l0xx_hal.h"
 
@@ -80,11 +81,13 @@ struct driver_comm_shared_memory {
             } loader;
 
             struct {
-                bool active;           // Should the renderer be on
-                bool finished;         // Is the renderer finished
-                uint32_t output_slot;  // Which slot to write to
-                uint32_t row;          // Which row to process
-                uint32_t col;          // Which column to process
+                bool active;              // Should the renderer be on
+                bool finished;            // Is the renderer finished
+                struct entity *entities;  // Array of entities to draw
+                uint32_t num_entities;    // How many sprites are in the array
+                uint32_t output_slot;     // Which slot to write to
+                uint32_t row;             // Which row to process
+                uint32_t col;             // Which column to process
             } renderer;
 
             struct {

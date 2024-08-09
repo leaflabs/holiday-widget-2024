@@ -4,6 +4,9 @@
 
 #include "animation_frames.h"
 #include "charlieplex_driver.h"
+#include "entity.h"
+#include "sprite.h"
+#include "sprite_maps.h"
 #include "system_communication.h"
 
 /* Type to represent the led matrix thats usable for the charlieplex code */
@@ -100,16 +103,33 @@ void led_matrix_renderer_run(void) {
     int cur_row = comm->data.led_matrix.renderer.row;
     int cur_col = comm->data.led_matrix.renderer.col;
     int output_slot = comm->data.led_matrix.renderer.output_slot;
+    struct entity *input = comm->data.led_matrix.renderer.entities;
+    uint32_t num_entities = comm->data.led_matrix.renderer.num_entities;
 
     struct led_matrix *output = get_matrix_entry(context, output_slot);
 
-    /*
-     * TODO: Write software renderer
-     *      Each call of this function should process a single led
-     */
+    // First, reset the pixel
+    output->mat[cur_row][cur_col] = 0;
 
-    // For now, saving as max brightness
-    output->mat[cur_row][cur_col] = LED_MATRIX_MAX_VALUE;
+    // Now iterate over all sprites in the buffer and draw them
+    for (uint32_t i = 0; i < num_entities; i++) {
+        struct sprite_component *sc = &input[i].sprite;
+        const struct sprite *sprite = sc->map;
+        int x_pos = sc->x;
+        int y_pos = sc->y;
+        int width = sprite->width;
+        int height = sprite->height;
+
+        // Get difference so we can also index into the sprite data array
+        int dx = cur_col - x_pos;
+        int dy = cur_row - y_pos;
+
+        // Add the brightness if we are in the bounds
+        if (cur_row >= y_pos && cur_col >= x_pos && dy < height && dx < width) {
+            int brightness = sprite->data[dx * width + dy];
+            output->mat[cur_row][cur_col] += brightness;
+        }
+    }
 
     // Update index values
     cur_col++;

@@ -60,17 +60,25 @@ static void set_all_exit_lp(void) {
     ambient_light_comm.request.status = REQUEST_STATUS_UNSEEN;
     ambient_light_comm.request.type = REQUEST_TYPE_EXIT_LP;
 }
+
+/*
+ * Temporary array of entities until game engine is working
+ */
+static struct entity entities[] = {{.sprite = {.map = &paddle, .x = 0, .y = 0}},
+                                   {.sprite = {.map = &star, .x = 3, .y = 2}}};
+
 void widget_controller_setup(void) {
     uart_logger_send("[Widget controller initalization]\r\n");
 
     // Turn on all led_matrix functions that we need
-    led_matrix_comm.data.led_matrix.loader.active = true;
-    led_matrix_comm.data.led_matrix.renderer.active = false;
+    led_matrix_comm.data.led_matrix.loader.active = false;
+    led_matrix_comm.data.led_matrix.renderer.active = true;
     led_matrix_comm.data.led_matrix.assembler.active = true;
     led_matrix_comm.data.led_matrix.drawer.active = true;
 
     // Set to finished so the first cycle of the state machine gives them jobs
-    led_matrix_comm.data.led_matrix.loader.finished = true;
+    led_matrix_comm.data.led_matrix.loader.finished = false;
+    led_matrix_comm.data.led_matrix.renderer.finished = true;
     led_matrix_comm.data.led_matrix.assembler.finished = true;
     led_matrix_comm.data.led_matrix.drawer.finished = true;
 
@@ -83,9 +91,15 @@ void widget_controller_setup(void) {
      * each other
      */
     led_matrix_comm.data.led_matrix.loader.output_slot = 0;
+    led_matrix_comm.data.led_matrix.renderer.output_slot = 0;
     led_matrix_comm.data.led_matrix.assembler.input_slot = 1;
     led_matrix_comm.data.led_matrix.assembler.output_slot = 0;
     led_matrix_comm.data.led_matrix.drawer.input_slot = 1;
+
+    // Update values for the renderer
+    led_matrix_comm.data.led_matrix.renderer.entities = entities;
+    led_matrix_comm.data.led_matrix.renderer.num_entities =
+        sizeof(entities) / sizeof(struct entity);
 
     context.state = WIDGET_BASIC;
 }
@@ -156,6 +170,14 @@ void widget_controller_run(void) {
                 led_matrix_comm.data.led_matrix.loader.output_slot &= 1;
             }
 
+            if (led_matrix_comm.data.led_matrix.renderer.finished) {
+                led_matrix_comm.data.led_matrix.renderer.finished = false;
+
+                // For now, alternate between first two slots
+                led_matrix_comm.data.led_matrix.renderer.output_slot++;
+                led_matrix_comm.data.led_matrix.renderer.output_slot &= 1;
+            }
+
             if (led_matrix_comm.data.led_matrix.assembler.finished) {
                 led_matrix_comm.data.led_matrix.assembler.finished = false;
 
@@ -180,7 +202,7 @@ void widget_controller_run(void) {
                 context.state = WIDGET_ENTER_LP1;
 
                 // Turn off led matrix functions
-                led_matrix_comm.data.led_matrix.loader.active = false;
+                led_matrix_comm.data.led_matrix.renderer.active = false;
                 led_matrix_comm.data.led_matrix.assembler.active = false;
                 led_matrix_comm.data.led_matrix.drawer.active = false;
             }
@@ -251,7 +273,7 @@ void widget_controller_run(void) {
                 context.timer = HAL_GetTick();  // Reset the timer
 
                 // Turn on led matrix functions
-                led_matrix_comm.data.led_matrix.loader.active = true;
+                led_matrix_comm.data.led_matrix.renderer.active = true;
                 led_matrix_comm.data.led_matrix.assembler.active = true;
                 led_matrix_comm.data.led_matrix.drawer.active = true;
 
