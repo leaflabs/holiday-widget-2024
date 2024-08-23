@@ -32,11 +32,30 @@ const uint8_t arrow_img[] = {
     0, 0, 4, 0, 0,
 };
 
-const uint8_t paddle_img[] = {
+const uint8_t vertical_paddle_img[] = {
     4,
     4,
     4,
     4,
+};
+
+const uint8_t horizontal_paddle_img[] = {
+    4, 4, 4,
+};
+
+const uint8_t small_ball_img[] = {
+    4,
+};
+
+const uint8_t moderate_ball_img[] = {
+    2, 4, 2,
+    2, 4, 2
+};
+
+const uint8_t large_ball_img[] = {
+    2, 2, 3, 2, 2,
+    2, 3, 4, 3, 2,
+    2, 2, 3, 2, 2,
 };
 // clang-format on
 
@@ -47,6 +66,19 @@ const struct sprite star = {.data = star_img, .width = 3, .height = 3};
 
 const struct sprite arrow = {.data = arrow_img, .width = 5, .height = 5};
 
-const struct sprite paddle = {.data = paddle_img, .width = 1, .height = 4};
+const struct sprite vertical_paddle = {
+    .data = vertical_paddle_img, .width = 1, .height = 4};
+
+const struct sprite horizontal_paddle = {
+    .data = horizontal_paddle_img, .width = 3, .height = 1};
+
+const struct sprite small_ball = {
+    .data = small_ball_img, .width = 1, .height = 1};
+
+const struct sprite moderate_ball = {
+    .data = moderate_ball_img, .width = 3, .height = 2};
+
+const struct sprite large_ball = {
+    .data = large_ball_img, .width = 5, .height = 3};
 
 #endif /* __SPRITE_MAPS_H__ */

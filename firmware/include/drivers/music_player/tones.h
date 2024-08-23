@@ -10,6 +10,8 @@ static const uint16_t sine_wave[32] = {
 /* Number of samples in the sine wave */
 #define SINE_WAVE_SAMPLES sizeof(sine_wave) / sizeof(sine_wave[0])
 
+static uint16_t sine_wave_volume_adj[SINE_WAVE_SAMPLES];
+
 /** Chromatic Scale Definitions **/
 
 /* Octave 4 Chromatic Scale */
@@ -50,6 +52,25 @@ static const uint16_t sine_wave[32] = {
 #define B3_FLAT A3_SHARP
 #define B3_NATURAL (B4_NATURAL * 2)
 
+/* Octave 2 Chromatic Scale */
+#define C2_NATURAL (C3_NATURAL * 2)
+#define C2_SHARP (C3_SHARP * 2)
+#define D2_FLAT C2_SHARP
+#define D2_NATURAL (D3_NATURAL * 2)
+#define D2_SHARP (D3_SHARP * 2)
+#define E2_FLAT D2_SHARP
+#define E2_NATURAL (E3_NATURAL * 2)
+#define F2_NATURAL (F3_NATURAL * 2)
+#define F2_SHARP (F3_SHARP * 2)
+#define G2_FLAT F2_SHARP
+#define G2_NATURAL (G3_NATURAL * 2)
+#define G2_SHARP (G3_SHARP * 2)
+#define A2_FLAT G2_SHARP
+#define A2_NATURAL (A3_NATURAL * 2)
+#define A2_SHARP (A3_SHARP * 2)
+#define B2_FLAT A2_SHARP
+#define B2_NATURAL (B3_NATURAL * 2)
+
 /* Octave 5 Chromatic Scale */
 #define C5_NATURAL (C4_NATURAL / 2)
 #define C5_SHARP (C4_SHARP / 2)
@@ -73,7 +94,7 @@ static const uint16_t sine_wave[32] = {
 #define SILENCE 0xFFFF
 
 /* Tempo in BPM */
-#define TEMPO 240
+#define TEMPO 120
 
 /* TIM3 Clock Cycles per Second */
 #define CYCLES_PER_SECOND 2000.0 / 9.0
@@ -86,12 +107,16 @@ static const uint16_t sine_wave[32] = {
 #define HALF_NOTE (int)(BEAT_DURATION * 2.0)
 #define WHOLE_NOTE (int)(BEAT_DURATION * 4.0)
 #define EIGHTH_NOTE (int)(BEAT_DURATION / 2.0)
+#define SIXTEENTH_NOTE (int)(BEAT_DURATION / 4.0)
 
 /* Song Enumeration */
 enum Song {
     JINGLE_BELLS,
     WE_WISH_YOU_A_MERRY_CHRISTMAS,
     DECK_THE_HALLS,
+    SUCCESS_SOUND,
+    FAILURE_SOUND,
+    SILENT_TEST_SOUND,
     /* Additional songs go here */
     NO_SONG
 };
@@ -170,28 +195,74 @@ static const uint32_t DECK_THE_HALLS_DURATIONS[] = {
     QUARTER_NOTE, EIGHTH_NOTE,  HALF_NOTE,    EIGHTH_NOTE,
 };
 
+static const uint32_t SUCCESS_NOTES[] = {E4_NATURAL, SILENCE, B4_NATURAL,
+                                         SILENCE};
+
+static const uint32_t SUCCESS_DURATIONS[] = {QUARTER_NOTE, SIXTEENTH_NOTE,
+                                             QUARTER_NOTE, SIXTEENTH_NOTE};
+
+static const uint32_t FAILURE_NOTES[] = {B4_NATURAL, SILENCE, E4_NATURAL,
+                                         SILENCE};
+
+static const uint32_t FAILURE_DURATIONS[] = {QUARTER_NOTE, SIXTEENTH_NOTE,
+                                             QUARTER_NOTE, SIXTEENTH_NOTE};
+
+static const uint32_t SILENT_TEST_NOTES[] = {
+    SILENCE,
+    SILENCE,
+    SILENCE,
+    SILENCE,
+};
+
+static const uint32_t SILENT_TEST_DURATIONS[] = {
+    WHOLE_NOTE,
+    WHOLE_NOTE,
+    WHOLE_NOTE,
+    WHOLE_NOTE,
+};
+
+/*static const uint32_t WIN_NOTES[] {
+    B4_NATURAL, E4_NATURAL,
+};
+
+static const uint32_t WIN_DURATIONS[] {
+    EIGHTH_NOTE, QUARTER_NOTE,
+};*/
+
 /** All Song Look-Up Table **/
 
 /* Notes Look-Up Table */
 __attribute__((__used__)) static const uint32_t *NOTES[] = {
-    JINGLE_BELLS_NOTES,
-    WE_WISH_YOU_A_MERRY_CHRISTMAS_NOTES,
-    DECK_THE_HALLS_NOTES,
+    [JINGLE_BELLS] = JINGLE_BELLS_NOTES,
+    [WE_WISH_YOU_A_MERRY_CHRISTMAS] = WE_WISH_YOU_A_MERRY_CHRISTMAS_NOTES,
+    [DECK_THE_HALLS] = DECK_THE_HALLS_NOTES,
+    [SUCCESS_SOUND] = SUCCESS_NOTES,
+    [FAILURE_SOUND] = FAILURE_NOTES,
+    [SILENT_TEST_SOUND] = SILENT_TEST_NOTES,
 };
 
 /* Durations Look-Up Table */
 __attribute__((__used__)) static const uint32_t *DURATIONS[] = {
-    JINGLE_BELLS_DURATIONS,
-    WE_WISH_YOU_A_MERRY_CHRISTMAS_DURATIONS,
-    DECK_THE_HALLS_DURATIONS,
+    [JINGLE_BELLS] = JINGLE_BELLS_DURATIONS,
+    [WE_WISH_YOU_A_MERRY_CHRISTMAS] = WE_WISH_YOU_A_MERRY_CHRISTMAS_DURATIONS,
+    [DECK_THE_HALLS] = DECK_THE_HALLS_DURATIONS,
+    [SUCCESS_SOUND] = SUCCESS_DURATIONS,
+    [FAILURE_SOUND] = FAILURE_DURATIONS,
+    [SILENT_TEST_SOUND] = SILENT_TEST_DURATIONS,
 };
 
 /* Song Length Look-Up Table */
 static const size_t SIZES[] = {
-    sizeof(JINGLE_BELLS_NOTES) / sizeof(JINGLE_BELLS_NOTES[0]),
-    sizeof(WE_WISH_YOU_A_MERRY_CHRISTMAS_NOTES) /
+    [JINGLE_BELLS] = sizeof(JINGLE_BELLS_NOTES) / sizeof(JINGLE_BELLS_NOTES[0]),
+    [WE_WISH_YOU_A_MERRY_CHRISTMAS] =
+        sizeof(WE_WISH_YOU_A_MERRY_CHRISTMAS_NOTES) /
         sizeof(WE_WISH_YOU_A_MERRY_CHRISTMAS_NOTES[0]),
-    sizeof(DECK_THE_HALLS_NOTES) / sizeof(DECK_THE_HALLS_NOTES[0]),
+    [DECK_THE_HALLS] =
+        sizeof(DECK_THE_HALLS_NOTES) / sizeof(DECK_THE_HALLS_NOTES[0]),
+    [SUCCESS_SOUND] = sizeof(SUCCESS_NOTES) / sizeof(SUCCESS_NOTES[0]),
+    [FAILURE_SOUND] = sizeof(FAILURE_NOTES) / sizeof(FAILURE_NOTES[0]),
+    [SILENT_TEST_SOUND] =
+        sizeof(SILENT_TEST_NOTES) / sizeof(SILENT_TEST_NOTES[0]),
 };
 
 #endif

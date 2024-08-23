@@ -2,9 +2,11 @@
 
 #include <errno.h>
 
+#include "logging.h"
 #include "stm32l0xx_hal.h"
-#include "uart_logger.h"
 #include "utils.h"
+#pragma GCC push_options
+#pragma GCC optimize("O3")  // Apply high optimization level
 
 // 1000ms of timeout for blocking I2C transactions
 #define TIMEOUT 1000U
@@ -43,7 +45,8 @@ int i2c_device_is_ready(struct i2c_driver_context *i2c_context,
     I2C_HandleTypeDef *i2c = &i2c_context->i2c;
 
     // Attempt 10 times with default timeout.
-    return HAL_I2C_IsDeviceReady(i2c, address << 1, 10, TIMEOUT) == HAL_OK;
+    return HAL_I2C_IsDeviceReady(i2c, ((uint16_t)address) << 1, 10, TIMEOUT) ==
+           HAL_OK;
 }
 
 /* Queue operations */
@@ -51,13 +54,11 @@ int i2c_device_is_ready(struct i2c_driver_context *i2c_context,
 int i2c_enqueue_request(struct i2c_driver_context *i2c_context,
                         struct i2c_request *request) {
     struct i2c_queue_context *queue_context = &i2c_context->queue_context;
-
     future_set_waiting(&request->future);
-
     if (queue_context->n_elts_used == QUEUE_LENGTH) {
+        LOG_ERR("I2C queue full!");
         return -ENOMEM;
     }
-
     queue_context->queue[queue_context->end] = request;
     queue_context->end++;
     queue_context->end &= (QUEUE_LENGTH - 1);
@@ -89,13 +90,14 @@ void i2c_queue_process_one(struct i2c_driver_context *i2c_context) {
         queue_context->current_request = request;
 
         if (request->action == I2C_READ) {
-            ret = HAL_I2C_Mem_Read_IT(i2c, request->address << 1, request->ireg,
-                                      1, request->buffer, request->num_bytes);
+            ret =
+                HAL_I2C_Mem_Read_DMA(i2c, request->address << 1, request->ireg,
+                                     1, request->buffer, request->num_bytes);
 
         } else {
             ret =
-                HAL_I2C_Mem_Write_IT(i2c, request->address << 1, request->ireg,
-                                     1, request->buffer, request->num_bytes);
+                HAL_I2C_Mem_Write_DMA(i2c, request->address << 1, request->ireg,
+                                      1, request->buffer, request->num_bytes);
         }
 
         if (ret != HAL_OK) {
@@ -207,3 +209,5 @@ void HAL_I2C_AbortCallback(I2C_HandleTypeDef *i2c) {
         future_error_out(&current_request->future, -ECONNABORTED);
     }
 }
+
+#pragma GCC pop_options

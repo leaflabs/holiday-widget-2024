@@ -3,9 +3,11 @@
 
 #include <stdbool.h>
 
-#include "entity.h"
 #include "led_matrix.h"
 #include "stm32l0xx_hal.h"
+// #include "game_engine.h"
+#include "game_entity.h"
+#include "lsm6dsm_driver.h"
 
 /* Used for the type of the current request*/
 enum request_type {
@@ -34,6 +36,7 @@ struct driver_comm_message_passing {
     union {
         struct {
             float x, y, z;
+            // tilt_flags tilt_flags;
         } acceleration;
 
         struct {
@@ -50,6 +53,8 @@ struct driver_comm_message_passing {
         uint32_t delay_ms;   // How many miliseconds between data requests
         uint32_t last_time;  // Base time to count from
     } timing;
+
+    bool inactive_flag;
 };
 
 /* Use when communication is in the form of sharing data */
@@ -83,7 +88,7 @@ struct driver_comm_shared_memory {
             struct {
                 bool active;              // Should the renderer be on
                 bool finished;            // Is the renderer finished
-                struct entity *entities;  // Array of entities to draw
+                struct game_entity *entities;  // Array of entities to draw
                 uint32_t num_entities;    // How many sprites are in the array
                 uint32_t output_slot;     // Which slot to write to
                 uint32_t row;             // Which row to process

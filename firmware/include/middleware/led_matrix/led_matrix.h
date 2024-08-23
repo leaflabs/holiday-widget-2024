@@ -5,26 +5,10 @@
 #include "stm32l0xx_hal.h"
 
 /*
-    This determines how many subframes will show before going to
-    the next frame. This should be between 3 and 5 (inclusive) as
-    that yields a good duration while limiting the delay in the
-    assembler function.
-*/
-#define LED_MATRIX_SUB_FRAME_COUNT_POWER 4
-#define LED_MATRIX_SUB_FRAME_COUNT (1 << LED_MATRIX_SUB_FRAME_COUNT_POWER)
-
-/*
-    This is the max brightness of an led and must not change.
-    From testing, 4 leads to the least amount of flickering while
-    giving a range of brightness values
-*/
-#define LED_MATRIX_MAX_VALUE 4
-
-/*
  * Defines how large the buffers are for storing assembled, loaded and
  * renderered frames
  */
-#define LED_MATRIX_BUFFER_SIZE 4
+#define LED_MATRIX_BUFFER_SIZE 2
 
 /*
  * Create a map so the widget controller can reference animation frames
@@ -34,6 +18,7 @@
 enum animation_map {
     ANIM_TEST_ANIMATION,
     ANIM_SAVED_ANIMATION,
+    ANIM_RUNTIME_ANIMATION,
 };
 
 /*
@@ -111,11 +96,15 @@ void led_matrix_renderer_run(void);
  */
 void led_matrix_assembler_run(void);
 
-/*
- * Draws a single subframe per iteration. It will automatically wrap around
- * the subframe and end once it has drawn 'num_draws' sub_frames
- * Signals when finished.
- */
-void led_matrix_drawer_run(void);
+void pause_led_matrix();
+void unpause_led_matrix();
+
+enum scroll_speed {
+    SCROLL_SPEED_FAST = 1,
+    SCROLL_SPEED_MODERATE = 2,
+    SCROLL_SPEED_SLOW = 4,
+};
+
+size_t led_matrix_scroll_text(const char *text, enum scroll_speed speed);
 
 #endif /* __LED_MATRIX_H__ */

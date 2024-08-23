@@ -29,7 +29,7 @@ static void gpio_init(struct pam8302a_driver *pam8302a_driver) {
     /* Configure Enable Pin as high-speed push-pull output */
     gpio.Pin = cfg->enable_pin.pin;
     gpio.Mode = GPIO_MODE_OUTPUT_PP;
-    gpio.Pull = GPIO_PULLUP;
+    gpio.Pull = GPIO_PULLDOWN;
     gpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 
     /* Initialize GPIO port with configured structure */

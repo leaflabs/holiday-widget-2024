@@ -57,106 +57,22 @@
 
 */
 
-/*
-    List every control line (GPIO pin)
-    so we can index into an array with the value.
-
-    Notice the DEFAULT_CONTROL. This allows for dummy writes
-    by taking up the 0 index
-*/
-enum controls {
-    DEFAULT_CONTROL = 0x0,
-    CTRL0 = 0x1,
-    CTRL1 = 0x2,
-    CTRL2 = 0x3,
-    CTRL3 = 0x4,
-    CTRL4 = 0x5,
-    CTRL5 = 0x6,
-    CTRL6 = 0x7,
-    CTRL7 = 0x8,
-    CTRL8 = 0x9,
-    CTRL9 = 0xA,
-    CTRL10 = 0xB,
-    CTRL11 = 0xC,
-    CTRL12 = 0xD,
-    CTRL13 = 0xE
-};
-
 // Size of the n x n matrix
 #define N_DIMENSIONS 7
 
 // Number of leds and the size of the control array
-#define NUM_LEDS (N_DIMENSIONS * N_DIMENSIONS)
+#define NUM_LEDS (N_DIMENSIONS * N_DIMENSIONS) + 1
 
-/*
-    List of all LEDs possible to turn on.
-
-    The DEFAULT_LED takes up the 0th index to allow for
-    writing 0 to have no effect. This is used to avoid checking
-    if an led is on or not.
-
-    Setting an LED requires setting the led's value in an array to
-    itself. Ex: leds[D9] = D9;
-*/
-
-enum leds {
-    DEFAULT_LED,  // this is 0x0 and will not turn on any leds
-    D67,
-    D5,
-    D9,
-    D7,
-    D57,
-    D58,
-    D83,
-
-    D17,
-    D71,
-    D19,
-    D18,
-    D59,
-    D24,
-    D23,
-
-    D75,
-    D12,
-    D13,
-    D11,
-    D25,
-    D79,
-    D26,
-
-    D68,
-    D6,
-    D10,
-    D8,
-    D60,
-    D61,
-    D84,
-
-    D20,
-    D72,
-    D22,
-    D21,
-    D62,
-    D27,
-    D80,
-
-    D76,
-    D15,
-    D16,
-    D14,
-    D28,
-    D32,
-    D33,
-
-    D29,
-    D31,
-    D30,
-    D36,
-    D37,
-    D35,
-    D34,
+enum led_frame {
+    LED_FRAME_1,
+    LED_FRAME_2,
+    LED_FRAME_3,
+    LED_FRAME_4,
+    LED_FRAME_5,
+    __NUM_LED_FRAMES,
 };
+
+struct charlieplex_driver;
 
 /*
     Set up the GPIO pins and clocks for charlieplexing and
@@ -176,5 +92,13 @@ void charlieplex_driver_reset_pins(void);
     the enum 'leds' defined above.
 */
 void charlieplex_driver_draw(uint8_t *leds);
+
+void pause_charlieplex_driver(void);
+
+void unpause_charlieplex_driver(void);
+
+void get_duration();
+
+extern const struct charlieplex_driver *const charlieplex_driver;
 
 #endif

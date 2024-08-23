@@ -4,10 +4,20 @@
 
 #include "animation_frames.h"
 #include "charlieplex_driver.h"
-#include "entity.h"
+#include "logging.h"
 #include "sprite.h"
 #include "sprite_maps.h"
+#include "string.h"
 #include "system_communication.h"
+
+#define _ANTIALIAS_LEVEL 1
+#if _ANTIALIAS_LEVEL <= 0
+#error "_ANTIALIAS_LEVEL must be greater than 0"
+#endif
+
+const uint32_t ANTIALIAS_LEVEL = _ANTIALIAS_LEVEL;
+
+volatile bool update_requested;
 
 /* Type to represent the led matrix thats usable for the charlieplex code */
 struct matrix_instance {
@@ -16,7 +26,7 @@ struct matrix_instance {
 
 /* Container of matrix_instances to make a single frame */
 struct frame_instance {
-    struct matrix_instance sub_frame[LED_MATRIX_SUB_FRAME_COUNT];
+    struct matrix_instance frame;
 };
 
 struct led_matrix_context {
@@ -83,6 +93,7 @@ void led_matrix_loader_run(void) {
 
         // We finished, so request a new frame to load
         comm->data.led_matrix.loader.finished = true;
+        update_requested = true;
     }
 
     // Update values
@@ -103,7 +114,7 @@ void led_matrix_renderer_run(void) {
     int cur_row = comm->data.led_matrix.renderer.row;
     int cur_col = comm->data.led_matrix.renderer.col;
     int output_slot = comm->data.led_matrix.renderer.output_slot;
-    struct entity *input = comm->data.led_matrix.renderer.entities;
+    struct game_entity *input = comm->data.led_matrix.renderer.entities;
     uint32_t num_entities = comm->data.led_matrix.renderer.num_entities;
 
     struct led_matrix *output = get_matrix_entry(context, output_slot);
@@ -111,26 +122,97 @@ void led_matrix_renderer_run(void) {
     // First, reset the pixel
     output->mat[cur_row][cur_col] = 0;
 
+#if _ANTIALIAS_LEVEL == 1
     // Now iterate over all sprites in the buffer and draw them
     for (uint32_t i = 0; i < num_entities; i++) {
-        struct sprite_component *sc = &input[i].sprite;
-        const struct sprite *sprite = sc->map;
-        int x_pos = sc->x;
-        int y_pos = sc->y;
-        int width = sprite->width;
-        int height = sprite->height;
+        if (game_entity_is_active(&input[i])) {
+            struct sprite_component *sc = &input[i].sprite;
+            const struct sprite *sprite = sc->map;
+            int x_pos = sc->x;
+            int y_pos = sc->y;
+            int width = sprite->width;
+            int height = sprite->height;
 
-        // Get difference so we can also index into the sprite data array
-        int dx = cur_col - x_pos;
-        int dy = cur_row - y_pos;
+            // Get difference so we can also index into the sprite data array
+            int dx = cur_col - x_pos;
+            int dy = cur_row - y_pos;
 
-        // Add the brightness if we are in the bounds
-        if (cur_row >= y_pos && cur_col >= x_pos && dy < height && dx < width) {
-            int brightness = sprite->data[dx * width + dy];
-            output->mat[cur_row][cur_col] += brightness;
+            // Add the brightness if we are in the bounds
+            if (cur_row >= y_pos && cur_col >= x_pos && dy < height &&
+                dx < width) {
+                int brightness = sprite->data[dx + dy * width];
+                output->mat[cur_row][cur_col] = brightness;
+            }
         }
     }
+#else
+    // Now iterate over all sprites in the buffer and draw them
+    for (uint32_t i = 0; i < num_entities; i++) {
+        if (game_entity_is_active(&input[i])) {
+            struct sprite_component *sc = &input[i].sprite;
+            const struct sprite *sprite = sc->map;
+            int x_pos = sc->x;
+            int y_pos = sc->y;
+            int width = sprite->width * _ANTIALIAS_LEVEL;
+            int height = sprite->height * _ANTIALIAS_LEVEL;
 
+            // Determine the bounds of the sprite in terms of LED matrix pixels
+            int x1 = x_pos / _ANTIALIAS_LEVEL;             // Left boundary
+            int y1 = y_pos / _ANTIALIAS_LEVEL;             // Top boundary
+            int x2 = (x_pos + width) / _ANTIALIAS_LEVEL;   // Right boundary
+            int y2 = (y_pos + height) / _ANTIALIAS_LEVEL;  // Bottom boundary
+
+            // Calculate the sub-pixel boundaries for the current LED matrix
+            // pixel
+            int cur_x_subpixel_start = cur_col * _ANTIALIAS_LEVEL;
+            int cur_x_subpixel_end = (cur_col + 1) * _ANTIALIAS_LEVEL;
+            int cur_y_subpixel_start = cur_row * _ANTIALIAS_LEVEL;
+            int cur_y_subpixel_end = (cur_row + 1) * _ANTIALIAS_LEVEL;
+
+            // Check if the sprite overlaps with the current pixel
+            if (cur_col >= x1 && cur_col <= x2 && cur_row >= y1 &&
+                cur_row <= y2) {
+                // Calculate overlap area between the sprite and the current
+                // pixel
+                int overlap_x_start = (x_pos > cur_x_subpixel_start)
+                                          ? x_pos
+                                          : cur_x_subpixel_start;
+                int overlap_x_end = ((x_pos + width) < cur_x_subpixel_end)
+                                        ? (x_pos + width)
+                                        : cur_x_subpixel_end;
+                int overlap_y_start = (y_pos > cur_y_subpixel_start)
+                                          ? y_pos
+                                          : cur_y_subpixel_start;
+                int overlap_y_end = ((y_pos + height) < cur_y_subpixel_end)
+                                        ? (y_pos + height)
+                                        : cur_y_subpixel_end;
+
+                // Calculate the overlap area
+                int overlap_width = overlap_x_end - overlap_x_start;
+                int overlap_height = overlap_y_end - overlap_y_start;
+
+                // Calculate overlap proportion relative to the entire pixel
+                // area
+                float overlap_area = (float)(overlap_width * overlap_height) /
+                                     (_ANTIALIAS_LEVEL * _ANTIALIAS_LEVEL);
+
+                // Get the brightness of the corresponding sprite pixel
+                int dx = (overlap_x_start - x_pos) / _ANTIALIAS_LEVEL;
+                int dy = (overlap_y_start - y_pos) / _ANTIALIAS_LEVEL;
+                int brightness = sprite->data[dx + dy * sprite->width];
+
+                // Add the scaled brightness to the output pixel
+                output->mat[cur_row][cur_col] +=
+                    (int)(brightness * overlap_area);
+
+                // Clamp the pixel brightness to the maximum value
+                if (output->mat[cur_row][cur_col] > 4) {
+                    output->mat[cur_row][cur_col] = 4;
+                }
+            }
+        }
+    }
+#endif
     // Update index values
     cur_col++;
     if (cur_col >= N_DIMENSIONS) {
@@ -142,6 +224,7 @@ void led_matrix_renderer_run(void) {
 
         // We finished, so request a new slot to render to
         comm->data.led_matrix.renderer.finished = true;
+        update_requested = true;
     }
 
     // Update values
@@ -173,23 +256,10 @@ void led_matrix_assembler_run(void) {
     // Get the value for this led
     uint32_t led = input->mat[cur_row][cur_col];
 
-    // Counters for keeping track of which frames to set as 'on'
-    int time_counter = 0;
-    int time_on = led;  // The 'on time' is the value of the led in the matrix
-    int time_max = LED_MATRIX_MAX_VALUE;
-
-    // now go through each sub_frame and select which bits should be on
-    for (int i = 0; i < LED_MATRIX_SUB_FRAME_COUNT; i++) {
-        if (time_counter == time_max)
-            time_counter = 0;
-
-        // Set or unset the led
-        if (time_counter < time_on) {
-            output->sub_frame[i].matrix[index] = index;
-        } else {
-            output->sub_frame[i].matrix[index] = 0U;
-        }
-        time_counter++;
+    if (led) {
+        output->frame.matrix[index] = index;  // 1U;
+    } else {
+        output->frame.matrix[index] = 0U;
     }
 
     // Update index values
@@ -203,6 +273,7 @@ void led_matrix_assembler_run(void) {
 
         // Finished so request new data
         comm->data.led_matrix.assembler.finished = true;
+        charlieplex_driver_draw(output->frame.matrix);
     }
 
     // Update values
@@ -210,39 +281,50 @@ void led_matrix_assembler_run(void) {
     comm->data.led_matrix.assembler.col = cur_col;
 }
 
-void led_matrix_drawer_run(void) {
-    struct led_matrix_context *context = &led_matrix_context;
-    struct driver_comm_shared_memory *comm = context->comm;
+void pause_led_matrix() {
+    pause_charlieplex_driver();
+}
+void unpause_led_matrix() {
+    unpause_charlieplex_driver();
+}
 
-    // Is this task active?
-    bool drawer_on = comm->data.led_matrix.drawer.active;
-    if (!drawer_on) {
-        return;
+size_t led_matrix_scroll_text(const char *text, enum scroll_speed speed) {
+    static size_t scroll_position = 0;
+    static char *prev_text = NULL;
+
+    if (prev_text != NULL) {
+        if (strcmp(text, prev_text) != 0) {
+            scroll_position = 0;
+            LOG_INF("Warning: scroll text interrupted by new text");
+        }
+    } else {
+        led_matrix_comm.data.led_matrix.renderer.active = false;
+        led_matrix_comm.data.led_matrix.renderer.finished = true;
+        led_matrix_comm.data.led_matrix.loader.active = true;
+        led_matrix_comm.data.led_matrix.loader.finished = true;
+        led_matrix_comm.data.led_matrix.loader.input_anim =
+            ANIM_RUNTIME_ANIMATION;
     }
 
-    int sub_frame_cntr = comm->data.led_matrix.drawer.sub_frame_cntr;
-    int duration_cntr = comm->data.led_matrix.drawer.duration_cntr;
-    int num_draws = comm->data.led_matrix.drawer.num_draws;
+    prev_text = text;
 
-    int input_slot = comm->data.led_matrix.drawer.input_slot;
-    struct frame_instance *input = get_frame_entry(context, input_slot);
+    if (led_matrix_comm.data.led_matrix.loader.finished) {
+        generate_frame(text, strlen(text), scroll_position++ >> speed,
+                       animation_map_values[ANIM_RUNTIME_ANIMATION][0].mat);
 
-    // Draw the current subframe
-    charlieplex_driver_draw(input->sub_frame[sub_frame_cntr].matrix);
+        if (scroll_position >= strlen(text) * (N_DIMENSIONS << speed)) {
+            scroll_position = 0;
+            prev_text = NULL;
+            led_matrix_comm.data.led_matrix.loader.active = false;
+            led_matrix_comm.data.led_matrix.loader.finished = true;
+            led_matrix_comm.data.led_matrix.renderer.active = true;
+            led_matrix_comm.data.led_matrix.renderer.finished = true;
+            led_matrix_comm.data.led_matrix.renderer.row = 0;
+            led_matrix_comm.data.led_matrix.renderer.col = 0;
 
-    // Check for end of drawing or looping around the frame
-    sub_frame_cntr++;
-    duration_cntr++;
-    if (duration_cntr >= num_draws) {
-        duration_cntr = 0;
-        sub_frame_cntr = 0;
-        comm->data.led_matrix.drawer.finished = true;
-    }
-    if (sub_frame_cntr >= LED_MATRIX_SUB_FRAME_COUNT) {
-        sub_frame_cntr = 0;
+            return 0;
+        }
     }
 
-    // Update values
-    comm->data.led_matrix.drawer.sub_frame_cntr = sub_frame_cntr;
-    comm->data.led_matrix.drawer.duration_cntr = duration_cntr;
+    return strlen(text) * (N_DIMENSIONS << speed) - scroll_position;
 }

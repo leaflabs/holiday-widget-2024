@@ -2,6 +2,14 @@
 
 #include <errno.h>
 
+#define MUSIC_PLAYER_MAX_VOLUME 10U
+
+#define MUSIC_PLAYER_VOLUME 3U
+
+#if MUSIC_PLAYER_VOLUME > MUSIC_PLAYER_MAX_VOLUME
+#error "MUSIC_PLAYER_VOLUME must not exceed MUSIC_PLAYER_MAX_VOLUME"
+#endif
+
 /* This function is called if an error occurs on the duration transfer DMA
  * Channel */
 void duration_transfer_error_callback(DMA_HandleTypeDef *hdma);
@@ -347,6 +355,11 @@ enum music_player_error music_player_core_init(
     struct music_player *music_player) {
     struct music_player_config *cfg = &music_player->config;
 
+    for (int i = 0; i < SINE_WAVE_SAMPLES; i++) {
+        sine_wave_volume_adj[i] =
+            (sine_wave[i] * MUSIC_PLAYER_VOLUME) / MUSIC_PLAYER_MAX_VOLUME;
+    }
+
     if (pam8302a_driver_init(cfg->pam8302a_driver)) {
         /* PAM8302A Initialization Error */
         return MUSIC_PLAYER_INITIALIZATION_ERROR;
@@ -430,7 +443,7 @@ enum music_player_error music_player_core_play_song(
 
     /* Enable DAC and DMA waveform transfer */
     if (HAL_DAC_Start_DMA(&cfg->dac_handle, DAC_CHANNEL_1,
-                          (uint32_t *)sine_wave, SINE_WAVE_SAMPLES,
+                          (uint32_t *)sine_wave_volume_adj, SINE_WAVE_SAMPLES,
                           DAC_ALIGN_12B_R) != HAL_OK) {
         /* Start DMA Error */
         return MUSIC_PLAYER_RUN_ERROR;
@@ -456,6 +469,9 @@ enum music_player_error music_player_core_abort_song(
     return_value |= HAL_TIM_Base_Stop(&cfg->tim2_handle);
     return_value |= HAL_DAC_Stop(&cfg->dac_handle, DAC_CHANNEL_1);
     return_value |= pam8302a_driver_disable(cfg->pam8302a_driver);
+
+    HAL_DMA_Abort(&cfg->hdma_tim2_durations);
+    HAL_DMA_Abort(&cfg->hdma_tim2_notes);
 
     if (return_value) {
         return MUSIC_PLAYER_STOP_ERROR;

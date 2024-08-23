@@ -3,6 +3,8 @@
 #include <errno.h>
 #include <stdatomic.h>
 
+#include "logging.h"
+#include "stm32l0xx_hal.h"
 #define QUEUE_SIZE 16
 
 struct job_queue {
@@ -54,7 +56,10 @@ void job_state_machine_run(void) {
     };
 
     if (job_n < queue->n_entries) {
+        // uint32_t t0 = TIM21->CNT;
         queue->job_fns[job_n]();
+        // uint32_t t1 = TIM21->CNT;
+        // LOG_INF("JOB[%d]:<%p> %d", job_n, queue->job_fns[job_n], t1 - t0);
         job_n++;
     } else {
         job_n = 0;

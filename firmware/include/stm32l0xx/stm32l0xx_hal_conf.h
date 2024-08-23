@@ -46,12 +46,12 @@ extern "C" {
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_I2C_MODULE_ENABLED
 /* #define HAL_I2S_MODULE_ENABLED    */
-#define HAL_IWDG_MODULE_ENABLED
+/* #define HAL_IWDG_MODULE_ENABLED */
 /* #define HAL_LCD_MODULE_ENABLED  */
 /* #define HAL_LPTIM_MODULE_ENABLED */
 #define HAL_PWR_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
-/* #define HAL_RNG_MODULE_ENABLED    */
+#define HAL_RNG_MODULE_ENABLED
 /* #define HAL_RTC_MODULE_ENABLED */
 #define HAL_SPI_MODULE_ENABLED
 #define HAL_TIM_MODULE_ENABLED
@@ -140,12 +140,12 @@ extern "C" {
 /**
  * @brief This is the HAL system configuration section
  */
-#define VDD_VALUE (1800U) /*!< Value of VDD in mv */
+#define VDD_VALUE (2000U) /*!< Value of VDD in mv */
 #define TICK_INT_PRIORITY \
     ((1U << __NVIC_PRIO_BITS) - 1U) /*!< tick interrupt priority */
 #define USE_RTOS 0U
 #define PREFETCH_ENABLE 1U
-#define PREREAD_ENABLE 0U
+#define PREREAD_ENABLE 1U
 #define BUFFER_CACHE_DISABLE 0U
 
 /* ########################## Assert Selection ############################## */

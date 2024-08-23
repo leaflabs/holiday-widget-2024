@@ -1,6 +1,6 @@
 #include "music_player.h"
 
-#include "uart_logger.h"
+#include "logging.h"
 #include "utils.h"
 
 #define GEN_ERROR_STRING(error) [error] = #error
@@ -48,7 +48,7 @@ void music_player_run(void) {
     switch (context->state) {
         case MUSIC_PLAYER_UNINITIALIZED:
             /* Music Player Uninitialized */
-            uart_logger_send("Music Player not initialized properly\r\n");
+            LOG_ERR("Music Player not initialized properly");
             break;
         case MUSIC_PLAYER_READY:
             /* Music Player Ready */
@@ -82,18 +82,17 @@ void music_player_run(void) {
                 case MUSIC_PLAYER_NOTES_DMA_ERROR:      /* fallthrough */
                 case MUSIC_PLAYER_RUN_ERROR:            /* fallthrough */
                 case MUSIC_PLAYER_STOP_ERROR:
-                    uart_logger_send(error_strings[context->error]);
+                    LOG_ERR("%s", error_strings[context->error]);
                     break;
                 default:
-                    uart_logger_send("Unknown Music Player Error:%d\r\n",
-                                     context->error);
+                    LOG_ERR("Unknown Music Player Error:%d", context->error);
                     break;
             }
+            context->state = MUSIC_PLAYER_READY;
             break;
         default:
             /* Switching over enumerated type so you should never be here */
-            uart_logger_send("Unsupported Music Player State: %d\r\n",
-                             context->state);
+            LOG_ERR("Unsupported Music Player State: %d", context->state);
             break;
     }
 }
@@ -121,7 +120,7 @@ enum music_player_error music_player_abort_song(
 
 /* Returns true if a song is currently playing, else false */
 bool music_player_is_song_playing(struct music_player *music_player) {
-    return music_player->context.current_song == NO_SONG;
+    return music_player->context.current_song != NO_SONG;
 }
 
 /* Returns music player error code */

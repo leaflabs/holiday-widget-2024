@@ -1,7 +1,7 @@
 #include "ambient_light.h"
 
+#include "logging.h"
 #include "system_communication.h"
-#include "uart_logger.h"
 #include "vcnl4020_driver.h"
 
 extern struct driver_comm_message_passing ambient_light_comm;
@@ -90,7 +90,7 @@ void ambient_light_run(void) {
             /* State Machine Start */
             switch (vcnl4020_context.state) {
                 case VCNL4020_PRE_INIT: {
-                    uart_logger_send("VCNL4020 not initalized properly\r\n");
+                    LOG_ERR("VCNL4020 not initalized properly");
                 } break;
 
                 case VCNL4020_READY: {
@@ -145,7 +145,7 @@ void ambient_light_run(void) {
                 } break;
 
                 case VCNL4020_ERROR: {
-                    uart_logger_send("[ERROR] VCNL4020 had an error\r\n");
+                    LOG_ERR("VCNL4020 had an error");
 
                     // Prevent leaving error state by an interrupt
                     vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
@@ -193,7 +193,7 @@ void ambient_light_run(void) {
                 } break;
 
                 case FUTURE_FINISHED: {
-                    uart_logger_send("\r\nVCNL4020 INTERRUPT FINISHED\r\n\r\n");
+                    LOG_DBG("VCNL4020 INTERRUPT FINISHED");
                     vcnl4020_context.it_state = VCNL4020_INTERRUPT_CLEAR;
                 } break;
 

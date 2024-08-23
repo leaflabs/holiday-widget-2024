@@ -58,10 +58,10 @@ void print_available_i2c_devices(void) {
     }
 
     uart_logger_send("Scanned I2C addresses: %d\r\n", online_count);
-
+    uart_logger_send("high_mask: %d\r\n", high_mask);
     for (uint8_t i = 0; i < 128; i++) {
         if ((i < 64 && low_mask & (1 << i)) ||
-            (i < 128 && high_mask & (1 << (i - 64)))) {
+            (i >= 64 && high_mask & (1 << (i - 64)))) {
             uart_logger_send("     Address found: 0x%02x\r\n", i);
         }
     }

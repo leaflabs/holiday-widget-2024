@@ -3,6 +3,7 @@ BUILD_DIR   := ./build
 SRC_DIR     := ./src
 INC_DIR     := ./include
 HAL_SRC_DIR := ./STM32CubeL0/Drivers/STM32L0xx_HAL_Driver/Src/
+CMSIS_DSP_SRC_DIR := ./STM32CubeL0/Drivers/CMSIS/DSP/Source/*
 
 # Required system.c and startup.s files by CMSIS
 SYSTEM_SRC  := ./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Source/Templates/system_stm32l0xx.c
@@ -12,14 +13,15 @@ STARTUP_SRC := ./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Source/Templates/
 PRINTF_SRC  := ./SmallPrintf/src/printf/printf.c
 
 # List of all source directories to check thorugh
-SRC_DIRS    := $(SRC_DIR) $(HAL_SRC_DIR)
+SRC_DIRS    := $(SRC_DIR) $(HAL_SRC_DIR) $(CMSIS_DSP_SRC_DIR)
 
 # List of all include directories
 INC_DIRS    := $(shell find $(INC_DIR) -type d) \
 ./STM32CubeL0/Drivers/CMSIS/Include \
+./STM32CubeL0/Drivers/CMSIS/DSP/Include \
 ./STM32CubeL0/Drivers/STM32L0xx_HAL_Driver/Inc \
 ./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Include/ \
-./SmallPrintf/src/
+./SmallPrintf/src/ \
 
 # commands
 PREFIX  ?= arm-none-eabi-
@@ -49,14 +51,16 @@ OBJS      := $(SRCS:%=$(BUILD_DIR)/%.o)
 # Required dependency files for each .o file
 DEPS      := $(OBJS:.o=.d)
 
+# Include directories for directory-agnostic include directives
 INCLUDES  += $(addprefix -I,$(INC_DIRS))
+
 ASFLAGS   += -mthumb -mcpu=$(CPU_TYPE)
-CPPFLAGS  += $(INCLUDES) -MMD -MP -Wall
+CPPFLAGS  += $(INCLUDES) -DARM_MATH_CM0PLUS -MMD -MP -Wall
 CFLAGS    += -mthumb -Wall -Wextra -c -mcpu=$(CPU_TYPE) \
-	-std=gnu11 -Os -flto -g -gdwarf-2
-LDFLAGS   += -mthumb -nostdlib -lgcc -mcpu=$(CPU_TYPE) \
+	-std=gnu11 -O1 -ffast-math -flto -g -gdwarf-2
+LDFLAGS   += -mthumb -nostdlib -lgcc -lc -mcpu=$(CPU_TYPE) \
 	-Wl,-T,$(LINK_MEM) -Wl,--gc-sections \
-	-msoft-float -Os -ffunction-sections -fdata-sections -flto -g -gdwarf-2 -Wl,--print-memory-usage
+	-msoft-float -O1 -ffunction-sections -fdata-sections -flto -g -gdwarf-2 -Wl,--print-memory-usage
 
 # Generated files
 ANIMATION_FRAMES := $(INC_DIR)/middleware/led_matrix/animation/generated_animation_frames.h
@@ -64,14 +68,18 @@ LMATH_LUTS 		 := $(INC_DIR)/lmath/lmath_luts.h
 
 # actual targets
 .PHONY: all
-all: $(ANIMATION_FRAMES) $(LMATH_LUTS) $(TARGET_ELF)
+all: $(TARGET_ELF)
 
-$(TARGET_ELF): $(OBJS)
+$(TARGET_ELF): $(ANIMATION_FRAMES) $(LMATH_LUTS) $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 
 $(BUILD_DIR)/%.s.o: %.s
 	@mkdir -p $(dir $@)
 	$(AS) $(ASFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/%.S.o: %.S
+	@mkdir -p $(dir $@)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@ $(PROCESSOR_FLAG)
 
 $(BUILD_DIR)/%.c.o: %.c
 	@mkdir -p $(dir $@)

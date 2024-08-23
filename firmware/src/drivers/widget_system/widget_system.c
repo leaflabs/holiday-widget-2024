@@ -8,21 +8,27 @@
  */
 static void widget_system_clock_init(void) {
     RCC_OscInitTypeDef rcc_osc_init = {0};
+    RCC_PeriphCLKInitTypeDef periph_clk_init = {0};
     RCC_ClkInitTypeDef rcc_clk_init = {0};
 
-    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
     /* Enable MSI Oscillator */
     rcc_osc_init.OscillatorType = RCC_OSCILLATORTYPE_MSI;
     rcc_osc_init.MSIState = RCC_MSI_ON;
     rcc_osc_init.MSICalibrationValue = 0;
     rcc_osc_init.MSIClockRange = RCC_MSIRANGE_5;
-    rcc_osc_init.PLL.PLLState = RCC_PLL_NONE;
+    rcc_osc_init.PLL.PLLState = RCC_PLL_ON;
 
     if (HAL_RCC_OscConfig(&rcc_osc_init) != HAL_OK) {
         // error message here
     }
 
+    periph_clk_init.PeriphClockSelection = RCC_PERIPHCLK_USB;
+    periph_clk_init.UsbClockSelection = RCC_USBCLKSOURCE_PLLCLK;
+    if (HAL_RCCEx_PeriphCLKConfig(&periph_clk_init) != HAL_OK) {
+        // error message here
+    }
     /*
      * Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
      * clocks' dividers.
@@ -30,8 +36,8 @@ static void widget_system_clock_init(void) {
     rcc_clk_init.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK |
                               RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
 
-    rcc_clk_init.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
-    rcc_clk_init.AHBCLKDivider = RCC_SYSCLK_DIV2;
+    rcc_clk_init.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+    rcc_clk_init.AHBCLKDivider = RCC_SYSCLK_DIV1;
     rcc_clk_init.APB1CLKDivider = RCC_HCLK_DIV1;
     rcc_clk_init.APB2CLKDivider = RCC_HCLK_DIV1;
     if (HAL_RCC_ClockConfig(&rcc_clk_init, FLASH_LATENCY_0) != HAL_OK) {
