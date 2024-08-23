@@ -83,7 +83,7 @@ void widget_controller_setup(void) {
     led_matrix_comm.data.led_matrix.drawer.finished = true;
 
     // Stay at the same rate as the other functions
-    led_matrix_comm.data.led_matrix.drawer.num_draws = NUM_LEDS - DUMMY_SLOTS;
+    led_matrix_comm.data.led_matrix.drawer.num_draws = NUM_LEDS;
 
     /*
      * Set which slots to start in. For now, oscillate between first two slots

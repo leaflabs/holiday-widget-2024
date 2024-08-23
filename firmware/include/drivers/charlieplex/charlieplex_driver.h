@@ -73,17 +73,20 @@ enum controls {
     CTRL4 = 0x5,
     CTRL5 = 0x6,
     CTRL6 = 0x7,
-    CTRL7 = 0x8
+    CTRL7 = 0x8,
+    CTRL8 = 0x9,
+    CTRL9 = 0xA,
+    CTRL10 = 0xB,
+    CTRL11 = 0xC,
+    CTRL12 = 0xD,
+    CTRL13 = 0xE
 };
 
 // Size of the n x n matrix
 #define N_DIMENSIONS 7
 
-// Space for unused slots
-#define DUMMY_SLOTS 1
-
 // Number of leds and the size of the control array
-#define NUM_LEDS ((N_DIMENSIONS * N_DIMENSIONS) + DUMMY_SLOTS)
+#define NUM_LEDS (N_DIMENSIONS * N_DIMENSIONS)
 
 /*
     List of all LEDs possible to turn on.
@@ -94,68 +97,65 @@ enum controls {
 
     Setting an LED requires setting the led's value in an array to
     itself. Ex: leds[D9] = D9;
-
-    As of now, not all leds are in the hardware so dummy slots
-    are added to simulate the full matrix. Leds that are
-    labeled as D_* are dummy slots.
 */
+
 enum leds {
     DEFAULT_LED,  // this is 0x0 and will not turn on any leds
-    D7,
+    D67,
     D5,
-    D6,
-    D23,
-    D24,
-    D_1,
-    D_2,
+    D9,
+    D7,
+    D57,
+    D58,
+    D83,
 
-    D28,
+    D17,
+    D71,
+    D19,
+    D18,
+    D59,
+    D24,
+    D23,
+
+    D75,
+    D12,
+    D13,
+    D11,
+    D25,
+    D79,
+    D26,
+
+    D68,
+    D6,
     D10,
     D8,
-    D21,
-    D25,
-    D_3,
-    D_4,
+    D60,
+    D61,
+    D84,
 
-    D9,
-    D26,
-    D19,
-    D13,
     D20,
-    D_5,
-    D_6,
-
-    D27,
-    D16,
-    D15,
+    D72,
     D22,
-    D11,
-    D_7,
-    D_8,
+    D21,
+    D62,
+    D27,
+    D80,
 
-    D18,
-    D17,
+    D76,
+    D15,
+    D16,
     D14,
-    D12,
-    D_9,
-    D_10,
-    D_11,
+    D28,
+    D32,
+    D33,
 
-    D_12,
-    D_13,
-    D_14,
-    D_15,
-    D_16,
-    D_17,
-    D_18,
-
-    D_19,
-    D_20,
-    D_21,
-    D_22,
-    D_23,
-    D_24,
-    D_25
+    D29,
+    D31,
+    D30,
+    D36,
+    D37,
+    D35,
+    D34,
 };
 
 /*

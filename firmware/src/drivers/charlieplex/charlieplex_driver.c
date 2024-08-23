@@ -1,11 +1,10 @@
 #include "charlieplex_driver.h"
 
-#include "stm32l0xx_hal.h"
+#include "stm32l072xx.h"
 
 void charlieplex_driver_init(void) {
     // Enable clocks
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    __HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
 
     // Do the basic initalization steps to activate all pins
     // used for charlieplexing
@@ -20,31 +19,24 @@ void charlieplex_driver_reset_pins(void) {
         Set all pins to Input so they are high impedance.
     */
 
-    // Port B
-    gpio.Pin = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_10 |
-               GPIO_PIN_11;
+    // Port C
+    gpio.Pin = GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 |
+               GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 |
+               GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13;
     gpio.Mode = GPIO_MODE_INPUT;
     gpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    HAL_GPIO_Init(GPIOB, &gpio);
-
-    // Port A
-    gpio.Pin = GPIO_PIN_0 | GPIO_PIN_1;
-    gpio.Mode = GPIO_MODE_INPUT;
-    gpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    HAL_GPIO_Init(GPIOA, &gpio);
+    HAL_GPIO_Init(GPIOC, &gpio);
 }
 
 /*
-    Define the bitmasks to clear the GPIOA and GPIOB
-    MODER registers. These defines are left in this file
-    to 'hide' them from other files
+    Define the bitmasks to clear the GPIOC MODER registers. These
+    defines are left in this file to 'hide' them from other files
 */
 
-// Sets pins 0 and 1 to INPUT
-#define SET_TO_INPUT_A ~(3 << 0 | 3 << 2)
-
-// Sets pins 0, 1, 4, 5, 10, 11 to INPUT
-#define SET_TO_INPUT_B ~(3 << 0 | 3 << 2 | 3 << 8 | 3 << 10 | 3 << 20 | 3 << 22)
+// Sets pins 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+#define SET_TO_INPUT_C                                                 \
+    ~(3 << 0 | 3 << 2 | 3 << 4 | 3 << 6 | 3 << 8 | 3 << 10 | 3 << 12 | \
+      3 << 14 | 3 << 16 | 3 << 18 | 3 << 20 | 3 << 22 | 3 << 24 | 3 << 26)
 
 /*
     Before writing the next subframe, reset every pin to high impedance
@@ -58,8 +50,7 @@ void charlieplex_driver_reset_pins(void) {
 */
 static inline void charlieplex_clear(void) {
     // Clearing all control lines is as simple as writing each pin to INPUT
-    GPIOA->MODER &= SET_TO_INPUT_A;
-    GPIOB->MODER &= SET_TO_INPUT_B;
+    GPIOC->MODER &= SET_TO_INPUT_C;
 }
 
 /*
@@ -93,19 +84,25 @@ struct mode_odr {
     no effect. Writing 0x0 to OUTPUT and 0x0 to BRR will not change
     the state of the register.
 */
-static const struct mode_odr mode_odr_array[] = {
+static const struct mode_odr mode_odr_array[15] = {
     {0x0, 0x0},  // Write all zeros to MODER and BRR to have no effect
 
     // Actual mode_brr values begin here. These contain the preshifted
     // Values to enable OUTPUT mode and to set the BRR register
     {0x1, GPIO_PIN_0},
     {0x4, GPIO_PIN_1},
-    {0x100000, GPIO_PIN_10},
-    {0x400000, GPIO_PIN_11},
+    {0x10, GPIO_PIN_2},
+    {0x40, GPIO_PIN_3},
     {0x100, GPIO_PIN_4},
     {0x400, GPIO_PIN_5},
-    {0x1, GPIO_PIN_0},
-    {0x4, GPIO_PIN_1}};
+    {0x1000, GPIO_PIN_6},
+    {0x4000, GPIO_PIN_7},
+    {0x10000, GPIO_PIN_8},
+    {0x40000, GPIO_PIN_9},
+    {0x100000, GPIO_PIN_10},
+    {0x400000, GPIO_PIN_11},
+    {0x1000000, GPIO_PIN_12},
+    {0x4000000, GPIO_PIN_13}};
 
 /*
     For each control line (enum controls), define the GPIOx port and
@@ -120,18 +117,24 @@ struct control_port_pin {
     List each GPIOx port and the GPIO_PIN_x pin for each control line as
     a struct for fast access. Struct referenced above.
 */
-static const struct control_port_pin ports_and_pins[9] = {
-    {GPIOA, GPIO_PIN_0},  // Default port and pin. Used only for dummy writes
+static const struct control_port_pin ports_and_pins[15] = {
+    {GPIOC, GPIO_PIN_0},  // Default port and pin. Used only for dummy writes
 
     // Actual values begin here
-    {GPIOA, GPIO_PIN_0},
-    {GPIOA, GPIO_PIN_1},
-    {GPIOB, GPIO_PIN_10},
-    {GPIOB, GPIO_PIN_11},
-    {GPIOB, GPIO_PIN_4},
-    {GPIOB, GPIO_PIN_5},
-    {GPIOB, GPIO_PIN_0},
-    {GPIOB, GPIO_PIN_1}};
+    {GPIOC, GPIO_PIN_0},
+    {GPIOC, GPIO_PIN_1},
+    {GPIOC, GPIO_PIN_2},
+    {GPIOC, GPIO_PIN_3},
+    {GPIOC, GPIO_PIN_4},
+    {GPIOC, GPIO_PIN_5},
+    {GPIOC, GPIO_PIN_6},
+    {GPIOC, GPIO_PIN_7},
+    {GPIOC, GPIO_PIN_8},
+    {GPIOC, GPIO_PIN_9},
+    {GPIOC, GPIO_PIN_10},
+    {GPIOC, GPIO_PIN_11},
+    {GPIOC, GPIO_PIN_12},
+    {GPIOC, GPIO_PIN_13}};
 
 /*
     Turn on a control line by setting the GPIO pin mode to
@@ -193,29 +196,21 @@ static inline void charlieplex_switch_off(enum controls ctrl) {
     Notice the DEFAULT_CONTROL entry which is for dummy reads. This is to map
     the 'enum leds' indexes to this array correctly.
 */
-static const enum controls low[NUM_LEDS] = {
-    // The use of DEFAULT_CONTROL allows us to map the leds to a 5x5 matrix
+static const enum controls low[] = {
     DEFAULT_CONTROL,  // Dummy slot to match up with 'enum leds'
-    CTRL2,           CTRL1,           CTRL5,           CTRL0,
-    CTRL1,           DEFAULT_CONTROL, DEFAULT_CONTROL,
+    CTRL4,           CTRL1,  CTRL3,  CTRL2,  CTRL0,  CTRL1,  CTRL3,
 
-    CTRL6,           CTRL7,           CTRL6,           CTRL6,
-    CTRL2,           DEFAULT_CONTROL, DEFAULT_CONTROL,
+    CTRL0,           CTRL4,  CTRL3,  CTRL2,  CTRL2,  CTRL1,  CTRL0,
 
-    CTRL3,           CTRL4,           CTRL3,           CTRL3,
-    CTRL4,           DEFAULT_CONTROL, DEFAULT_CONTROL,
+    CTRL4,           CTRL1,  CTRL3,  CTRL0,  CTRL2,  CTRL4,  CTRL5,
 
-    CTRL5,           CTRL7,           CTRL5,           CTRL7,
-    CTRL0,           DEFAULT_CONTROL, DEFAULT_CONTROL,
+    CTRL9,           CTRL6,  CTRL8,  CTRL7,  CTRL5,  CTRL6,  CTRL8,
 
-    CTRL2,           CTRL0,           CTRL4,           CTRL1,
-    DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL,
+    CTRL5,           CTRL9,  CTRL8,  CTRL7,  CTRL7,  CTRL6,  CTRL9,
 
-    DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL,
-    DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL,
+    CTRL9,           CTRL6,  CTRL8,  CTRL5,  CTRL7,  CTRL10, CTRL12,
 
-    DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL,
-    DEFAULT_CONTROL, DEFAULT_CONTROL, DEFAULT_CONTROL,
+    CTRL11,          CTRL13, CTRL12, CTRL11, CTRL13, CTRL10, CTRL13,
 };
 
 /*
@@ -248,90 +243,114 @@ static inline void charlieplex_led_on(enum leds led) {
 
     There is no concern for LEDs sharing control lines, that is
     already handled.
-
-    To fully simulate a 7x7 matrix, the dummy leds defined in 'enum leds'
-    are included, but just left as D_11 for simplicity. These leds do
-    consume cycles as the would in the real matrix but have no visual
-    effect here.
 */
 void charlieplex_driver_draw(uint8_t *leds) {
-    // Frame 1
+    /* Frame 1 */
     charlieplex_switch_on(CTRL0);
-    charlieplex_switch_on(CTRL4);
+    charlieplex_switch_on(CTRL5);
+    charlieplex_switch_on(CTRL10);
 
+    /* LED Output0*/
     charlieplex_led_on(leds[D5]);
     charlieplex_led_on(leds[D7]);
     charlieplex_led_on(leds[D9]);
+    charlieplex_led_on(leds[D67]);
+
+    /* LED Output1*/
     charlieplex_led_on(leds[D6]);
     charlieplex_led_on(leds[D8]);
     charlieplex_led_on(leds[D10]);
+    charlieplex_led_on(leds[D68]);
 
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
+    /* LED Output2*/
+    charlieplex_led_on(leds[D29]);
+    charlieplex_led_on(leds[D30]);
+    charlieplex_led_on(leds[D31]);
 
     charlieplex_clear();
 
-    // Frame 2
+    /* Frame 2 */
     charlieplex_switch_on(CTRL2);
-    charlieplex_switch_on(CTRL6);
+    charlieplex_switch_on(CTRL7);
+    charlieplex_switch_on(CTRL12);
 
+    /* LED Output0*/
     charlieplex_led_on(leds[D11]);
     charlieplex_led_on(leds[D12]);
     charlieplex_led_on(leds[D13]);
+    charlieplex_led_on(leds[D75]);
+
+    /* LED Output1*/
     charlieplex_led_on(leds[D14]);
     charlieplex_led_on(leds[D15]);
     charlieplex_led_on(leds[D16]);
+    charlieplex_led_on(leds[D76]);
 
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
+    /* LED Output2*/
+    charlieplex_led_on(leds[D35]);
+    charlieplex_led_on(leds[D36]);
+    charlieplex_led_on(leds[D37]);
 
     charlieplex_clear();
 
-    // Frame 3
+    /* Frame 3 */
     charlieplex_switch_on(CTRL1);
-    charlieplex_switch_on(CTRL5);
+    charlieplex_switch_on(CTRL6);
+    charlieplex_switch_on(CTRL11);
 
+    /* LED Output0*/
     charlieplex_led_on(leds[D17]);
     charlieplex_led_on(leds[D18]);
     charlieplex_led_on(leds[D19]);
+    charlieplex_led_on(leds[D71]);
+
+    /* LED Output1*/
     charlieplex_led_on(leds[D20]);
     charlieplex_led_on(leds[D21]);
     charlieplex_led_on(leds[D22]);
+    charlieplex_led_on(leds[D72]);
 
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
+    /* LED Output2*/
+    charlieplex_led_on(leds[D32]);
+    charlieplex_led_on(leds[D33]);
+    charlieplex_led_on(leds[D34]);
 
     charlieplex_clear();
 
-    // Frame 4
+    /* Frame 4 */
     charlieplex_switch_on(CTRL3);
-    charlieplex_switch_on(CTRL7);
+    charlieplex_switch_on(CTRL8);
+    charlieplex_switch_on(CTRL13);
 
+    /* LED Output0*/
     charlieplex_led_on(leds[D23]);
     charlieplex_led_on(leds[D24]);
     charlieplex_led_on(leds[D25]);
+    charlieplex_led_on(leds[D79]);
+
+    /* LED Output1*/
     charlieplex_led_on(leds[D26]);
     charlieplex_led_on(leds[D27]);
     charlieplex_led_on(leds[D28]);
+    charlieplex_led_on(leds[D80]);
 
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
-    charlieplex_led_on(leds[D_11]);
+    charlieplex_clear();
+
+    /* Frame 5 */
+    charlieplex_switch_on(CTRL4);
+    charlieplex_switch_on(CTRL9);
+
+    /* LED Output0*/
+    charlieplex_led_on(leds[D57]);
+    charlieplex_led_on(leds[D58]);
+    charlieplex_led_on(leds[D59]);
+    charlieplex_led_on(leds[D83]);
+
+    /* LED Output1*/
+    charlieplex_led_on(leds[D60]);
+    charlieplex_led_on(leds[D61]);
+    charlieplex_led_on(leds[D62]);
+    charlieplex_led_on(leds[D84]);
 
     charlieplex_clear();
 }

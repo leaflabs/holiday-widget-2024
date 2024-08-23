@@ -168,7 +168,7 @@ void led_matrix_assembler_run(void) {
     struct frame_instance *output = get_frame_entry(context, output_slot);
 
     // We need the index of the led so we can assign that element to itself
-    int index = cur_row * N_DIMENSIONS + cur_col + DUMMY_SLOTS;
+    int index = cur_row * N_DIMENSIONS + cur_col;
 
     // Get the value for this led
     uint32_t led = input->mat[cur_row][cur_col];

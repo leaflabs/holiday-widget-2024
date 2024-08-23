@@ -16,14 +16,17 @@ int main(void) {
     job_add(&print_available_i2c_devices, JOB_INIT);
 
     job_add(&widget_controller_setup, JOB_INIT);
-    job_add(&acceleration_setup, JOB_INIT);
+
+    /* Acceleration driver is outdated at this point */
+    // job_add(&acceleration_setup, JOB_INIT);
     job_add(&ambient_light_setup, JOB_INIT);
     job_add(&led_matrix_setup, JOB_INIT);
     job_add(&music_player_setup, JOB_INIT);
 
     job_add(&system_communication_run, JOB_RUN_RUN);
 
-    job_add(&acceleration_run, JOB_RUN_RUN);
+    /* Acceleration driver is outdated at this point */
+    // job_add(&acceleration_run, JOB_RUN_RUN);
     job_add(&ambient_light_run, JOB_RUN_RUN);
 
     job_add(&widget_controller_run, JOB_RUN_RUN);
@@ -32,7 +35,7 @@ int main(void) {
     job_add(&led_matrix_renderer_run, JOB_RUN_RUN);
     job_add(&led_matrix_assembler_run, JOB_RUN_RUN);
     job_add(&led_matrix_drawer_run, JOB_RUN_RUN);
-    // job_add(&music_player_run, JOB_RUN_RUN);
+    job_add(&music_player_run, JOB_RUN_RUN);
 
     while (1) {
         job_state_machine_run();
