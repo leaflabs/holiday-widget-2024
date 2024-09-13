@@ -82,3 +82,37 @@ build_firmware:
     - cp build/blink.elf ../blink.elf
     # Copy the generated lookup tables to the root directory
     - cp build/lut_generator ../lut_generator
+
+# Generate diffs for PCB project
+.generate_hardware_diffs_template: &generate_hardware_diffs_template
+  image:
+    name: leoheck/kiri:latest
+    docker:
+      user: root
+  stage: check
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      changes:
+        - $PROJECT_DIR/**/*
+  artifacts:
+    paths:
+      - $PROJECT_DIR/.kiri
+  before_script:
+    - export PATH=$PATH:/home/kiri/.local/share/kiri/bin/:/home/kiri/.local/share/kiri/submodules/KiCad-Diff/bin:/home/kiri/bin
+    - export TERM=xterm
+    - apt update && apt install -y curl
+    - export
+  script:
+    - kiri --no-server -o $(git rev-parse --short $CI_MERGE_REQUEST_DIFF_BASE_SHA) $PROJECT_DIR/$PROJECT_FILE
+    - >-
+      curl --location \
+           --request POST "https://gitlab.leaflabs.com/api/v4/projects/$CI_MERGE_REQUEST_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes" \
+           --header "PRIVATE-TOKEN: $PROJECT_ACCESS_TOKEN" \
+           --header "Content-Type: application/json" \
+           --data-raw "{ \"body\": \"Board Diff for [$PROJECT_DIR - $CI_PIPELINE_ID](https://$CI_PROJECT_NAMESPACE.pages.leaflabs.com/-/holiday-widget/-/jobs/$CI_JOB_ID/artifacts/$PROJECT_DIR/.kiri/web/index.html)\" }"
+
+generate_widget_diffs:
+  <<: *generate_hardware_diffs_template
+  variables:
+    PROJECT_DIR: hardware
+    PROJECT_FILE: holiday-widget.kicad_pro
