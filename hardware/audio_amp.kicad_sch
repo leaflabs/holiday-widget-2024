@@ -1040,7 +1040,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 181.61 114.808 90)
 			(effects
 				(font
@@ -1059,6 +1059,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 181.61 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-071M8L"
 			(at 181.61 113.03 0)
 			(effects
 				(font
@@ -1110,7 +1119,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 123.952 91.44 90)
 			(effects
 				(font
@@ -1129,6 +1138,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 125.73 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-07200KL"
 			(at 125.73 91.44 0)
 			(effects
 				(font
@@ -1180,7 +1198,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 146.812 106.68 90)
 			(effects
 				(font
@@ -1199,6 +1217,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 148.59 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-07200KL"
 			(at 148.59 106.68 0)
 			(effects
 				(font
@@ -1250,7 +1277,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 161.5948 62.23 0)
 			(effects
 				(font
@@ -1269,6 +1296,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 162.56 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A104KA5NNNC"
 			(at 162.56 66.04 0)
 			(effects
 				(font
@@ -1320,7 +1356,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 146.812 118.11 90)
 			(effects
 				(font
@@ -1339,6 +1375,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 148.59 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-07200KL"
 			(at 148.59 118.11 0)
 			(effects
 				(font
@@ -1390,7 +1435,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 123.952 74.93 90)
 			(effects
 				(font
@@ -1409,6 +1454,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 125.73 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-07200KL"
 			(at 125.73 74.93 0)
 			(effects
 				(font
@@ -1458,7 +1512,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 163.83 111.252 90)
 			(effects
 				(font
@@ -1477,6 +1531,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 163.83 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-07100KL"
 			(at 163.83 113.03 0)
 			(effects
 				(font
@@ -1553,6 +1616,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "CL10A106MQ8NNNC"
+			(at 118.11 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ad024bf6-3445-4750-9d71-5a84afca7190")
 		)
@@ -1613,6 +1685,15 @@
 			)
 		)
 		(property "Description" "5V, High-Precision, Ultra-Low-Power Operational Amplifiers"
+			(at 179.07 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
 			(at 179.07 85.09 0)
 			(effects
 				(font

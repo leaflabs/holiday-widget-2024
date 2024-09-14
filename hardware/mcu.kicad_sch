@@ -5428,6 +5428,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 237.49 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9703e5ff-4179-4520-8988-1179117f2346")
 		)
@@ -5467,7 +5476,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 22.5552 173.99 0)
 			(effects
 				(font
@@ -5486,6 +5495,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 21.59 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A475MP5NRNC"
 			(at 21.59 170.18 0)
 			(effects
 				(font
@@ -5537,7 +5555,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 155.9052 173.99 0)
 			(effects
 				(font
@@ -5556,6 +5574,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 154.94 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A104KA5NNNC"
 			(at 154.94 170.18 0)
 			(effects
 				(font
@@ -5632,6 +5659,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 189.23 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "8c713d03-e121-4011-a40f-e7be4ff763db")
 		)
@@ -5672,7 +5708,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 33.9852 173.99 0)
 			(effects
 				(font
@@ -5691,6 +5727,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 33.02 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A104KA5NNNC"
 			(at 33.02 170.18 0)
 			(effects
 				(font
@@ -5742,7 +5787,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 46.6852 173.99 0)
 			(effects
 				(font
@@ -5761,6 +5806,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 45.72 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A104KA5NNNC"
 			(at 45.72 170.18 0)
 			(effects
 				(font
@@ -5831,6 +5885,15 @@
 			)
 		)
 		(property "Description" "Push button switch, generic, two pins"
+			(at 40.64 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
 			(at 40.64 52.07 0)
 			(effects
 				(font
@@ -5974,6 +6037,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "CL05A105KO5NNNC"
+			(at 92.71 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "c8ba219e-91aa-4e01-9d3a-185ddbf403bc")
 		)
@@ -6037,6 +6109,15 @@
 			)
 		)
 		(property "Description" "STMicroelectronics Arm Cortex-M0+ MCU, 128KB flash, 20KB RAM, 32 MHz, 1.65-3.6V, 51 GPIO, LQFP64"
+			(at 139.7 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "STM32L072RBT6"
 			(at 139.7 88.9 0)
 			(effects
 				(font
@@ -6274,7 +6355,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 39.878 107.95 90)
 			(effects
 				(font
@@ -6293,6 +6374,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 38.1 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-0710KL"
 			(at 38.1 107.95 0)
 			(effects
 				(font
@@ -6344,7 +6434,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 102.362 27.94 90)
 			(effects
 				(font
@@ -6363,6 +6453,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 104.14 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-07100KL"
 			(at 104.14 27.94 0)
 			(effects
 				(font
@@ -6414,7 +6513,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 103.8352 177.8 0)
 			(effects
 				(font
@@ -6433,6 +6532,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 102.87 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A104KA5NNNC"
 			(at 102.87 173.99 0)
 			(effects
 				(font
@@ -6484,7 +6592,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 70.8152 173.99 0)
 			(effects
 				(font
@@ -6503,6 +6611,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 69.85 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A104KA5NNNC"
 			(at 69.85 170.18 0)
 			(effects
 				(font
@@ -6554,7 +6671,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 80.772 27.94 90)
 			(effects
 				(font
@@ -6573,6 +6690,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 82.55 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-07100KL"
 			(at 82.55 27.94 0)
 			(effects
 				(font
@@ -6651,6 +6777,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 38.1 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "812db4ee-d045-4445-8521-2e9a38fc6cf7")
 		)
@@ -6718,6 +6853,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 160.02 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5af28d42-66af-4348-a343-2a305914025f")
 		)
@@ -6758,7 +6902,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 88.392 128.27 90)
 			(effects
 				(font
@@ -6777,6 +6921,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 90.17 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-0710KL"
 			(at 90.17 128.27 0)
 			(effects
 				(font
@@ -6828,7 +6981,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 59.3852 173.99 0)
 			(effects
 				(font
@@ -6847,6 +7000,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 58.42 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A104KA5NNNC"
 			(at 58.42 170.18 0)
 			(effects
 				(font
@@ -6925,6 +7087,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 237.49 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "0234dfa3-af15-4447-b778-ebbc632e11c3")
 		)
@@ -6992,6 +7163,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 160.02 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "93efa397-e7dd-4740-a9a2-51461f6d6a71")
 		)
@@ -7032,7 +7212,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 38.862 67.31 90)
 			(effects
 				(font
@@ -7051,6 +7231,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 40.64 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-0710KL"
 			(at 40.64 67.31 0)
 			(effects
 				(font
@@ -7102,7 +7291,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 98.552 133.35 90)
 			(effects
 				(font
@@ -7121,6 +7310,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 100.33 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-0710KL"
 			(at 100.33 133.35 0)
 			(effects
 				(font
@@ -7199,6 +7397,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 237.49 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "8b7ca1c3-8096-4a2e-b854-16b43252e5b6")
 		)
@@ -7266,6 +7473,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 160.02 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ee7ac36d-f64f-4e2d-b895-e4ea084693f6")
 		)
@@ -7324,6 +7540,15 @@
 			)
 		)
 		(property "Description" "Ferrite bead"
+			(at 120.65 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "742792662"
 			(at 120.65 163.83 0)
 			(effects
 				(font

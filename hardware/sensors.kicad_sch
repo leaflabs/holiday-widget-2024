@@ -2395,7 +2395,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 175.5648 52.07 0)
 			(effects
 				(font
@@ -2414,6 +2414,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 176.53 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A104KA5NNNC"
 			(at 176.53 48.26 0)
 			(effects
 				(font
@@ -2465,7 +2474,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 53.848 52.07 90)
 			(effects
 				(font
@@ -2484,6 +2493,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 52.07 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-070RL"
 			(at 52.07 52.07 0)
 			(effects
 				(font
@@ -2535,7 +2553,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 71.4248 31.75 0)
 			(effects
 				(font
@@ -2554,6 +2572,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 72.39 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A104KA5NNNC"
 			(at 72.39 27.94 0)
 			(effects
 				(font
@@ -2632,6 +2659,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "CL10A106MQ8NNNC"
+			(at 200.66 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "d3445b87-6e56-4f46-91fc-8d2b25b739a8")
 		)
@@ -2675,7 +2711,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 37.592 52.07 90)
 			(effects
 				(font
@@ -2694,6 +2730,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 39.37 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-070RL"
 			(at 39.37 52.07 0)
 			(effects
 				(font
@@ -2744,7 +2789,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 91.1352 111.76 0)
 			(effects
 				(font
@@ -2763,6 +2808,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 90.17 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "C0402C102K4RACTU"
 			(at 90.17 107.95 0)
 			(effects
 				(font
@@ -2834,6 +2888,15 @@
 			)
 		)
 		(property "Description" "I2C/SPI, iNEMO inertial module: always-on 3D accelerometer and 3D gyroscope, with auxiliary SPI, 1.71V to 3.6V VCC"
+			(at 86.36 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "LSM6DSMTR"
 			(at 86.36 49.53 0)
 			(effects
 				(font
@@ -2948,6 +3011,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "CL05A105KO5NNNC"
+			(at 97.79 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "6f2fadb4-8ab4-4572-81f4-775caea8e96c")
 		)
@@ -2991,7 +3063,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 214.3252 39.37 0)
 			(effects
 				(font
@@ -3010,6 +3082,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 213.36 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A104KA5NNNC"
 			(at 213.36 35.56 0)
 			(effects
 				(font
@@ -3061,7 +3142,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 46.482 52.07 90)
 			(effects
 				(font
@@ -3080,6 +3161,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 48.26 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-070RL"
 			(at 48.26 52.07 0)
 			(effects
 				(font
@@ -3148,6 +3238,15 @@
 			)
 		)
 		(property "Description" "High-performance MEMS microphone with extended frequency response up to 80 kHz for ultrasound applications"
+			(at 119.38 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "IMP23ABSUTR"
 			(at 119.38 107.95 0)
 			(effects
 				(font
@@ -3235,6 +3334,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "CL10A226MO7JZNC"
+			(at 162.56 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "8045ef82-15d0-48d3-bb00-9dee5a858b5e")
 		)
@@ -3278,7 +3386,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 214.122 58.42 90)
 			(effects
 				(font
@@ -3297,6 +3405,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 215.9 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-0710KL"
 			(at 215.9 58.42 0)
 			(effects
 				(font
@@ -3367,6 +3484,15 @@
 			)
 		)
 		(property "Description" "Fully Integrated Proximity and Ambient Light Sensor With Infrared Emitter, I2C Interface, and Interrupt Function"
+			(at 191.77 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "VCNL4020-GS08"
 			(at 191.77 57.15 0)
 			(effects
 				(font

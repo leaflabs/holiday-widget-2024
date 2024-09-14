@@ -1796,6 +1796,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "CL10A106MQ8NNNC"
+			(at 232.41 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b28edaa1-e51b-4b5f-b361-b9b78571e994")
 		)
@@ -1931,6 +1940,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "TPS61200DRCT"
+			(at 195.58 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "07899132-797d-4d27-b37c-214140ae7dee")
 		)
@@ -2026,6 +2044,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 161.29 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "9310d549-422f-4d02-814b-eef253f15cab")
 		)
@@ -2072,7 +2099,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 219.202 96.52 90)
 			(effects
 				(font
@@ -2091,6 +2118,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 220.98 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-071ML"
 			(at 220.98 96.52 0)
 			(effects
 				(font
@@ -2207,7 +2243,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 177.292 102.87 90)
 			(effects
 				(font
@@ -2226,6 +2262,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 179.07 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-070RL"
 			(at 179.07 102.87 0)
 			(effects
 				(font
@@ -2294,6 +2339,15 @@
 			)
 		)
 		(property "Description" "Inductor"
+			(at 195.58 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "LPS3015-222MRC"
 			(at 195.58 77.47 0)
 			(effects
 				(font
@@ -2410,7 +2464,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 219.202 104.14 90)
 			(effects
 				(font
@@ -2429,6 +2483,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 220.98 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-07180KL"
 			(at 220.98 104.14 0)
 			(effects
 				(font
@@ -2478,7 +2541,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 232.41 90.678 90)
 			(effects
 				(font
@@ -2497,6 +2560,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 232.41 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-070RL"
 			(at 232.41 88.9 0)
 			(effects
 				(font
@@ -2574,6 +2646,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "CL10A106MQ8NNNC"
+			(at 161.29 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "e85e78ad-46eb-42ff-ba9c-32850f630b05")
 		)
@@ -2616,7 +2697,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 178.7652 119.38 0)
 			(effects
 				(font
@@ -2635,6 +2716,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 177.8 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A104KA5NNNC"
 			(at 177.8 115.57 0)
 			(effects
 				(font
@@ -2685,7 +2775,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 176.2252 97.79 0)
 			(effects
 				(font
@@ -2704,6 +2794,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 175.26 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A475MP5NRNC"
 			(at 175.26 93.98 0)
 			(effects
 				(font

@@ -2484,7 +2484,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 162.56 46.228 90)
 			(effects
 				(font
@@ -2503,6 +2503,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 162.56 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-07120RL"
 			(at 162.56 44.45 0)
 			(effects
 				(font
@@ -2581,6 +2590,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 196.85 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d9e21945-0740-4c6b-afe7-3835b2bbddc2")
 		)
@@ -2648,6 +2666,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "LTST-C171GKT"
+			(at 170.18 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "11717aa0-4c08-4ab5-9637-c6a9c1621e2e")
 		)
@@ -2689,7 +2716,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 190.5 104.648 90)
 			(effects
 				(font
@@ -2708,6 +2735,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 190.5 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-070RL"
 			(at 190.5 102.87 0)
 			(effects
 				(font
@@ -2756,7 +2792,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 182.88 101.9048 0)
 			(effects
 				(font
@@ -2775,6 +2811,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 179.07 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "CL05A104KA5NNNC"
 			(at 179.07 102.87 0)
 			(effects
 				(font
@@ -2823,7 +2868,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 162.56 29.718 90)
 			(effects
 				(font
@@ -2842,6 +2887,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 162.56 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-07120RL"
 			(at 162.56 27.94 0)
 			(effects
 				(font
@@ -2920,6 +2974,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 196.85 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "bf317acd-92c0-46c7-acda-fb9853aa8208")
 		)
@@ -2979,6 +3042,15 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
+			(at 170.18 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "LTST-C171GKT"
 			(at 170.18 31.75 0)
 			(effects
 				(font
@@ -3057,6 +3129,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "PAM8302AADCR"
+			(at 213.36 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "8"
 			(uuid "d3184c3b-80bd-4bbd-a0e0-aece1fe3f181")
 		)
@@ -3116,7 +3197,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 187.198 109.22 90)
 			(effects
 				(font
@@ -3135,6 +3216,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 185.42 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402FR-07100KL"
 			(at 185.42 109.22 0)
 			(effects
 				(font
@@ -3205,6 +3295,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 233.68 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
 			(at 233.68 104.14 0)
 			(effects
 				(font

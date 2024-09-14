@@ -1261,6 +1261,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "LTST-C171GKT"
+			(at 97.79 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "062c66a0-82d9-4b55-b0cf-3ef1ef0db781")
 		)
@@ -1326,6 +1335,15 @@
 			)
 		)
 		(property "Description" "-0.2A Ic, -40V Vce, Small Signal PNP Transistor, SOT-23"
+			(at 151.13 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "MMBT3906"
 			(at 151.13 58.42 0)
 			(effects
 				(font
@@ -1407,6 +1425,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "LTST-C171GKT"
+			(at 46.99 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "28155a42-beb9-4ba1-af77-3b03465d24d8")
 		)
@@ -1477,6 +1504,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "LTST-C171GKT"
+			(at 97.79 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "09cae903-26d6-4180-af49-c5e37f8ffb97")
 		)
@@ -1519,7 +1555,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 89.662 52.07 90)
 			(effects
 				(font
@@ -1538,6 +1574,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 91.44 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-0750RL"
 			(at 91.44 52.07 0)
 			(effects
 				(font
@@ -1616,6 +1661,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "LTST-C171GKT"
+			(at 152.4 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "f8f8ccd8-7fd4-4ecd-a2f9-2fdbb3917f76")
 		)
@@ -1686,6 +1740,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "LTST-C171GKT"
+			(at 97.79 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5f5182c8-4227-49c8-b9b5-9bf389c3fc57")
 		)
@@ -1728,7 +1791,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 144.272 52.07 90)
 			(effects
 				(font
@@ -1747,6 +1810,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 146.05 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-0750RL"
 			(at 146.05 52.07 0)
 			(effects
 				(font
@@ -1816,6 +1888,15 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
+			(at 46.99 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "LTST-C171GKT"
 			(at 46.99 102.87 0)
 			(effects
 				(font
@@ -1897,6 +1978,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "MMBT3906"
+			(at 96.52 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "0096fea4-0ba6-4c41-b788-881647b341d3")
 		)
@@ -1962,6 +2052,15 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
+			(at 152.4 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "LTST-C171GKT"
 			(at 152.4 101.6 0)
 			(effects
 				(font
@@ -2040,6 +2139,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "LTST-C171GKT"
+			(at 46.99 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "68815935-d584-436c-948a-1cee434938eb")
 		)
@@ -2110,6 +2218,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "LTST-C171GKT"
+			(at 152.4 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "e5bc8ac0-f2fb-4f74-a988-1fa6272ec249")
 		)
@@ -2152,7 +2269,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 195.072 52.07 90)
 			(effects
 				(font
@@ -2171,6 +2288,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 196.85 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-0750RL"
 			(at 196.85 52.07 0)
 			(effects
 				(font
@@ -2244,6 +2370,15 @@
 			)
 		)
 		(property "Description" "-0.2A Ic, -40V Vce, Small Signal PNP Transistor, SOT-23"
+			(at 45.72 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "MMBT3906"
 			(at 45.72 58.42 0)
 			(effects
 				(font
@@ -2328,6 +2463,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" "MMBT3906"
+			(at 201.93 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ed3da6ce-b72a-416e-b550-fd9030bdb748")
 		)
@@ -2373,7 +2517,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 38.862 52.07 90)
 			(effects
 				(font
@@ -2392,6 +2536,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 40.64 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-0750RL"
 			(at 40.64 52.07 0)
 			(effects
 				(font

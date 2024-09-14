@@ -1847,6 +1847,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 193.04 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "7"
 			(uuid "9db3d6ee-85cb-4468-992c-458c105df16a")
 		)
@@ -1933,6 +1942,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 62.23 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
 			(at 62.23 29.21 0)
 			(effects
 				(font
@@ -2048,7 +2066,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 185.928 63.5 90)
 			(effects
 				(font
@@ -2067,6 +2085,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 184.15 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "RC0402JR-070RL"
 			(at 184.15 63.5 0)
 			(effects
 				(font
@@ -2145,6 +2172,15 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 252.73 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "2b28df51-ccad-4aea-bc29-df97105ee994")
 		)
@@ -2213,6 +2249,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 62.23 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" ""
 			(at 62.23 53.34 0)
 			(effects
 				(font
