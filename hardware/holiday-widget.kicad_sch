@@ -1227,16 +1227,6 @@
 		)
 		(uuid "6fcaf50c-f006-4229-bcbc-b7ca9fadae09")
 	)
-	(bus
-		(pts
-			(xy 85.09 105.41) (xy 110.49 105.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "73330766-3aa3-46af-8a9f-106c48797fe2")
-	)
 	(wire
 		(pts
 			(xy 111.76 58.42) (xy 114.3 58.42)
@@ -2198,16 +2188,6 @@
 			)
 			(uuid "0e8f5d45-d71b-48c1-a8ec-2ce16b319a99")
 		)
-		(pin "STAT_LED[0..1]" input
-			(at 85.09 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-			(uuid "50766db3-3f9f-4603-9e8d-05760f3badb9")
-		)
 		(pin "AUDIO_EN" input
 			(at 85.09 115.57 0)
 			(effects
@@ -2423,16 +2403,6 @@
 				(justify right)
 			)
 			(uuid "d2685c90-6517-4a96-ab5c-684dadd0d268")
-		)
-		(pin "STAT_LED[0..1]" output
-			(at 110.49 105.41 180)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-			(uuid "95699a96-dd9d-49c2-8cea-eb84e1695fd2")
 		)
 		(pin "AUDIO_OUT_EN" output
 			(at 110.49 115.57 180)

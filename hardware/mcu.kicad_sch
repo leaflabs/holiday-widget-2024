@@ -2372,6 +2372,10 @@
 		(uuid "2c430ca7-5bbe-4815-be60-3a6abdc217bc")
 	)
 	(no_connect
+		(at 157.48 66.04)
+		(uuid "3f9e3faf-03e9-405e-ad54-b69b585a6c07")
+	)
+	(no_connect
 		(at 157.48 114.3)
 		(uuid "4527c55e-bde9-41a8-a688-7fe67ae04bfb")
 	)
@@ -2410,6 +2414,10 @@
 	(no_connect
 		(at 157.48 116.84)
 		(uuid "b7e81926-47f9-4963-b638-427bbe009034")
+	)
+	(no_connect
+		(at 157.48 68.58)
+		(uuid "d3e10bf9-ba22-487f-9f04-d473fd9622eb")
 	)
 	(no_connect
 		(at 157.48 48.26)
@@ -2453,15 +2461,6 @@
 			(type default)
 		)
 		(uuid "153c157c-6952-4219-aa29-883c0a5f8c96")
-	)
-	(bus_entry
-		(at 222.25 146.05)
-		(size -2.54 2.54)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "44bfa1c3-a7bf-4394-b9f5-e597266ed326")
 	)
 	(bus_entry
 		(at 217.17 82.55)
@@ -2543,15 +2542,6 @@
 			(type default)
 		)
 		(uuid "c5341e96-208c-47d9-831a-4048189b5abe")
-	)
-	(bus_entry
-		(at 222.25 143.51)
-		(size -2.54 2.54)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cc40db3f-e6df-454e-b26e-f7e780ed0311")
 	)
 	(bus_entry
 		(at 217.17 77.47)
@@ -2716,16 +2706,6 @@
 			(type default)
 		)
 		(uuid "1157b8ba-7929-44a1-babf-deccf5bfce10")
-	)
-	(wire
-		(pts
-			(xy 209.55 146.05) (xy 219.71 146.05)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "12b4057b-5a4c-4784-9e45-961aa76d3004")
 	)
 	(wire
 		(pts
@@ -3379,16 +3359,6 @@
 	)
 	(wire
 		(pts
-			(xy 209.55 148.59) (xy 219.71 148.59)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "84d2fc43-1ffe-4ff5-88d2-ebd60ad2bafa")
-	)
-	(wire
-		(pts
 			(xy 228.6 118.11) (xy 237.49 118.11)
 		)
 		(stroke
@@ -3887,16 +3857,6 @@
 		)
 		(uuid "de4f10d2-852b-4863-b567-e6d6b357f9d3")
 	)
-	(bus
-		(pts
-			(xy 240.03 143.51) (xy 222.25 143.51)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "de897f8c-b471-4c22-adfc-8b401234a5ca")
-	)
 	(wire
 		(pts
 			(xy 119.38 45.72) (xy 121.92 45.72)
@@ -3926,16 +3886,6 @@
 			(type default)
 		)
 		(uuid "e1532a86-1e8a-4e5d-adf5-bde2380ab940")
-	)
-	(bus
-		(pts
-			(xy 222.25 143.51) (xy 222.25 146.05)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e2da3d37-ca06-49aa-a32a-1e0161d0974a")
 	)
 	(wire
 		(pts
@@ -3979,16 +3929,6 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 66.04) (xy 160.02 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e82986f9-e2d8-4bb5-9511-ba5bb1643a2d")
-	)
-	(wire
-		(pts
 			(xy 210.82 72.39) (xy 217.17 72.39)
 		)
 		(stroke
@@ -4016,16 +3956,6 @@
 			(type default)
 		)
 		(uuid "ee54b8ee-0a89-4f17-80d2-d15d21cff833")
-	)
-	(wire
-		(pts
-			(xy 157.48 68.58) (xy 160.02 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "eea06181-9ca5-4653-ad8e-3d14d456fd33")
 	)
 	(wire
 		(pts
@@ -4355,17 +4285,6 @@
 		)
 		(uuid "1fed8198-de65-41b9-9ad4-e1bbd5029d32")
 	)
-	(label "STAT_LED0"
-		(at 160.02 66.04 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "21371774-a0dc-4ec1-bbbb-a4fdcce2c91a")
-	)
 	(label "nRST"
 		(at 217.17 30.48 180)
 		(fields_autoplaced yes)
@@ -4453,17 +4372,6 @@
 			(justify left bottom)
 		)
 		(uuid "371cce09-d795-421f-a61f-98a2451e633e")
-	)
-	(label "STAT_LED[0..1]"
-		(at 223.52 143.51 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "39d70130-820c-4ddb-ab88-75284d518412")
 	)
 	(label "nRST"
 		(at 119.38 45.72 180)
@@ -4674,17 +4582,6 @@
 		)
 		(uuid "7da4f9dc-f86e-4679-89ba-ebfa63839594")
 	)
-	(label "STAT_LED1"
-		(at 209.55 148.59 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7db82d3d-1e7c-4196-95a7-391d63775709")
-	)
 	(label "LED6"
 		(at 210.82 64.77 0)
 		(fields_autoplaced yes)
@@ -4872,17 +4769,6 @@
 		)
 		(uuid "ad26a85e-2b09-44fe-8202-133bf07ab4ad")
 	)
-	(label "STAT_LED0"
-		(at 209.55 146.05 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "adc01df8-3ccd-49e1-a1a2-7da98ab52312")
-	)
 	(label "LED8"
 		(at 113.03 88.9 0)
 		(fields_autoplaced yes)
@@ -5003,17 +4889,6 @@
 			(justify left bottom)
 		)
 		(uuid "d1c41af8-7eb0-4395-97ca-ace5b6b4be77")
-	)
-	(label "STAT_LED1"
-		(at 160.02 68.58 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "d80e89b1-afe7-4384-bd8c-bd9de447c11b")
 	)
 	(label "LED13"
 		(at 210.82 82.55 0)
@@ -5276,18 +5151,6 @@
 			(justify left)
 		)
 		(uuid "84469fab-94aa-4b10-a998-3b7a7c08d636")
-	)
-	(hierarchical_label "STAT_LED[0..1]"
-		(shape output)
-		(at 240.03 143.51 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "8486f500-6924-43ae-ba76-bb0f4c7788d5")
 	)
 	(hierarchical_label "VDD"
 		(shape input)
