@@ -1029,16 +1029,6 @@
 	)
 	(wire
 		(pts
-			(xy 111.76 50.8) (xy 114.3 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "183c440a-b38b-4da2-a2a1-a98453a23d20")
-	)
-	(wire
-		(pts
 			(xy 212.09 120.65) (xy 208.28 120.65)
 		)
 		(stroke
@@ -1497,16 +1487,6 @@
 		)
 		(uuid "fe29a1eb-f276-4839-a1f8-ed25393fda1f")
 	)
-	(text "VDC: Input from an external DC source 2~5V."
-		(exclude_from_sim no)
-		(at 64.516 36.576 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "16c3cc59-2aa7-4f26-942d-8a5ef2614688")
-	)
 	(text "Battery: CR2032"
 		(exclude_from_sim no)
 		(at 62.738 61.722 0)
@@ -1571,17 +1551,6 @@
 			(justify right bottom)
 		)
 		(uuid "63ceeb59-992b-4e6c-a7f5-8eba6eb42da9")
-	)
-	(label "VDC_EX"
-		(at 57.15 29.21 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "6818cb48-9fdb-41e4-a06e-eb520f53a33c")
 	)
 	(label "GND"
 		(at 106.68 92.71 180)
@@ -1726,28 +1695,6 @@
 		)
 		(uuid "d4cb89c6-7104-40d6-be6d-84934ecd2bb0")
 	)
-	(label "GND"
-		(at 57.15 31.75 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "de431580-5d52-4745-89a8-56b7d440d693")
-	)
-	(label "VDC_EX"
-		(at 111.76 50.8 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "e8f29efb-6a19-4f4f-9da5-8e3626bb26d5")
-	)
 	(label "UART.TX"
 		(at 247.65 100.33 180)
 		(fields_autoplaced yes)
@@ -1890,85 +1837,6 @@
 			(project "holiday-widget"
 				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b"
 					(reference "J33")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x02")
-		(at 62.23 29.21 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "4ce74eaf-5d3d-4958-b913-3606686b1797")
-		(property "Reference" "J5"
-			(at 64.77 29.2099 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "VDC POWER"
-			(at 64.77 31.7499 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_Wire:SolderWire-1sqmm_1x02_P5.4mm_D1.4mm_OD2.7mm"
-			(at 62.23 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 62.23 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 62.23 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 62.23 29.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "07ebe435-0929-4f8f-a335-7bee7cf75a21")
-		)
-		(pin "1"
-			(uuid "ef73562f-20b1-4e43-8763-c1df0276d887")
-		)
-		(instances
-			(project "holiday-widget"
-				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b"
-					(reference "J5")
 					(unit 1)
 				)
 			)
@@ -2427,16 +2295,6 @@
 				(justify right)
 			)
 			(uuid "8a795d84-e742-420f-a845-2ffaac4110bc")
-		)
-		(pin "VDC_EX" input
-			(at 114.3 50.8 180)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-			(uuid "722f8afd-2257-41da-97bb-3d50b952a2b8")
 		)
 		(pin "VDC_BAT" input
 			(at 114.3 53.34 180)

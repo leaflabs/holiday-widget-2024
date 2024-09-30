@@ -424,191 +424,6 @@
 				)
 			)
 		)
-		(symbol "Jumper:Jumper_3_Bridged12"
-			(pin_names
-				(offset 0) hide)
-			(exclude_from_sim yes)
-			(in_bom no)
-			(on_board yes)
-			(property "Reference" "JP"
-				(at -2.54 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "Jumper_3_Bridged12"
-				(at 0 2.794 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Jumper, 3-pole, pins 1+2 closed/bridged"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "Jumper SPDT"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Jumper* TestPoint*3Pads* TestPoint*Bridge*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Jumper_3_Bridged12_0_0"
-				(circle
-					(center -3.302 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 3.302 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "Jumper_3_Bridged12_0_1"
-				(arc
-					(start -0.254 0.508)
-					(mid -1.651 0.9912)
-					(end -3.048 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -1.27) (xy 0 -0.508)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "Jumper_3_Bridged12_1_1"
-				(pin passive line
-					(at -6.35 0 0)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 2.54)
-					(name "C"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 6.35 0 180)
-					(length 2.54)
-					(name "B"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "Regulator_Switching:TPS61200DRC"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1024,7 +839,7 @@
 		(uuid "79871452-c540-49bc-9dcb-280e744e2156")
 	)
 	(junction
-		(at 167.64 72.39)
+		(at 161.29 76.2)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "99cb6c2e-b15e-4f8b-ae10-affa0e4d0b72")
@@ -1040,12 +855,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f6e21583-a34f-4ff0-ace9-24ae7990906f")
-	)
-	(junction
-		(at 154.94 72.39)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f9683c0f-5000-43a6-8eff-0f47a4725c29")
 	)
 	(wire
 		(pts
@@ -1066,16 +875,6 @@
 			(type default)
 		)
 		(uuid "0da8c055-d05f-4a2d-8ff8-12e6cf5fff75")
-	)
-	(wire
-		(pts
-			(xy 167.64 72.39) (xy 167.64 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0f7c438f-fd37-41e8-aaaa-02b08ccfc8a9")
 	)
 	(wire
 		(pts
@@ -1106,16 +905,6 @@
 			(type default)
 		)
 		(uuid "131447ee-aabb-4d53-ae13-a5695b88af87")
-	)
-	(wire
-		(pts
-			(xy 154.94 64.77) (xy 154.94 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "14e8987a-52d3-4e2d-ba76-7c1ec1f655a8")
 	)
 	(wire
 		(pts
@@ -1199,17 +988,7 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 87.63) (xy 80.01 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5416537a-1806-4787-83ee-7c22f5062c12")
-	)
-	(wire
-		(pts
-			(xy 167.64 64.77) (xy 167.64 72.39)
+			(xy 161.29 68.58) (xy 161.29 76.2)
 		)
 		(stroke
 			(width 0)
@@ -1229,7 +1008,7 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 90.17) (xy 161.29 82.55)
+			(xy 161.29 76.2) (xy 161.29 90.17)
 		)
 		(stroke
 			(width 0)
@@ -1339,16 +1118,6 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 72.39) (xy 154.94 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b837e03f-9eaa-4b89-9d2e-b3f33b7112ef")
-	)
-	(wire
-		(pts
 			(xy 80.01 100.33) (xy 80.01 102.87)
 		)
 		(stroke
@@ -1409,17 +1178,6 @@
 		)
 		(uuid "209c7552-a3c1-42e2-be45-95fe8493abeb")
 	)
-	(label "VDC_EX"
-		(at 80.01 87.63 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "22752054-6dff-4d82-a175-6dc3b9ff957a")
-	)
 	(label "VAUX"
 		(at 185.42 97.79 180)
 		(fields_autoplaced yes)
@@ -1442,17 +1200,6 @@
 		)
 		(uuid "52c58544-e204-48ab-b138-6966fcb25d2b")
 	)
-	(label "VDC_EX"
-		(at 154.94 64.77 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "644fce67-019c-4561-93b4-c861762841dc")
-	)
 	(label "VAUX"
 		(at 209.55 95.25 0)
 		(fields_autoplaced yes)
@@ -1465,7 +1212,7 @@
 		(uuid "6a140321-df55-416b-bacb-c0923aee5f57")
 	)
 	(label "VDC_BAT"
-		(at 167.64 64.77 180)
+		(at 161.29 68.58 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1599,21 +1346,9 @@
 		)
 		(uuid "e1b485b4-3f9d-4c05-8b90-40111b7246b8")
 	)
-	(hierarchical_label "VDC_EX"
-		(shape input)
-		(at 76.2 87.63 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "ecc661ad-2204-4c6b-b8a2-82cd769a8513")
-	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 167.64 72.39 270)
+		(at 161.29 76.2 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1621,7 +1356,7 @@
 		(dnp no)
 		(uuid "18438508-f4f1-45ce-b701-2dc5d29dcd24")
 		(property "Reference" "#FLG06"
-			(at 169.545 72.39 0)
+			(at 163.195 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1630,7 +1365,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 172.72 72.39 0)
+			(at 166.37 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1638,7 +1373,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 167.64 72.39 0)
+			(at 161.29 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1647,7 +1382,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 167.64 72.39 0)
+			(at 161.29 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1656,7 +1391,7 @@
 			)
 		)
 		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 167.64 72.39 0)
+			(at 161.29 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1821,73 +1556,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 161.29 90.17 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "58053b05-f248-4974-8714-3ab52a8dcc56")
-		(property "Reference" "#FLG04"
-			(at 159.385 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 157.48 90.1699 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 161.29 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 161.29 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 161.29 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ecb4d870-8aa9-4982-a9af-32a923c3342c")
-		)
-		(instances
-			(project "holiday-widget"
-				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1823db6d-8b7b-45a8-9f7d-7684f0e0242c"
-					(reference "#FLG04")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Regulator_Switching:TPS61200DRC")
 		(at 195.58 95.25 0)
 		(unit 1)
@@ -1992,86 +1660,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Jumper:Jumper_3_Bridged12")
-		(at 161.29 78.74 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim yes)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "685ad2fa-1323-4309-a8de-04f103a7585a")
-		(property "Reference" "JP2"
-			(at 158.75 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Jumper_3_Bridged12"
-			(at 150.114 83.312 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Jumper:SolderJumper-3_P1.3mm_Bridged2Bar12_Pad1.0x1.5mm_NumberLabels"
-			(at 161.29 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 161.29 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Jumper, 3-pole, pins 1+2 closed/bridged"
-			(at 161.29 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 161.29 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "9310d549-422f-4d02-814b-eef253f15cab")
-		)
-		(pin "1"
-			(uuid "51caeecb-7ea5-42dc-add0-b6c8abd024a7")
-		)
-		(pin "3"
-			(uuid "59e5ce94-42b0-4f5e-9424-15546a43c173")
-		)
-		(instances
-			(project "holiday-widget"
-				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1823db6d-8b7b-45a8-9f7d-7684f0e0242c"
-					(reference "JP2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
 		(at 220.98 96.52 0)
 		(unit 1)
@@ -2145,71 +1733,6 @@
 			(project "holiday-widget"
 				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1823db6d-8b7b-45a8-9f7d-7684f0e0242c"
 					(reference "R4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 154.94 72.39 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "8cc8ceea-8e2c-4219-b353-947012ff4be3")
-		(property "Reference" "#FLG05"
-			(at 153.035 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 149.86 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 154.94 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 154.94 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 154.94 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "716660c8-1be5-4d7d-a0ff-1ddec70c3d40")
-		)
-		(instances
-			(project "holiday-widget"
-				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1823db6d-8b7b-45a8-9f7d-7684f0e0242c"
-					(reference "#FLG05")
 					(unit 1)
 				)
 			)
