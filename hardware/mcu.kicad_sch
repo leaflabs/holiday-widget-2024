@@ -515,6 +515,151 @@
 				)
 			)
 		)
+		(symbol "Jumper:Jumper_2_Small_Open"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim yes)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "JP"
+				(at 0 2.794 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Jumper_2_Small_Open"
+				(at 0 -2.286 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Jumper, 2-pole, small symbol, open"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Jumper SPST"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Jumper* TestPoint*2Pads* TestPoint*Bridge*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Jumper_2_Small_Open_0_0"
+				(circle
+					(center -1.016 0)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.016 0)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Small_Open_0_1"
+				(arc
+					(start 0.762 1.0196)
+					(mid 0 1.2729)
+					(end -0.762 1.0196)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Small_Open_1_1"
+				(pin passive line
+					(at -2.54 0 0)
+					(length 1.27)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 0 180)
+					(length 1.27)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "MCU_ST_STM32L0:STM32L072RBTx"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -2011,151 +2156,6 @@
 				)
 			)
 		)
-		(symbol "Switch:SW_Push"
-			(pin_numbers hide)
-			(pin_names
-				(offset 1.016) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "SW"
-				(at 1.27 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "SW_Push"
-				(at 0 -1.524 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Push button switch, generic, two pins"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "switch normally-open pushbutton push-button"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "SW_Push_0_1"
-				(circle
-					(center -2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 1.27) (xy 0 3.048)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 1.27) (xy -2.54 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "power:PWR_FLAG"
 			(power)
 			(pin_numbers hide)
@@ -2278,7 +2278,7 @@
 		(uuid "4a7478dd-c70d-4967-b323-79d71b0f3789")
 	)
 	(junction
-		(at 38.1 111.76)
+		(at 31.75 111.76)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6c9c8c60-dba3-43b8-ae0d-884cba589dd0")
@@ -2326,7 +2326,7 @@
 		(uuid "ce2ae4ae-d025-4977-9171-8bf38909dc27")
 	)
 	(junction
-		(at 40.64 59.69)
+		(at 31.75 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d56d8e9d-4c91-4599-8f11-d277eb585fe1")
@@ -2659,7 +2659,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 57.15) (xy 40.64 59.69)
+			(xy 31.75 52.07) (xy 31.75 59.69)
 		)
 		(stroke
 			(width 0)
@@ -2909,7 +2909,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 34.29) (xy 40.64 46.99)
+			(xy 31.75 34.29) (xy 31.75 46.99)
 		)
 		(stroke
 			(width 0)
@@ -2969,7 +2969,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 59.69) (xy 40.64 63.5)
+			(xy 31.75 59.69) (xy 31.75 63.5)
 		)
 		(stroke
 			(width 0)
@@ -2999,7 +2999,7 @@
 	)
 	(wire
 		(pts
-			(xy 38.1 101.6) (xy 38.1 104.14)
+			(xy 31.75 101.6) (xy 31.75 104.14)
 		)
 		(stroke
 			(width 0)
@@ -3019,7 +3019,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 59.69) (xy 53.34 59.69)
+			(xy 31.75 59.69) (xy 53.34 59.69)
 		)
 		(stroke
 			(width 0)
@@ -3129,7 +3129,7 @@
 	)
 	(wire
 		(pts
-			(xy 40.64 71.12) (xy 40.64 76.2)
+			(xy 31.75 71.12) (xy 31.75 76.2)
 		)
 		(stroke
 			(width 0)
@@ -3146,6 +3146,16 @@
 			(type default)
 		)
 		(uuid "68394dc1-a4d1-40cb-bcc8-1b462578fd6d")
+	)
+	(wire
+		(pts
+			(xy 31.75 123.19) (xy 31.75 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6b1411b3-5678-4411-842d-c7f16e6b4ac8")
 	)
 	(bus
 		(pts
@@ -3326,16 +3336,6 @@
 			(type default)
 		)
 		(uuid "82086047-392a-4c35-b8d1-045e95fe6af1")
-	)
-	(wire
-		(pts
-			(xy 38.1 125.73) (xy 38.1 133.35)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "823befe3-fe2a-4054-b47e-51ee20e7557a")
 	)
 	(wire
 		(pts
@@ -3859,7 +3859,7 @@
 	)
 	(wire
 		(pts
-			(xy 38.1 111.76) (xy 38.1 115.57)
+			(xy 31.75 111.76) (xy 31.75 118.11)
 		)
 		(stroke
 			(width 0)
@@ -3879,7 +3879,7 @@
 	)
 	(wire
 		(pts
-			(xy 38.1 111.76) (xy 45.72 111.76)
+			(xy 31.75 111.76) (xy 45.72 111.76)
 		)
 		(stroke
 			(width 0)
@@ -4279,7 +4279,7 @@
 		(uuid "0014a6b9-b472-482b-85cd-27a966707fc1")
 	)
 	(label "GND"
-		(at 38.1 133.35 0)
+		(at 31.75 133.35 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4301,7 +4301,7 @@
 		(uuid "035d2034-60a5-4b10-b882-3fcc2f90800e")
 	)
 	(label "GND"
-		(at 40.64 76.2 0)
+		(at 31.75 76.2 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4323,7 +4323,7 @@
 		(uuid "0456ae9f-3e42-4816-847f-9a7b3e59aa23")
 	)
 	(label "VDD"
-		(at 38.1 101.6 180)
+		(at 31.75 101.6 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4697,7 +4697,7 @@
 		(uuid "7e9d9b03-4521-4a2c-a53b-2806c684e0f4")
 	)
 	(label "VDD"
-		(at 40.64 34.29 180)
+		(at 31.75 34.29 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -5839,85 +5839,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_Push")
-		(at 40.64 52.07 270)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "477b6f00-6069-4d54-91ea-e229e18dda1f")
-		(property "Reference" "SW4"
-			(at 39.37 50.7999 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "SW_Push"
-			(at 39.37 53.3399 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_6x6mm_H9.5mm"
-			(at 45.72 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 45.72 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Push button switch, generic, two pins"
-			(at 40.64 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 40.64 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f08ceaae-0951-4b38-9f87-c98382f2b055")
-		)
-		(pin "2"
-			(uuid "ab298567-867a-4d5c-a739-c3dad710789c")
-		)
-		(instances
-			(project "holiday-widget"
-				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
-					(reference "SW4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 115.57 162.56 0)
 		(unit 1)
@@ -6329,7 +6250,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 38.1 107.95 0)
+		(at 31.75 107.95 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6338,7 +6259,7 @@
 		(dnp no)
 		(uuid "603efdbd-9762-4899-801a-48bf5f062ca4")
 		(property "Reference" "R1"
-			(at 35.56 106.6799 0)
+			(at 29.21 106.6799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6347,7 +6268,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 35.56 109.2199 0)
+			(at 29.21 109.2199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6356,7 +6277,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 39.878 107.95 90)
+			(at 33.528 107.95 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6365,7 +6286,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 38.1 107.95 0)
+			(at 31.75 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6374,7 +6295,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 38.1 107.95 0)
+			(at 31.75 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6383,7 +6304,7 @@
 			)
 		)
 		(property "MPN" "RC0402FR-0710KL"
-			(at 38.1 107.95 0)
+			(at 31.75 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6401,6 +6322,75 @@
 			(project "holiday-widget"
 				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
 					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:Jumper_2_Small_Open")
+		(at 31.75 120.65 270)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "60f926cc-024b-4ce4-97f1-e0e8f15fb05f")
+		(property "Reference" "JP2"
+			(at 34.29 119.3799 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Jumper_2_Small_Open"
+			(at 34.29 121.9199 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm"
+			(at 31.75 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 31.75 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, small symbol, open"
+			(at 31.75 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "65b33aab-0167-47a3-957a-c96be6694f73")
+		)
+		(pin "2"
+			(uuid "2c7729fa-0718-433d-be9f-6427b795e7af")
+		)
+		(instances
+			(project "holiday-widget"
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
+					(reference "JP2")
 					(unit 1)
 				)
 			)
@@ -6717,85 +6707,6 @@
 			(project "holiday-widget"
 				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
 					(reference "R25")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Switch:SW_Push")
-		(at 38.1 120.65 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7c2b9b83-1de8-4bc4-af52-978cdda82612")
-		(property "Reference" "SW1"
-			(at 39.37 119.3799 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "SW_Push"
-			(at 39.37 121.9199 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_6x6mm_H9.5mm"
-			(at 33.02 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 33.02 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Push button switch, generic, two pins"
-			(at 38.1 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 38.1 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "812db4ee-d045-4445-8521-2e9a38fc6cf7")
-		)
-		(pin "2"
-			(uuid "3d396e8d-c102-4c45-bd0b-0a7e86ad1dcc")
-		)
-		(instances
-			(project "holiday-widget"
-				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
-					(reference "SW1")
 					(unit 1)
 				)
 			)
@@ -7186,7 +7097,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 40.64 67.31 0)
+		(at 31.75 67.31 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7195,7 +7106,7 @@
 		(fields_autoplaced yes)
 		(uuid "a707f11b-e017-46f4-ba5b-edd46510db41")
 		(property "Reference" "R3"
-			(at 43.18 66.0399 0)
+			(at 34.29 66.0399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7204,7 +7115,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 43.18 68.5799 0)
+			(at 34.29 68.5799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7213,7 +7124,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 38.862 67.31 90)
+			(at 29.972 67.31 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7222,7 +7133,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 40.64 67.31 0)
+			(at 31.75 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7231,7 +7142,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 40.64 67.31 0)
+			(at 31.75 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7240,7 +7151,7 @@
 			)
 		)
 		(property "MPN" "RC0402FR-0710KL"
-			(at 40.64 67.31 0)
+			(at 31.75 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7258,6 +7169,75 @@
 			(project "holiday-widget"
 				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
 					(reference "R3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:Jumper_2_Small_Open")
+		(at 31.75 49.53 270)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "aaf62e7c-6518-4059-9f62-6fe5b9ca7a8f")
+		(property "Reference" "JP1"
+			(at 34.29 48.2599 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Jumper_2_Small_Open"
+			(at 34.29 50.7999 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm"
+			(at 31.75 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 31.75 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, small symbol, open"
+			(at 31.75 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b4db4fec-d798-45ee-a19c-f3d76cd368c1")
+		)
+		(pin "2"
+			(uuid "5d59c51d-389e-4b74-a9eb-f17158367994")
+		)
+		(instances
+			(project ""
+				(path "/addc3208-a9c4-4d28-9808-559c1d81e43b/1bdd200c-4b98-4ea0-bb61-84c7df1a198f"
+					(reference "JP1")
 					(unit 1)
 				)
 			)
