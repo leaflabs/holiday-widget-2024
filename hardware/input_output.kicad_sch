@@ -2611,7 +2611,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_Wire:SolderWire-1sqmm_1x02_P5.4mm_D1.4mm_OD2.7mm"
+		(property "Footprint" "holiday-widget:SPKR_AST-01508MR-WT-R"
 			(at 233.68 104.14 0)
 			(effects
 				(font
