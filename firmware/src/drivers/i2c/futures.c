@@ -1,8 +1,7 @@
 #include <futures.h>
 
 inline void future_await(struct future *future) {
-    while (atomic_load(&future->state) == FUTURE_WAITING)
-        ;
+    while (atomic_load(&future->state) == FUTURE_WAITING);
 }
 
 inline int future_is_waiting(struct future *future) {

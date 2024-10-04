@@ -180,7 +180,8 @@ void led_matrix_assembler_run(void) {
 
     // now go through each sub_frame and select which bits should be on
     for (int i = 0; i < LED_MATRIX_SUB_FRAME_COUNT; i++) {
-        if (time_counter == time_max) time_counter = 0;
+        if (time_counter == time_max)
+            time_counter = 0;
 
         // Set or unset the led
         if (time_counter < time_on) {

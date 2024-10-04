@@ -69,7 +69,8 @@ void ambient_light_setup(void) {
         }};
 
     int ret = vcnl4020_driver_init(&vcnl4020_config, &vcnl4020_context);
-    if (ret < 0) vcnl4020_context.state = VCNL4020_ERROR;
+    if (ret < 0)
+        vcnl4020_context.state = VCNL4020_ERROR;
 }
 
 void ambient_light_run(void) {

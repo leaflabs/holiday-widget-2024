@@ -4,9 +4,10 @@
 
 #include "lmath_luts.h"
 
-#define BOUNDS_CHECK(var, lower_bound, upper_bound)               \
-    do {                                                          \
-        if (var < lower_bound || var > upper_bound) return false; \
+#define BOUNDS_CHECK(var, lower_bound, upper_bound) \
+    do {                                            \
+        if (var < lower_bound || var > upper_bound) \
+            return false;                           \
     } while (0)
 
 // Convert the raw value from the user into an index

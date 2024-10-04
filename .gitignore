@@ -16,8 +16,7 @@
 *-cache.lib
 *-rescue.lib
 
-firmware/build/*
-firmware/build
+firmware/build/
 
 *.elf
 *.swp
@@ -25,6 +24,6 @@ firmware/build
 *.d
 
 # Ignore the generated .h files
-firmware/include/lmath_luts.h
-firmware/include/generated_animation_frames.h
+firmware/include/lmath/lmath_luts.h
+firmware/include/middleware/led_matrix/animation/generated_animation_frames.h
 

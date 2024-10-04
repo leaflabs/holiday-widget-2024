@@ -1,6 +1,7 @@
 # directories
 BUILD_DIR   := ./build
 SRC_DIR     := ./src
+INC_DIR     := ./include
 HAL_SRC_DIR := ./STM32CubeL0/Drivers/STM32L0xx_HAL_Driver/Src/
 
 # Required system.c and startup.s files by CMSIS
@@ -8,13 +9,13 @@ SYSTEM_SRC  := ./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Source/Templates/
 STARTUP_SRC := ./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Source/Templates/gcc/startup_stm32l072xx.s
 
 # Required .c file for the printf file to work
-PRINTF_SRC := ./SmallPrintf/src/printf/printf.c
+PRINTF_SRC  := ./SmallPrintf/src/printf/printf.c
 
 # List of all source directories to check thorugh
 SRC_DIRS    := $(SRC_DIR) $(HAL_SRC_DIR)
 
 # List of all include directories
-INC_DIRS    := ./include \
+INC_DIRS    := $(shell find $(INC_DIR) -type d) \
 ./STM32CubeL0/Drivers/CMSIS/Include \
 ./STM32CubeL0/Drivers/STM32L0xx_HAL_Driver/Inc \
 ./STM32CubeL0/Drivers/CMSIS/Device/ST/STM32L0xx/Include/ \
@@ -41,6 +42,7 @@ SRCS      := $(shell find $(SRC_DIRS) ! -name '*template.c' -name '*.c' -or -nam
 SRCS      += $(SYSTEM_SRC)
 SRCS	  += $(STARTUP_SRC)
 SRCS      += $(PRINTF_SRC)
+
 # Respective .o files
 OBJS      := $(SRCS:%=$(BUILD_DIR)/%.o)
 
@@ -56,9 +58,13 @@ LDFLAGS   += -mthumb -nostdlib -lgcc -mcpu=$(CPU_TYPE) \
 	-Wl,-T,$(LINK_MEM) -Wl,--gc-sections \
 	-msoft-float -Os -ffunction-sections -fdata-sections -flto -g -gdwarf-2 -Wl,--print-memory-usage
 
+# Generated files
+ANIMATION_FRAMES := $(INC_DIR)/middleware/led_matrix/animation/generated_animation_frames.h
+LMATH_LUTS 		 := $(INC_DIR)/lmath/lmath_luts.h
+
 # actual targets
 .PHONY: all
-all: include/generated_animation_frames.h include/lmath_luts.h $(TARGET_ELF)
+all: $(ANIMATION_FRAMES) $(LMATH_LUTS) $(TARGET_ELF)
 
 $(TARGET_ELF): $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
@@ -75,8 +81,8 @@ $(BUILD_DIR)/%.c.o: %.c
 .PHONY: clean upload
 clean:
 	rm -rf $(BUILD_DIR)
-	rm -f include/lmath_luts.h
-	rm -f include/generated_animation_frames.h 
+	rm -f $(LMATH_LUTS)
+	rm -f $(ANIMATION_FRAMES)
 
 upload: $(TARGET_ELF)
 	openocd -f interface/stlink.cfg -f target/stm32l0_dual_bank.cfg -c "program $(TARGET_ELF) verify reset exit"
@@ -87,12 +93,12 @@ $(BUILD_DIR)/lut_generator : scripts/lut_generator.c
 	gcc scripts/lut_generator.c -o $(BUILD_DIR)/lut_generator -Wall -lm
 
 # Code to generate the lmath_luts.h
-include/lmath_luts.h : $(BUILD_DIR)/lut_generator
-	$(BUILD_DIR)/lut_generator > ./include/lmath_luts.h || (rm -f include/lmath_luts.h; exit 1)
+$(LMATH_LUTS) : $(BUILD_DIR)/lut_generator
+	$(BUILD_DIR)/lut_generator > $@ || (rm -f $@; exit 1)
 
 # Code to generate animation_frames.h
-include/generated_animation_frames.h : scripts/frame_generator.py
-	python3 scripts/frame_generator.py > ./include/generated_animation_frames.h || (rm -f include/generated_animation_frames.h; exit 1)
+$(ANIMATION_FRAMES) : scripts/frame_generator.py
+	python3 scripts/frame_generator.py > $@ || (rm -f $@; exit 1)
 
 
 -include $(DEPS)

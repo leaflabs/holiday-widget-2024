@@ -113,7 +113,8 @@ void acceleration_setup(void) {
 
     // Now init the driver
     int ret = lis3dh_driver_init(&lis3dh_config, &lis3dh_context);
-    if (ret < 0) lis3dh_context.state = LIS3DH_ERROR;
+    if (ret < 0)
+        lis3dh_context.state = LIS3DH_ERROR;
 }
 
 void acceleration_run(void) {
