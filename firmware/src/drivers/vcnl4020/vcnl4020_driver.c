@@ -43,17 +43,17 @@ int vcnl4020_driver_init(const struct vcnl4020_config *config,
     /*
         Set up the interrupt pin
     */
-    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
 
     GPIO_InitTypeDef gpio = {0};
-    gpio.Pin = GPIO_PIN_1;
+    gpio.Pin = GPIO_PIN_5;
     gpio.Mode = GPIO_MODE_IT_FALLING;  // Falling voltage triggers
     gpio.Pull = GPIO_NOPULL;           // Already pulled high
-    HAL_GPIO_Init(GPIOC, &gpio);
+    HAL_GPIO_Init(GPIOA, &gpio);
 
     // Enable the interrupt for Pin 1
-    HAL_NVIC_SetPriority(EXTI0_1_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
+    HAL_NVIC_SetPriority(EXTI4_15_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
 
     // Set up the i2c request for the whole driver
     request->address = VCNL4020_ADDRESS;

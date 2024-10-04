@@ -28,12 +28,12 @@ void SysTick_Handler(void) {
 
 // User IRQ functions go down here
 
-void EXTI0_1_IRQHandler(void) {
-    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
-}
-
 void EXTI2_3_IRQHandler(void) {
     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_2);
+}
+
+void EXTI4_15_IRQHandler(void) {
+    HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_5);
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t pin) {
@@ -41,8 +41,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin) {
     if (pin == GPIO_PIN_2) {
         lis3dh_interrupt1_flag = 1;
     }
-    // Pin 1 is the INT pin for the vcnl4020 sensor
-    if (pin == GPIO_PIN_1) {
+    // Pin 5 is the INT pin for the vcnl4020 sensor
+    if (pin == GPIO_PIN_5) {
         vcnl4020_interrupt_flag = 1;
     }
 }
