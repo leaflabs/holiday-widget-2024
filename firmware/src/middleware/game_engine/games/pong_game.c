@@ -152,7 +152,7 @@ pong_game_process_event_queue(struct pong_game *pong_game) {
 
     while (ring_buffer_pop(event_queue, &event) == 0) {
         switch (event.type) {
-            case OUT_OF_BOUNDS_EVENT:
+            case OUT_OF_BOUNDS_EVENT: {
                 struct physics_engine_out_of_bounds_event *out_of_bounds_event =
                     &event.out_of_bounds_event;
                 if (IS_OPPONENT_PADDLE_ENTITY(out_of_bounds_event->ent)) {
@@ -168,8 +168,8 @@ pong_game_process_event_queue(struct pong_game *pong_game) {
                         pong_user_scores(pong_game);
                     }
                 }
-                break;
-            case COLLISION_EVENT:
+            } break;
+            case COLLISION_EVENT: {
                 struct physics_engine_collision_event *collision_event =
                     &event.collision_event;
                 static uint32_t last_collision_time;
@@ -219,10 +219,10 @@ pong_game_process_event_queue(struct pong_game *pong_game) {
                            context->opponent_paddle.entity->rectangle.p1.x) {
                     pong_user_scores(pong_game);
                 }
-                break;
-            default:
+            } break;
+            default: {
                 LOG_ERR("Unknown event type: %d", event.type);
-                break;
+            } break;
         }
     }
     /* Make sure ball never has x velocity 0 */

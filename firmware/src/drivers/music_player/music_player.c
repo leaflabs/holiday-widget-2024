@@ -46,11 +46,11 @@ void music_player_setup(void) {
 void music_player_run(void) {
     struct music_player_context *context = &music_player.context;
     switch (context->state) {
-        case MUSIC_PLAYER_UNINITIALIZED:
+        case MUSIC_PLAYER_UNINITIALIZED: {
             /* Music Player Uninitialized */
             LOG_ERR("Music Player not initialized properly");
-            break;
-        case MUSIC_PLAYER_READY:
+        } break;
+        case MUSIC_PLAYER_READY: {
             /* Music Player Ready */
             if (context->current_song != NO_SONG) {
                 if ((context->error = music_player_core_play_song(
@@ -60,8 +60,8 @@ void music_player_run(void) {
                     context->state = MUSIC_PLAYER_BUSY;
                 }
             }
-            break;
-        case MUSIC_PLAYER_BUSY:
+        } break;
+        case MUSIC_PLAYER_BUSY: {
             /* Music Player Busy */
             if (context->current_song == NO_SONG) {
                 if ((context->error =
@@ -71,8 +71,8 @@ void music_player_run(void) {
                     context->state = MUSIC_PLAYER_READY;
                 }
             }
-            break;
-        case MUSIC_PLAYER_ERROR:
+        } break;
+        case MUSIC_PLAYER_ERROR: {
             /* Music Player Error */
             switch (context->error) {
                 case MUSIC_PLAYER_NO_ERROR:             /* fallthrough */
@@ -81,19 +81,19 @@ void music_player_run(void) {
                 case MUSIC_PLAYER_DURATIONS_DMA_ERROR:  /* fallthrough */
                 case MUSIC_PLAYER_NOTES_DMA_ERROR:      /* fallthrough */
                 case MUSIC_PLAYER_RUN_ERROR:            /* fallthrough */
-                case MUSIC_PLAYER_STOP_ERROR:
+                case MUSIC_PLAYER_STOP_ERROR: {
                     LOG_ERR("%s", error_strings[context->error]);
-                    break;
-                default:
+                } break;
+                default: {
                     LOG_ERR("Unknown Music Player Error:%d", context->error);
-                    break;
+                } break;
             }
             context->state = MUSIC_PLAYER_READY;
-            break;
-        default:
+        } break;
+        default: {
             /* Switching over enumerated type so you should never be here */
             LOG_ERR("Unsupported Music Player State: %d", context->state);
-            break;
+        } break;
     }
 }
 

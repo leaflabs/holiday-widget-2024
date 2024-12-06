@@ -827,18 +827,18 @@ int lsm6dsm_driver_init(const struct lsm6dsm_driver *const dev) {
     */
     LOG_DBG("Determining appropriate acceleration conversion function");
     switch (config->accelerometer.data_scale) {
-        case LSM6DSM_2g:
+        case LSM6DSM_2g: {
             context->acc_conversion = lsm6dsm_driver_from_fs2g_to_mg;
-            break;
-        case LSM6DSM_4g:
+        } break;
+        case LSM6DSM_4g: {
             context->acc_conversion = lsm6dsm_driver_from_fs4g_to_mg;
-            break;
-        case LSM6DSM_8g:
+        } break;
+        case LSM6DSM_8g: {
             context->acc_conversion = lsm6dsm_driver_from_fs8g_to_mg;
-            break;
-        case LSM6DSM_16g:
+        } break;
+        case LSM6DSM_16g: {
             context->acc_conversion = lsm6dsm_driver_from_fs16g_to_mg;
-            break;
+        } break;
         default:
             LOG_ERR(
                 "Failed to initialize LSM6DSM: Invalid accelerometer data "
@@ -852,21 +852,21 @@ int lsm6dsm_driver_init(const struct lsm6dsm_driver *const dev) {
     */
     LOG_DBG("Determining appropriate gyroscope conversion function");
     switch (config->gyroscope.data_scale) {
-        case LSM6DSM_125dps:
+        case LSM6DSM_125dps: {
             context->ang_conversion = lsm6dsm_driver_from_fs125dps_to_mdps;
-            break;
-        case LSM6DSM_250dps:
+        } break;
+        case LSM6DSM_250dps: {
             context->ang_conversion = lsm6dsm_driver_from_fs250dps_to_mdps;
-            break;
-        case LSM6DSM_500dps:
+        } break;
+        case LSM6DSM_500dps: {
             context->ang_conversion = lsm6dsm_driver_from_fs500dps_to_mdps;
-            break;
-        case LSM6DSM_1000dps:
+        } break;
+        case LSM6DSM_1000dps: {
             context->ang_conversion = lsm6dsm_driver_from_fs1000dps_to_mdps;
-            break;
-        case LSM6DSM_2000dps:
+        } break;
+        case LSM6DSM_2000dps: {
             context->ang_conversion = lsm6dsm_driver_from_fs2000dps_to_mdps;
-            break;
+        } break;
         default:
             LOG_ERR(
                 "Failed to initialize LSM6DSM: Invalid gyroscope data scale - "
@@ -1247,17 +1247,17 @@ static int lsm6dsm_driver_get_mem_bank(struct lsm6dsm_driver_context *context,
     }
 
     switch (context->i2c_transaction_buffer[0].func_cfg_access.func_cfg_en) {
-        case LSM6DSM_USER_BANK:
+        case LSM6DSM_USER_BANK: {
             *val = LSM6DSM_USER_BANK;
-            break;
+        } break;
 
-        case LSM6DSM_BANK_B:
+        case LSM6DSM_BANK_B: {
             *val = LSM6DSM_BANK_B;
-            break;
+        } break;
 
-        default:
+        default: {
             *val = LSM6DSM_USER_BANK;
-            break;
+        } break;
     }
 
     return ret;
@@ -1522,17 +1522,17 @@ static int lsm6dsm_driver_get_int_notification(
     }
 
     switch (context->i2c_transaction_buffer[0].tap_cfg.lir) {
-        case LSM6DSM_INT_PULSED:
+        case LSM6DSM_INT_PULSED: {
             *val = LSM6DSM_INT_PULSED;
-            break;
+        } break;
 
-        case LSM6DSM_INT_LATCHED:
+        case LSM6DSM_INT_LATCHED: {
             *val = LSM6DSM_INT_LATCHED;
-            break;
+        } break;
 
-        default:
+        default: {
             *val = LSM6DSM_INT_PULSED;
-            break;
+        } break;
     }
 
     return ret;
@@ -1674,25 +1674,25 @@ static int lsm6dsm_driver_get_act_mode(struct lsm6dsm_driver_context *context,
     }
 
     switch (context->i2c_transaction_buffer->tap_cfg.inact_en) {
-        case LSM6DSM_PROPERTY_DISABLE:
+        case LSM6DSM_PROPERTY_DISABLE: {
             *val = LSM6DSM_PROPERTY_DISABLE;
-            break;
+        } break;
 
-        case LSM6DSM_XL_12Hz5_GY_NOT_AFFECTED:
+        case LSM6DSM_XL_12Hz5_GY_NOT_AFFECTED: {
             *val = LSM6DSM_XL_12Hz5_GY_NOT_AFFECTED;
-            break;
+        } break;
 
-        case LSM6DSM_XL_12Hz5_GY_SLEEP:
+        case LSM6DSM_XL_12Hz5_GY_SLEEP: {
             *val = LSM6DSM_XL_12Hz5_GY_SLEEP;
-            break;
+        } break;
 
-        case LSM6DSM_XL_12Hz5_GY_PD:
+        case LSM6DSM_XL_12Hz5_GY_PD: {
             *val = LSM6DSM_XL_12Hz5_GY_PD;
-            break;
+        } break;
 
-        default:
+        default: {
             *val = LSM6DSM_PROPERTY_DISABLE;
-            break;
+        } break;
     }
 
     return ret;
@@ -2126,17 +2126,17 @@ static int lsm6dsm_driver_get_tap_mode(struct lsm6dsm_driver_context *context,
     }
 
     switch (context->i2c_transaction_buffer[0].wake_up_ths.single_double_tap) {
-        case LSM6DSM_ONLY_SINGLE:
+        case LSM6DSM_ONLY_SINGLE: {
             *val = LSM6DSM_ONLY_SINGLE;
-            break;
+        } break;
 
-        case LSM6DSM_BOTH_SINGLE_DOUBLE:
+        case LSM6DSM_BOTH_SINGLE_DOUBLE: {
             *val = LSM6DSM_BOTH_SINGLE_DOUBLE;
-            break;
+        } break;
 
-        default:
+        default: {
             *val = LSM6DSM_ONLY_SINGLE;
-            break;
+        } break;
     }
 
     return ret;
@@ -2669,25 +2669,25 @@ int lsm6dsm_driver_get_xl_full_scale(struct lsm6dsm_driver_context *context,
     }
 
     switch (ctrl1_xl->fs_xl) {
-        case LSM6DSM_2g:
+        case LSM6DSM_2g: {
             *val = LSM6DSM_2g;
-            break;
+        } break;
 
-        case LSM6DSM_16g:
+        case LSM6DSM_16g: {
             *val = LSM6DSM_16g;
-            break;
+        } break;
 
-        case LSM6DSM_4g:
+        case LSM6DSM_4g: {
             *val = LSM6DSM_4g;
-            break;
+        } break;
 
-        case LSM6DSM_8g:
+        case LSM6DSM_8g: {
             *val = LSM6DSM_8g;
-            break;
+        } break;
 
-        default:
+        default: {
             *val = LSM6DSM_2g;
-            break;
+        } break;
     }
 
     return ret;
@@ -2748,57 +2748,57 @@ int lsm6dsm_driver_get_xl_data_rate(struct lsm6dsm_driver_context *context,
     }
 
     switch (ctrl1_xl->odr_xl) {
-        case LSM6DSM_XL_ODR_OFF:
+        case LSM6DSM_XL_ODR_OFF: {
             *val = LSM6DSM_XL_ODR_OFF;
-            break;
+        } break;
 
-        case LSM6DSM_XL_ODR_12Hz5:
+        case LSM6DSM_XL_ODR_12Hz5: {
             *val = LSM6DSM_XL_ODR_12Hz5;
-            break;
+        } break;
 
-        case LSM6DSM_XL_ODR_26Hz:
+        case LSM6DSM_XL_ODR_26Hz: {
             *val = LSM6DSM_XL_ODR_26Hz;
-            break;
+        } break;
 
-        case LSM6DSM_XL_ODR_52Hz:
+        case LSM6DSM_XL_ODR_52Hz: {
             *val = LSM6DSM_XL_ODR_52Hz;
-            break;
+        } break;
 
-        case LSM6DSM_XL_ODR_104Hz:
+        case LSM6DSM_XL_ODR_104Hz: {
             *val = LSM6DSM_XL_ODR_104Hz;
-            break;
+        } break;
 
-        case LSM6DSM_XL_ODR_208Hz:
+        case LSM6DSM_XL_ODR_208Hz: {
             *val = LSM6DSM_XL_ODR_208Hz;
-            break;
+        } break;
 
-        case LSM6DSM_XL_ODR_416Hz:
+        case LSM6DSM_XL_ODR_416Hz: {
             *val = LSM6DSM_XL_ODR_416Hz;
-            break;
+        } break;
 
-        case LSM6DSM_XL_ODR_833Hz:
+        case LSM6DSM_XL_ODR_833Hz: {
             *val = LSM6DSM_XL_ODR_833Hz;
-            break;
+        } break;
 
-        case LSM6DSM_XL_ODR_1k66Hz:
+        case LSM6DSM_XL_ODR_1k66Hz: {
             *val = LSM6DSM_XL_ODR_1k66Hz;
-            break;
+        } break;
 
-        case LSM6DSM_XL_ODR_3k33Hz:
+        case LSM6DSM_XL_ODR_3k33Hz: {
             *val = LSM6DSM_XL_ODR_3k33Hz;
-            break;
+        } break;
 
-        case LSM6DSM_XL_ODR_6k66Hz:
+        case LSM6DSM_XL_ODR_6k66Hz: {
             *val = LSM6DSM_XL_ODR_6k66Hz;
-            break;
+        } break;
 
-        case LSM6DSM_XL_ODR_1Hz6:
+        case LSM6DSM_XL_ODR_1Hz6: {
             *val = LSM6DSM_XL_ODR_1Hz6;
-            break;
+        } break;
 
-        default:
+        default: {
             *val = LSM6DSM_XL_ODR_OFF;
-            break;
+        } break;
     }
 
     return ret;
@@ -2852,17 +2852,17 @@ static int lsm6dsm_driver_get_xl_filter_analog(
     }
 
     switch (ctrl1_xl->bw0_xl) {
-        case LSM6DSM_XL_ANA_BW_1k5Hz:
+        case LSM6DSM_XL_ANA_BW_1k5Hz: {
             *val = LSM6DSM_XL_ANA_BW_1k5Hz;
-            break;
+        } break;
 
-        case LSM6DSM_XL_ANA_BW_400Hz:
+        case LSM6DSM_XL_ANA_BW_400Hz: {
             *val = LSM6DSM_XL_ANA_BW_400Hz;
-            break;
+        } break;
 
-        default:
+        default: {
             *val = LSM6DSM_XL_ANA_BW_1k5Hz;
-            break;
+        } break;
     }
 
     return ret;
@@ -2924,41 +2924,41 @@ static int lsm6dsm_driver_get_xl_lp2_bandwidth(
         *val = LSM6DSM_XL_LP_NOT_AVAILABLE;
     } else {
         switch ((ctrl8_xl->input_composite << 4) + ctrl8_xl->hpcf_xl) {
-            case LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_50:
+            case LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_50: {
                 *val = LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_50;
-                break;
+            } break;
 
-            case LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_100:
+            case LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_100: {
                 *val = LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_100;
-                break;
+            } break;
 
-            case LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_9:
+            case LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_9: {
                 *val = LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_9;
-                break;
+            } break;
 
-            case LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_400:
+            case LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_400: {
                 *val = LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_400;
-                break;
+            } break;
 
-            case LSM6DSM_XL_LOW_NOISE_LP_ODR_DIV_50:
+            case LSM6DSM_XL_LOW_NOISE_LP_ODR_DIV_50: {
                 *val = LSM6DSM_XL_LOW_NOISE_LP_ODR_DIV_50;
-                break;
+            } break;
 
-            case LSM6DSM_XL_LOW_NOISE_LP_ODR_DIV_100:
+            case LSM6DSM_XL_LOW_NOISE_LP_ODR_DIV_100: {
                 *val = LSM6DSM_XL_LOW_NOISE_LP_ODR_DIV_100;
-                break;
+            } break;
 
-            case LSM6DSM_XL_LOW_NOISE_LP_ODR_DIV_9:
+            case LSM6DSM_XL_LOW_NOISE_LP_ODR_DIV_9: {
                 *val = LSM6DSM_XL_LOW_NOISE_LP_ODR_DIV_9;
-                break;
+            } break;
 
-            case LSM6DSM_XL_LOW_NOISE_LP_ODR_DIV_400:
+            case LSM6DSM_XL_LOW_NOISE_LP_ODR_DIV_400: {
                 *val = LSM6DSM_XL_LOW_NOISE_LP_ODR_DIV_400;
-                break;
+            } break;
 
-            default:
+            default: {
                 *val = LSM6DSM_XL_LOW_LAT_LP_ODR_DIV_50;
-                break;
+            } break;
         }
     }
 
@@ -3018,29 +3018,29 @@ int lsm6dsm_driver_get_gy_full_scale(struct lsm6dsm_driver_context *context,
     }
 
     switch (ctrl2_g->fs_g) {
-        case LSM6DSM_250dps:
+        case LSM6DSM_250dps: {
             *val = LSM6DSM_250dps;
-            break;
+        } break;
 
-        case LSM6DSM_125dps:
+        case LSM6DSM_125dps: {
             *val = LSM6DSM_125dps;
-            break;
+        } break;
 
-        case LSM6DSM_500dps:
+        case LSM6DSM_500dps: {
             *val = LSM6DSM_500dps;
-            break;
+        } break;
 
-        case LSM6DSM_1000dps:
+        case LSM6DSM_1000dps: {
             *val = LSM6DSM_1000dps;
-            break;
+        } break;
 
-        case LSM6DSM_2000dps:
+        case LSM6DSM_2000dps: {
             *val = LSM6DSM_2000dps;
-            break;
+        } break;
 
-        default:
+        default: {
             *val = LSM6DSM_250dps;
-            break;
+        } break;
     }
 
     return ret;
@@ -3099,53 +3099,53 @@ int lsm6dsm_driver_get_gy_data_rate(struct lsm6dsm_driver_context *context,
     }
 
     switch (ctrl2_g->odr_g) {
-        case LSM6DSM_GY_ODR_OFF:
+        case LSM6DSM_GY_ODR_OFF: {
             *val = LSM6DSM_GY_ODR_OFF;
-            break;
+        } break;
 
-        case LSM6DSM_GY_ODR_12Hz5:
+        case LSM6DSM_GY_ODR_12Hz5: {
             *val = LSM6DSM_GY_ODR_12Hz5;
-            break;
+        } break;
 
-        case LSM6DSM_GY_ODR_26Hz:
+        case LSM6DSM_GY_ODR_26Hz: {
             *val = LSM6DSM_GY_ODR_26Hz;
-            break;
+        } break;
 
-        case LSM6DSM_GY_ODR_52Hz:
+        case LSM6DSM_GY_ODR_52Hz: {
             *val = LSM6DSM_GY_ODR_52Hz;
-            break;
+        } break;
 
-        case LSM6DSM_GY_ODR_104Hz:
+        case LSM6DSM_GY_ODR_104Hz: {
             *val = LSM6DSM_GY_ODR_104Hz;
-            break;
+        } break;
 
-        case LSM6DSM_GY_ODR_208Hz:
+        case LSM6DSM_GY_ODR_208Hz: {
             *val = LSM6DSM_GY_ODR_208Hz;
-            break;
+        } break;
 
-        case LSM6DSM_GY_ODR_416Hz:
+        case LSM6DSM_GY_ODR_416Hz: {
             *val = LSM6DSM_GY_ODR_416Hz;
-            break;
+        } break;
 
-        case LSM6DSM_GY_ODR_833Hz:
+        case LSM6DSM_GY_ODR_833Hz: {
             *val = LSM6DSM_GY_ODR_833Hz;
-            break;
+        } break;
 
-        case LSM6DSM_GY_ODR_1k66Hz:
+        case LSM6DSM_GY_ODR_1k66Hz: {
             *val = LSM6DSM_GY_ODR_1k66Hz;
-            break;
+        } break;
 
-        case LSM6DSM_GY_ODR_3k33Hz:
+        case LSM6DSM_GY_ODR_3k33Hz: {
             *val = LSM6DSM_GY_ODR_3k33Hz;
-            break;
+        } break;
 
-        case LSM6DSM_GY_ODR_6k66Hz:
+        case LSM6DSM_GY_ODR_6k66Hz: {
             *val = LSM6DSM_GY_ODR_6k66Hz;
-            break;
+        } break;
 
-        default:
+        default: {
             *val = LSM6DSM_GY_ODR_OFF;
-            break;
+        } break;
     }
 
     return ret;
@@ -3283,57 +3283,57 @@ int lsm6dsm_driver_get_gy_band_pass(struct lsm6dsm_driver_context *context,
 
             switch ((ctrl7_g->hp_en_g << 7) + (ctrl7_g->hpm_g << 4) +
                     (ctrl4_c->lpf1_sel_g << 3) + ctrl6_c->ftype) {
-                case LSM6DSM_HP_16mHz_LP2:
+                case LSM6DSM_HP_16mHz_LP2: {
                     *val = LSM6DSM_HP_16mHz_LP2;
-                    break;
+                } break;
 
-                case LSM6DSM_HP_65mHz_LP2:
+                case LSM6DSM_HP_65mHz_LP2: {
                     *val = LSM6DSM_HP_65mHz_LP2;
-                    break;
+                } break;
 
-                case LSM6DSM_HP_260mHz_LP2:
+                case LSM6DSM_HP_260mHz_LP2: {
                     *val = LSM6DSM_HP_260mHz_LP2;
-                    break;
+                } break;
 
-                case LSM6DSM_HP_1Hz04_LP2:
+                case LSM6DSM_HP_1Hz04_LP2: {
                     *val = LSM6DSM_HP_1Hz04_LP2;
-                    break;
+                } break;
 
-                case LSM6DSM_HP_DISABLE_LP1_LIGHT:
+                case LSM6DSM_HP_DISABLE_LP1_LIGHT: {
                     *val = LSM6DSM_HP_DISABLE_LP1_LIGHT;
-                    break;
+                } break;
 
-                case LSM6DSM_HP_DISABLE_LP1_NORMAL:
+                case LSM6DSM_HP_DISABLE_LP1_NORMAL: {
                     *val = LSM6DSM_HP_DISABLE_LP1_NORMAL;
-                    break;
+                } break;
 
-                case LSM6DSM_HP_DISABLE_LP_STRONG:
+                case LSM6DSM_HP_DISABLE_LP_STRONG: {
                     *val = LSM6DSM_HP_DISABLE_LP_STRONG;
-                    break;
+                } break;
 
-                case LSM6DSM_HP_DISABLE_LP1_AGGRESSIVE:
+                case LSM6DSM_HP_DISABLE_LP1_AGGRESSIVE: {
                     *val = LSM6DSM_HP_DISABLE_LP1_AGGRESSIVE;
-                    break;
+                } break;
 
-                case LSM6DSM_HP_16mHz_LP1_LIGHT:
+                case LSM6DSM_HP_16mHz_LP1_LIGHT: {
                     *val = LSM6DSM_HP_16mHz_LP1_LIGHT;
-                    break;
+                } break;
 
-                case LSM6DSM_HP_65mHz_LP1_NORMAL:
+                case LSM6DSM_HP_65mHz_LP1_NORMAL: {
                     *val = LSM6DSM_HP_65mHz_LP1_NORMAL;
-                    break;
+                } break;
 
-                case LSM6DSM_HP_260mHz_LP1_STRONG:
+                case LSM6DSM_HP_260mHz_LP1_STRONG: {
                     *val = LSM6DSM_HP_260mHz_LP1_STRONG;
-                    break;
+                } break;
 
-                case LSM6DSM_HP_1Hz04_LP1_AGGRESSIVE:
+                case LSM6DSM_HP_1Hz04_LP1_AGGRESSIVE: {
                     *val = LSM6DSM_HP_1Hz04_LP1_AGGRESSIVE;
-                    break;
+                } break;
 
-                default:
+                default: {
                     *val = LSM6DSM_HP_65mHz_LP2;
-                    break;
+                } break;
             }
         }
     }

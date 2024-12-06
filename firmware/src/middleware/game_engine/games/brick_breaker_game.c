@@ -131,7 +131,7 @@ brick_breaker_game_process_event_queue(
 
     while (ring_buffer_pop(event_queue, &event) == 0) {
         switch (event.type) {
-            case OUT_OF_BOUNDS_EVENT:
+            case OUT_OF_BOUNDS_EVENT: {
                 struct physics_engine_out_of_bounds_event *out_of_bounds_event =
                     &event.out_of_bounds_event;
                 if (IS_BALL_ENTITY(out_of_bounds_event->ent)) {
@@ -188,7 +188,7 @@ brick_breaker_game_process_event_queue(
                             break;
                     }
                 }
-                break;
+            } break;
             case COLLISION_EVENT: {
                 struct physics_engine_collision_event *collision_event =
                     &event.collision_event;
