@@ -59,7 +59,7 @@ enum entity_creation_error snowfall_game_init(
 
 /* Snowflake initialization struct */
 static const struct entity_init_struct snowflake_init_struct = {
-    .rectangle = (struct rectangle){SNOWFALL_SNOWFLAKE_START_POSITION},
+    .rectangle = {SNOWFALL_SNOWFLAKE_START_POSITION},
     .mass = MODERATE_MASS,
     .velocity = SNOWFALL_SNOWFLAKE_START_VELOCITY,
     .acceleration = SNOWFALL_SNOWFLAKE_START_ACCELERATION,
@@ -67,7 +67,7 @@ static const struct entity_init_struct snowflake_init_struct = {
 };
 
 #define CREATE_SNOWFALL_GAME()                                   \
-    (struct snowfall_game) {                                     \
+    {                                                            \
         .config =                                                \
             {                                                    \
                 .snowflake_init_struct = &snowflake_init_struct, \

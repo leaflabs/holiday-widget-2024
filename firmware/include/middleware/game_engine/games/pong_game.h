@@ -131,7 +131,7 @@ void pong_opponent_scores(struct pong_game *pong_game);
 void pong_user_scores(struct pong_game *pong_game);
 
 static const struct entity_init_struct pong_user_paddle_init_struct = {
-    .rectangle = (struct rectangle){PONG_USER_PADDLE_START_POSITION},
+    .rectangle = {PONG_USER_PADDLE_START_POSITION},
     .mass = INFINITE_MASS,
     .velocity = PONG_USER_PADDLE_START_VELOCITY,
     .acceleration = PONG_USER_PADDLE_START_ACCELERATION,
@@ -139,7 +139,7 @@ static const struct entity_init_struct pong_user_paddle_init_struct = {
 };
 
 static const struct entity_init_struct pong_opponent_paddle_init_struct = {
-    .rectangle = (struct rectangle){PONG_OPPONENT_PADDLE_START_POSITION},
+    .rectangle = {PONG_OPPONENT_PADDLE_START_POSITION},
     .mass = INFINITE_MASS,
     .velocity = PONG_OPPONENT_PADDLE_START_VELOCITY,
     .acceleration = PONG_OPPONENT_PADDLE_START_ACCELERATION,
@@ -147,7 +147,7 @@ static const struct entity_init_struct pong_opponent_paddle_init_struct = {
 };
 
 static const struct entity_init_struct pong_ball_init_struct = {
-    .rectangle = (struct rectangle){PONG_BALL_START_POSITION},
+    .rectangle = {PONG_BALL_START_POSITION},
     .mass = LARGE_MASS,
     .velocity = PONG_BALL_START_VELOCITY,
     .acceleration = PONG_BALL_START_ACCELERATION,

@@ -3,13 +3,12 @@
 #include "uart_logger.h"
 
 /* Global PAM8302A Driver Instance */
-struct pam8302a_driver pam8302a_driver = (struct pam8302a_driver){
+struct pam8302a_driver pam8302a_driver = {
     .config =
-        (struct pam8302a_driver_config){
+        {
             .enable_pin = GPIO_PIN(B, 12),
         },
-    .context = (struct pam8302a_driver_context){.initialized = false,
-                                                .enabled = false},
+    .context = {.initialized = false, .enabled = false},
 };
 
 /* Initializes GPIO */

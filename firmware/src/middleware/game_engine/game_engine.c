@@ -32,8 +32,8 @@ struct game_engine game_engine = {
             .clock_division = 4,
         },
     .context =
-        (struct game_engine_context){
-            .physics_engine = (struct physics_engine){0},
+        {
+            .physics_engine = {0},
             .pong_game = CREATE_PONG_GAME(),
             .space_invaders_game = CREATE_SPACE_INVADERS_GAME(),
             .snowfall_game = CREATE_SNOWFALL_GAME(),

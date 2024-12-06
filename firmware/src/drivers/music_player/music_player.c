@@ -16,14 +16,14 @@ static const char *const error_strings[] = {
 };
 
 /* Global Music Player Instance */
-struct music_player music_player = (struct music_player){
+struct music_player music_player = {
     .config =
-        (struct music_player_config){
+        {
             .audio_out_pin = GPIO_PIN(A, 4),
             .pam8302a_driver = &pam8302a_driver,
         },
     .context =
-        (struct music_player_context){
+        {
             .current_song = NO_SONG,
             .error = MUSIC_PLAYER_NO_ERROR,
             .state = MUSIC_PLAYER_UNINITIALIZED,

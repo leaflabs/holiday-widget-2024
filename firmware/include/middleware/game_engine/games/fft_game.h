@@ -80,9 +80,8 @@ enum entity_creation_error fft_game_init(struct fft_game *fft_game);
 void fft_game_update(struct fft_game *fft_game);
 
 static const struct entity_init_struct fft_histogram_bar_init_struct = {
-    .rectangle =
-        (struct rectangle){HISTOGRAM_BAR_START_POSITIONS_TOP_LEFT[0],
-                           HISTOGRAM_BAR_START_POSITIONS_BOTTOM_RIGHT[0]},
+    .rectangle = {HISTOGRAM_BAR_START_POSITIONS_TOP_LEFT[0],
+                  HISTOGRAM_BAR_START_POSITIONS_BOTTOM_RIGHT[0]},
     .mass = INFINITE_MASS,
     .velocity = FFT_HISTOGRAM_BAR_START_VELOCITY,
     .acceleration = FFT_HISTOGRAM_BAR_START_ACCELERATION,
@@ -90,7 +89,7 @@ static const struct entity_init_struct fft_histogram_bar_init_struct = {
 };
 
 #define CREATE_FFT_GAME()                                                    \
-    (struct fft_game) {                                                      \
+    {                                                                        \
         .config =                                                            \
             {                                                                \
                 .histogram_bar_init_struct = &fft_histogram_bar_init_struct, \

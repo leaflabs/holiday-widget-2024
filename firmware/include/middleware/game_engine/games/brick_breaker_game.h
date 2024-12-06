@@ -178,7 +178,7 @@ enum entity_creation_error brick_breaker_game_init(
 void brick_breaker_ball_out_of_bounds(union game *game);
 
 static const struct entity_init_struct brick_breaker_user_paddle_init_struct = {
-    .rectangle = (struct rectangle){BRICK_BREAKER_USER_PADDLE_START_POSITION},
+    .rectangle = {BRICK_BREAKER_USER_PADDLE_START_POSITION},
     .mass = INFINITE_MASS,
     .velocity = BRICK_BREAKER_USER_PADDLE_START_VELOCITY,
     .acceleration = BRICK_BREAKER_USER_PADDLE_START_ACCELERATION,
@@ -186,7 +186,7 @@ static const struct entity_init_struct brick_breaker_user_paddle_init_struct = {
 };
 
 static const struct entity_init_struct brick_breaker_ball_init_struct = {
-    .rectangle = (struct rectangle){BRICK_BREAKER_BALL_START_POSITION},
+    .rectangle = {BRICK_BREAKER_BALL_START_POSITION},
     .mass = LARGE_MASS,
     .velocity = BRICK_BREAKER_BALL_START_VELOCITY,
     .acceleration = BRICK_BREAKER_BALL_START_ACCELERATION,
@@ -194,7 +194,7 @@ static const struct entity_init_struct brick_breaker_ball_init_struct = {
 };
 
 static const struct entity_init_struct brick_breaker_brick_init_struct = {
-    .rectangle = (struct rectangle){BRICK_BREAKER_BRICK_START_POSITION(0)},
+    .rectangle = {BRICK_BREAKER_BRICK_START_POSITION(0)},
     .mass = INFINITE_MASS,
     .velocity = BRICK_BREAKER_BRICK_START_VELOCITY,
     .acceleration = BRICK_BREAKER_BRICK_START_ACCELERATION,
@@ -202,7 +202,7 @@ static const struct entity_init_struct brick_breaker_brick_init_struct = {
 };
 
 #define CREATE_BRICK_BREAKER_GAME()                                    \
-    (struct brick_breaker_game) {                                      \
+    {                                                                  \
         .config =                                                      \
             {                                                          \
                 .user_paddle_init_struct =                             \
