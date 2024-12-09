@@ -65,8 +65,8 @@ void I2C1_IRQHandler(void) {
 
 void DMA1_Channel4_5_6_7_IRQHandler(void) {
     HAL_DMA_IRQHandler(&music_player.config.hdma_tim2_durations);
-    HAL_DMA_IRQHandler(&i2c1_context.i2c.hdmarx);
-    HAL_DMA_IRQHandler(&i2c1_context.i2c.hdmatx);
+    HAL_DMA_IRQHandler(i2c1_context.i2c.hdmarx);
+    HAL_DMA_IRQHandler(i2c1_context.i2c.hdmatx);
     HAL_DMA_IRQHandler(uart.hdmatx);
 }
 
