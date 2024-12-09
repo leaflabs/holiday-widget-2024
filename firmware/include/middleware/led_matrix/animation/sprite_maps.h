@@ -57,6 +57,17 @@ const uint8_t large_ball_img[] = {
     2, 3, 4, 3, 2,
     2, 2, 3, 2, 2,
 };
+
+const uint8_t histogram_bar_img[] = {
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+};
+
 // clang-format on
 
 /*
@@ -80,5 +91,8 @@ const struct sprite moderate_ball = {
 
 const struct sprite large_ball = {
     .data = large_ball_img, .width = 5, .height = 3};
+
+const struct sprite histogram_bar = {
+    .data = histogram_bar_img, .width = 1, .height = 7};
 
 #endif /* __SPRITE_MAPS_H__ */

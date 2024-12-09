@@ -32,5 +32,6 @@ extern const struct sprite arrow;
 extern const struct sprite small_ball;
 extern const struct sprite moderate_ball;
 extern const struct sprite large_ball;
+extern const struct sprite histogram_bar;
 
 #endif /* __SPRITE_H__ */
