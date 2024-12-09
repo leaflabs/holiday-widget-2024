@@ -15,22 +15,22 @@ enum entity_validation_error {
 
 /* Entity initialization structure */
 struct entity_init_struct {
-    struct rectangle rectangle __attribute__((aligned(4)));
-    velocity velocity __attribute__((aligned(4)));
-    acceleration acceleration __attribute__((aligned(4)));
-    enum mass mass __attribute__((aligned(4)));
-    bool solid __attribute__((aligned(4)));
+    struct rectangle rectangle;
+    velocity velocity;
+    acceleration acceleration;
+    enum mass mass;
+    bool solid;
 } __attribute__((aligned(4)));
 
 /* Entity structure */
 struct entity {
-    struct rectangle rectangle __attribute__((aligned(4)));
-    velocity velocity __attribute__((aligned(4)));
-    acceleration acceleration __attribute__((aligned(4)));
-    enum mass mass __attribute__((aligned(4)));
-    bool solid __attribute__((aligned(4)));
-    volatile bool active __attribute__((aligned(4)));
-    uint8_t entity_idx __attribute__((aligned(4)));
+    struct rectangle rectangle;
+    velocity velocity;
+    acceleration acceleration;
+    enum mass mass;
+    bool solid;
+    volatile bool active;
+    uint8_t entity_idx;
 } __attribute__((aligned(4)));
 
 /* Evaluates to true if the give value is a pointer to an entity, else false */
