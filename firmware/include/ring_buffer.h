@@ -13,7 +13,7 @@ struct ring_buffer {
     size_t capacity;      // Buffer capacity (must be a power of 2)
     size_t head;          // Write index
     size_t tail;          // Read index
-};
+} __attribute__((aligned(4)));
 
 // Initialize the ring buffer with statically allocated memory
 #define RING_BUFFER_INIT(rb, buf, elem_size, buf_capacity)              \
@@ -43,10 +43,20 @@ static inline bool ring_buffer_is_full(const struct ring_buffer *rb) {
 // Add an element to the ring buffer
 int ring_buffer_push(struct ring_buffer *rb, const void *data);
 
+int ring_buffer_push_n(struct ring_buffer *rb, const void *data, size_t len);
+
 // Remove an element from the ring buffer
 int ring_buffer_pop(struct ring_buffer *rb, void *data);
 
+int ring_buffer_pop_n(struct ring_buffer *rb, const void *data, size_t len);
+
 // Peek at the front element without removing it
 int ring_buffer_peek(struct ring_buffer *rb, void *data);
+
+void ring_buffer_flush(struct ring_buffer *rb);
+
+size_t ring_buffer_available_to_write(struct ring_buffer *rb);
+
+size_t ring_buffer_available_to_read(struct ring_buffer *rb);
 
 #endif /*__RING_BUFFER_H__*/
