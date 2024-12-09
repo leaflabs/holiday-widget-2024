@@ -13,7 +13,7 @@ struct ring_buffer {
     size_t capacity;      // Buffer capacity (must be a power of 2)
     size_t head;          // Write index
     size_t tail;          // Read index
-} __attribute__((aligned(4)));
+};
 
 static inline int ring_buffer_init(struct ring_buffer *rb, void *buf,
                                    size_t elem_size, size_t buf_capacity) {
