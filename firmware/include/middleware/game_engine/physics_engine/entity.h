@@ -4,8 +4,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "kinematics.h"
-#include "shapes.h"
+#include "environment.h"
 
 /* Enumeration of entity validation errors */
 enum entity_validation_error {

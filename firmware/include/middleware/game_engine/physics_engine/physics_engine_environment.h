@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 #include "entity.h"
+#include "environment.h"
 #include "physics_engine_events.h"
 #define MAX_ENTITIES 32
 

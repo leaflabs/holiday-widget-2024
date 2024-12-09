@@ -2,9 +2,9 @@
 
 #include <stdbool.h>
 
+#include "environment.h"
 #include "logging.h"
 #include "physics_engine_events.h"
-#include "shapes.h"
 #include "utils.h"
 
 static bool rectangles_overlap(const struct rectangle *r1,
