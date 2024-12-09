@@ -40,7 +40,7 @@ CPU_TYPE  := cortex-m0plus
 PROCESSOR_FLAG := -DSTM32L072xx
 
 # Source files include the SRC_DIRS (except for the template files)  and the system.c and startup.s files
-SRCS      := $(shell find $(SRC_DIRS) ! -name '*template.c' -name '*.c' -or -name '*.s')
+SRCS      := $(shell find $(SRC_DIRS) ! -name '*template.c' -name '*.c' -or -name '*.s' -or -name '*.S')
 SRCS      += $(SYSTEM_SRC)
 SRCS	  += $(STARTUP_SRC)
 SRCS      += $(PRINTF_SRC)
