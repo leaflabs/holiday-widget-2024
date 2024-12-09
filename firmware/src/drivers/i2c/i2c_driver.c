@@ -5,8 +5,6 @@
 #include "logging.h"
 #include "stm32l0xx_hal.h"
 #include "utils.h"
-#pragma GCC push_options
-#pragma GCC optimize("O3")  // Apply high optimization level
 
 // 1000ms of timeout for blocking I2C transactions
 #define TIMEOUT 1000U
@@ -209,5 +207,3 @@ void HAL_I2C_AbortCallback(I2C_HandleTypeDef *i2c) {
         future_error_out(&current_request->future, -ECONNABORTED);
     }
 }
-
-#pragma GCC pop_options
