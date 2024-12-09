@@ -22,12 +22,14 @@ static void bit_print_helper(const uint8_t *const data, size_t size) {
         }
 
         // Seperate bytes, except for last one
-        if (i > 1) uart_logger_send(" ");
+        if (i > 1)
+            uart_logger_send(" ");
     }
 }
 
 void bit_print(const void *const data, size_t size, size_t num_elements) {
-    if (num_elements == 0 || size == 0) return;
+    if (num_elements == 0 || size == 0)
+        return;
 
     const uint8_t *const data_ = data;
 
