@@ -1,5 +1,7 @@
 #include "ring_buffer.h"
 
+#include "logging.h"
+
 // Add an element to the ring buffer
 int ring_buffer_push(struct ring_buffer *rb, const void *data) {
     if (ring_buffer_is_full(rb)) {

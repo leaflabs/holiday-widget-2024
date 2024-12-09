@@ -13,7 +13,7 @@ int random_number_generator_init(struct random_number_generator *rng) {
     }
 
     // Initialize ring buffer
-    RING_BUFFER_INIT(&context->buffer, context->rng_buf,
+    ring_buffer_init(&context->buffer, context->rng_buf,
                      sizeof(context->rng_buf[0]), RNG_BUFFER_SIZE);
 
     return ret;

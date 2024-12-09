@@ -39,7 +39,7 @@ void uart_logger_init(USART_TypeDef *instance, uint32_t baud_rate) {
     uart.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
     HAL_UART_Init(&uart);
 
-    RING_BUFFER_INIT(&uart_buffer, __uart_buffer, sizeof(__uart_buffer[0]),
+    ring_buffer_init(&uart_buffer, __uart_buffer, sizeof(__uart_buffer[0]),
                      UART_BUFFER_SIZE);
 }
 

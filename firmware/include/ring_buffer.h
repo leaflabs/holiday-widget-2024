@@ -15,20 +15,22 @@ struct ring_buffer {
     size_t tail;          // Read index
 } __attribute__((aligned(4)));
 
-// Initialize the ring buffer with statically allocated memory
-#define RING_BUFFER_INIT(rb, buf, elem_size, buf_capacity)              \
-    do {                                                                \
-        if (!IS_POWER_OF_2(buf_capacity)) {                             \
-            LOG_ERR("Ring buffer size must be a power of 2 - got <%d>", \
-                    buf_capacity);                                      \
-            while (1);                                                  \
-        }                                                               \
-        (rb)->buffer = (buf);                                           \
-        (rb)->element_size = (elem_size);                               \
-        (rb)->capacity = (buf_capacity);                                \
-        (rb)->head = 0;                                                 \
-        (rb)->tail = 0;                                                 \
-    } while (0)
+static inline int ring_buffer_init(struct ring_buffer *rb, void *buf,
+                                   size_t elem_size, size_t buf_capacity) {
+    if (!IS_POWER_OF_2(buf_capacity)) {
+        LOG_ERR("Ring buffer size must be a power of 2 - got <%d>",
+                buf_capacity);
+        return -1;
+    }
+
+    rb->buffer = buf;
+    rb->element_size = elem_size;
+    rb->capacity = buf_capacity;
+    rb->head = 0;
+    rb->tail = 0;
+
+    return 0;
+}
 
 // Check if the ring buffer is empty
 static inline bool ring_buffer_is_empty(const struct ring_buffer *rb) {
