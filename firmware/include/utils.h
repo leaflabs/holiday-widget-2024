@@ -59,6 +59,19 @@
         actual_freq;                                                        \
     })
 
+/* Evaluates to true if the value resides within the array, else false */
+#define ARRAY_CONTAINS(array, value, len)  \
+    ({                                     \
+        bool result = false;               \
+        for (size_t i = 0; i < len; i++) { \
+            if (array[i] == value) {       \
+                result = true;             \
+                break;                     \
+            }                              \
+        }                                  \
+        result;                            \
+    })
+
 /*
     Prints out the contents of 'data' in binary over the uart.
     Allows for printing an array of types in binary.
