@@ -89,7 +89,7 @@ static int dma_init(struct music_player *music_player) {
 
     /* Set DMA parameters */
     cfg->hdma_tim2_durations.Init.Request = DMA_REQUEST_8;
-    cfg->hdma_tim2_durations.Instance = DMA1_Channel1;
+    cfg->hdma_tim2_durations.Instance = DMA1_Channel5;
     cfg->hdma_tim2_durations.Init.Direction = DMA_MEMORY_TO_PERIPH;
     cfg->hdma_tim2_durations.Init.PeriphInc = DMA_PINC_DISABLE;
     cfg->hdma_tim2_durations.Init.MemInc = DMA_MINC_ENABLE;
@@ -129,12 +129,14 @@ static int dma_init(struct music_player *music_player) {
     __HAL_LINKDMA(&cfg->tim2_handle, hdma[TIM_DMA_ID_CC2],
                   cfg->hdma_tim2_notes);
 
-    /* Link hdma_tim2_durations to hdma[TIM_DMA_ID_CC3] (channel3) */
-    __HAL_LINKDMA(&cfg->tim2_handle, hdma[TIM_DMA_ID_CC3],
+    /* Link hdma_tim2_durations to hdma[TIM_DMA_ID_CC1] (channel1) */
+    __HAL_LINKDMA(&cfg->tim2_handle, hdma[TIM_DMA_ID_CC1],
                   cfg->hdma_tim2_durations);
 
     /* Link hdma_dac handle to the the DAC handle */
     __HAL_LINKDMA(&cfg->dac_handle, DMA_Handle1, cfg->hdma_dac);
+
+    HAL_DMA_DeInit(cfg->tim2_handle.hdma[TIM_DMA_ID_CC2]);
 
     /* Initialize DMA for TIM2 CC2 request */
     if (HAL_DMA_Init(cfg->tim2_handle.hdma[TIM_DMA_ID_CC2]) != HAL_OK) {
@@ -142,11 +144,15 @@ static int dma_init(struct music_player *music_player) {
         return -1;
     }
 
-    /* Initialize DMA for TIM2 CC3 request */
-    if (HAL_DMA_Init(cfg->tim2_handle.hdma[TIM_DMA_ID_CC3]) != HAL_OK) {
+    HAL_DMA_DeInit(cfg->tim2_handle.hdma[TIM_DMA_ID_CC1]);
+
+    /* Initialize DMA for TIM2 CC1 request */
+    if (HAL_DMA_Init(cfg->tim2_handle.hdma[TIM_DMA_ID_CC1]) != HAL_OK) {
         /* DMA Initialization Error */
         return -1;
     }
+
+    HAL_DMA_DeInit(&cfg->hdma_dac);
 
     /* Initialize DMA for DAC request */
     if (HAL_DMA_Init(&cfg->hdma_dac) != HAL_OK) {
@@ -155,8 +161,8 @@ static int dma_init(struct music_player *music_player) {
     }
 
     /* NVIC configuration for DMA transfer complete interrupt (Song Complete) */
-    HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+    HAL_NVIC_SetPriority(DMA1_Channel4_5_6_7_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(DMA1_Channel4_5_6_7_IRQn);
 
     /* NVIC configuration for DMA transfer complete and error interrupt
      * (Duration Complete, DMA Errors)*/
@@ -237,13 +243,13 @@ static int tim2_init(struct music_player *music_player) {
     /* Initialize the TIM channels state */
     TIM_CHANNEL_STATE_SET_ALL(&cfg->tim2_handle, HAL_TIM_CHANNEL_STATE_READY);
 
-    /* Configure TIM2 Channel 3 */
+    /* Configure TIM2 Channel 1 */
     tim_config.OCMode = TIM_OCMODE_PWM1;
     tim_config.OCPolarity = TIM_OCPOLARITY_HIGH;
     tim_config.Pulse = 0x1;
     if (HAL_TIM_PWM_ConfigChannel(&cfg->tim2_handle, &tim_config,
-                                  TIM_CHANNEL_3) != HAL_OK) {
-        /* TIM2 Channel 3 Configuration Error */
+                                  TIM_CHANNEL_1) != HAL_OK) {
+        /* TIM2 Channel 1 Configuration Error */
         return -1;
     }
 
@@ -253,26 +259,26 @@ static int tim2_init(struct music_player *music_player) {
     tim_config.Pulse = 0x1;
     if (HAL_TIM_PWM_ConfigChannel(&cfg->tim2_handle, &tim_config,
                                   TIM_CHANNEL_2) != HAL_OK) {
-        /* TIM2 Channel 3 Configuration Error */
+        /* TIM2 Channel 2 Configuration Error */
         return -1;
     }
 
     /* Reset the CCxE Bits */
     TIM2->CCER &= ~((TIM_CCER_CC1E << (TIM_CHANNEL_2 & 0x1FU)) |
-                    TIM_CCER_CC1E << (TIM_CHANNEL_3 & 0x1FU));
+                    TIM_CCER_CC1E << (TIM_CHANNEL_1 & 0x1FU));
 
-    /* Set CC2E and CC3E (Enable Capture/Compare Channels 2 & 3) Bits */
+    /* Set CC2E and CC1E (Enable Capture/Compare Channels 2 & 3) Bits */
     TIM2->CCER |=
         (uint32_t)(TIM_CCx_ENABLE
                    << (TIM_CHANNEL_2 & 0x1FU)); /* 0x1FU = 31 bits max shift */
-    TIM2->CCER |= (uint32_t)(TIM_CCx_ENABLE << (TIM_CHANNEL_3 & 0x1FU));
+    TIM2->CCER |= (uint32_t)(TIM_CCx_ENABLE << (TIM_CHANNEL_1 & 0x1FU));
 
     /* Set Transfer Complete Callback to song_complete_callback function */
-    cfg->tim2_handle.hdma[TIM_DMA_ID_CC3]->XferCpltCallback =
+    cfg->tim2_handle.hdma[TIM_DMA_ID_CC1]->XferCpltCallback =
         song_complete_callback;
 
     /* Set Respective Error Callbacks */
-    cfg->tim2_handle.hdma[TIM_DMA_ID_CC3]->XferErrorCallback =
+    cfg->tim2_handle.hdma[TIM_DMA_ID_CC1]->XferErrorCallback =
         duration_transfer_error_callback;
     cfg->tim2_handle.hdma[TIM_DMA_ID_CC2]->XferErrorCallback =
         note_transfer_error_callback;
@@ -355,6 +361,7 @@ enum music_player_error music_player_core_init(
     struct music_player *music_player) {
     struct music_player_config *cfg = &music_player->config;
 
+    /* Calculate volume-adjusted sine wave */
     for (int i = 0; i < SINE_WAVE_SAMPLES; i++) {
         sine_wave_volume_adj[i] =
             (sine_wave[i] * MUSIC_PLAYER_VOLUME) / MUSIC_PLAYER_MAX_VOLUME;
@@ -435,8 +442,8 @@ enum music_player_error music_player_core_play_song(
         return MUSIC_PLAYER_RUN_ERROR;
     }
 
-    /* Enable the TIM Capture/Compare 3 DMA request */
-    __HAL_TIM_ENABLE_DMA(&cfg->tim2_handle, TIM_DMA_CC3);
+    /* Enable the TIM Capture/Compare 1 DMA request */
+    __HAL_TIM_ENABLE_DMA(&cfg->tim2_handle, TIM_DMA_CC1);
 
     /* Enable the TIM Capture/Compare 2 DMA request */
     __HAL_TIM_ENABLE_DMA(&cfg->tim2_handle, TIM_DMA_CC2);
@@ -467,7 +474,7 @@ enum music_player_error music_player_core_abort_song(
     return_value |= HAL_TIM_Base_Stop(&cfg->tim6_handle);
     return_value |= HAL_TIM_Base_Stop(&cfg->tim3_handle);
     return_value |= HAL_TIM_Base_Stop(&cfg->tim2_handle);
-    return_value |= HAL_DAC_Stop(&cfg->dac_handle, DAC_CHANNEL_1);
+    return_value |= HAL_DAC_Stop_DMA(&cfg->dac_handle, DAC_CHANNEL_1);
     return_value |= pam8302a_driver_disable(cfg->pam8302a_driver);
 
     HAL_DMA_Abort(&cfg->hdma_tim2_durations);

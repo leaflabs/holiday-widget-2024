@@ -110,8 +110,8 @@ enum music_player_error music_player_play_song(
 /* Stop the current song - returns MUSIC_PLAYER_STOP_ERROR on failure */
 enum music_player_error music_player_abort_song(
     struct music_player *music_player) {
+    music_player->context.current_song = NO_SONG;
     if (music_player->context.state == MUSIC_PLAYER_BUSY) {
-        music_player->context.current_song = NO_SONG;
         return MUSIC_PLAYER_NO_ERROR;
     }
 

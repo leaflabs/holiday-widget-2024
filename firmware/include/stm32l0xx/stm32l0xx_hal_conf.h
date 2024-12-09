@@ -34,7 +34,7 @@ extern "C" {
  * @brief This is the list of modules to be used in the HAL driver
  */
 #define HAL_MODULE_ENABLED
-/* #define HAL_ADC_MODULE_ENABLED    */
+#define HAL_ADC_MODULE_ENABLED
 /* #define HAL_COMP_MODULE_ENABLED  */
 /* #define HAL_CRC_MODULE_ENABLED   */
 /* #define HAL_CRYP_MODULE_ENABLED   */
@@ -140,7 +140,7 @@ extern "C" {
 /**
  * @brief This is the HAL system configuration section
  */
-#define VDD_VALUE (2000U) /*!< Value of VDD in mv */
+#define VDD_VALUE (3300U) /*!< Value of VDD in mv */
 #define TICK_INT_PRIORITY \
     ((1U << __NVIC_PRIO_BITS) - 1U) /*!< tick interrupt priority */
 #define USE_RTOS 0U
