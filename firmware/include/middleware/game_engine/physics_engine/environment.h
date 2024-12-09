@@ -15,7 +15,7 @@
 struct vec2 {
     volatile int32_t x;
     volatile int32_t y;
-} __attribute__((aligned(4)));
+};
 
 typedef struct vec2 position;
 typedef struct vec2 velocity;
@@ -49,7 +49,7 @@ enum mass {
 /* Rectangle entity type implementation */
 struct rectangle {
     position p1, p2;
-} __attribute__((aligned(4)));
+};
 
 static inline bool position_in_bounds(position *pos) {
     return pos->x <= ENVIRONMENT_MAX_X && pos->x >= ENVIRONMENT_MIN_X &&
