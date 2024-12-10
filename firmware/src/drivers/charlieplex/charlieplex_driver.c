@@ -5,8 +5,7 @@
 #include "logging.h"
 #include "stm32l072xx.h"
 #include "utils.h"
-// #pragma GCC push_options
-// #pragma GCC optimize ("O3")   // Apply high optimization level
+
 static const uint8_t default_leds[NUM_LEDS] = {0};
 
 static volatile uint32_t t1, t2, duration;
@@ -417,8 +416,7 @@ void charlieplex_driver_init(void) {
         LOG_ERR("Failed to start TIM7: %d", ret);
     }
 }
-// #pragma GCC push_options
-// #pragma GCC optimize ("O1")   // Apply high optimization level
+
 void TIM7_IRQHandler(void) {
     /*static int i = 0;
     if (i == 0) {
@@ -484,7 +482,6 @@ void TIM7_IRQHandler(void) {
     // LOG_INF("HERE2");
     // asm(" nop");
 }
-// #pragma GCC pop_options       // Revert to previous optimization level
 
 void pause_charlieplex_driver(void) {
     struct charlieplex_driver_context *context = charlieplex_driver->context;
@@ -507,4 +504,3 @@ void unpause_charlieplex_driver(void) {
 void get_duration() {
     // LOG_INF("Duration: %1.3f", ((float)duration)/10.0f);
 }
-// #pragma GCC pop_options       // Revert to previous optimization level
