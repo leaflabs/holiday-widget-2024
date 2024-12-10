@@ -15,7 +15,7 @@ struct random_number_generator {
     struct random_number_generator_context context;
 };
 
-void random_number_generator_init(struct random_number_generator *rng);
+int random_number_generator_init(struct random_number_generator *rng);
 int random_number_generator_update(struct random_number_generator *rng);
 uint32_t random_number_generator_get_next(struct random_number_generator *rng);
 uint32_t random_number_generator_get_next_in_n(

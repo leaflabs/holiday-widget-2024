@@ -1,6 +1,6 @@
 #include "random_number_generator.h"
 
-void random_number_generator_init(struct random_number_generator *rng) {
+int random_number_generator_init(struct random_number_generator *rng) {
     struct random_number_generator_context *context = &rng->context;
     // Enable RNG clock
     __HAL_RCC_RNG_CLK_ENABLE();
@@ -13,8 +13,10 @@ void random_number_generator_init(struct random_number_generator *rng) {
     }
 
     // Initialize ring buffer
-    RING_BUFFER_INIT(&context->buffer, context->rng_buf, sizeof(uint32_t),
-                     RNG_BUFFER_SIZE);
+    RING_BUFFER_INIT(&context->buffer, context->rng_buf,
+                     sizeof(context->rng_buf[0]), RNG_BUFFER_SIZE);
+
+    return ret;
 }
 
 int random_number_generator_update(struct random_number_generator *rng) {
