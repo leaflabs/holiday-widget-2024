@@ -3,7 +3,7 @@
 #include "ring_buffer.h"
 #include "stm32l0xx_hal_rng.h"
 
-#define RNG_BUFFER_SIZE 16
+#define RNG_BUFFER_SIZE 32
 
 struct random_number_generator_context {
     RNG_HandleTypeDef hrng __attribute__((aligned(4)));
