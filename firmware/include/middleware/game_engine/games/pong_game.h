@@ -28,9 +28,6 @@
         0, 0                                \
     }
 
-/* Opacity of user paddle */
-#define PONG_USER_PADDLE_OPACITY (uint8_t)255
-
 /* Is the user paddle solid */
 #define PONG_USER_PADDLE_SOLID true
 
@@ -57,9 +54,6 @@
         0, 0                                    \
     }
 
-/* Opacity of opponent paddle */
-#define PONG_OPPONENT_PADDLE_OPACITY (uint8_t)255
-
 /* Is the opponent paddle solid */
 #define PONG_OPPONENT_PADDLE_SOLID true
 
@@ -85,9 +79,6 @@
     (acceleration) {                 \
         0, 0                         \
     }
-
-/* Opacity of ball */
-#define PONG_BALL_OPACITY (uint8_t)255
 
 /* Is the ball solid */
 #define PONG_BALL_SOLID true
@@ -150,36 +141,11 @@ void pong_opponent_scores(struct pong_game *pong_game);
 
 void pong_user_scores(struct pong_game *pong_game);
 
-static const struct boundary_conditions pong_user_paddle_boundary_conditions = {
-    .left_boundary_action = BOUNDARY_ACTION_STOP,
-    .right_boundary_action = BOUNDARY_ACTION_STOP,
-    .top_boundary_action = BOUNDARY_ACTION_STOP,
-    .bottom_boundary_action = BOUNDARY_ACTION_STOP,
-};
-
-static const struct boundary_conditions
-    pong_opponent_paddle_boundary_conditions = {
-        .left_boundary_action = BOUNDARY_ACTION_STOP,
-        .right_boundary_action = BOUNDARY_ACTION_STOP,
-        .top_boundary_action = BOUNDARY_ACTION_BOUNCE,
-        .bottom_boundary_action = BOUNDARY_ACTION_BOUNCE,
-};
-
-static const struct boundary_conditions pong_ball_boundary_conditions = {
-    .left_boundary_action = BOUNDARY_ACTION_FUNCTION,
-    .right_boundary_action = BOUNDARY_ACTION_FUNCTION,
-    .top_boundary_action = BOUNDARY_ACTION_BOUNCE,
-    .bottom_boundary_action = BOUNDARY_ACTION_BOUNCE,
-    //.left_boundary_function = pong_opponent_scores,
-    //.right_boundary_function = pong_user_scores,
-};
-
 static const struct entity_init_struct pong_user_paddle_init_struct = {
     .rectangle = (struct rectangle){PONG_USER_PADDLE_START_POSITION},
     .mass = INFINITE_MASS,
     .velocity = PONG_USER_PADDLE_START_VELOCITY,
     .acceleration = PONG_USER_PADDLE_START_ACCELERATION,
-    .opacity = PONG_USER_PADDLE_OPACITY,
     .solid = PONG_USER_PADDLE_SOLID,
 };
 
@@ -188,7 +154,6 @@ static const struct entity_init_struct pong_opponent_paddle_init_struct = {
     .mass = INFINITE_MASS,
     .velocity = PONG_OPPONENT_PADDLE_START_VELOCITY,
     .acceleration = PONG_OPPONENT_PADDLE_START_ACCELERATION,
-    .opacity = PONG_OPPONENT_PADDLE_OPACITY,
     .solid = PONG_OPPONENT_PADDLE_SOLID,
 };
 

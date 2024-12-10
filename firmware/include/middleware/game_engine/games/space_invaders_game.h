@@ -31,9 +31,6 @@
         0, 0                                        \
     }
 
-/* opacity of user ship */
-#define SPACE_INVADERS_USER_SHIP_OPACITY (uint8_t)255
-
 /* Is the user ship solid */
 #define SPACE_INVADERS_USER_SHIP_SOLID true
 
@@ -89,9 +86,6 @@ static const position
         0, 0                                         \
     }
 
-/* Opacity of enemy ship */
-#define SPACE_INVADERS_ENEMY_SHIP_OPACITY (uint8_t)255
-
 /* Is enemy ship solid */
 #define SPACE_INVADERS_ENEMY_SHIP_SOLID true
 
@@ -121,9 +115,6 @@ static const position
         0, 0                                          \
     }
 
-/* Opacity of user bullets */
-#define SPACE_INVADERS_USER_BULLET_OPACITY (uint8_t)255
-
 /* Is user bullet solid */
 #define SPACE_INVADERS_USER_BULLET_SOLID false
 
@@ -152,9 +143,6 @@ static const position
     (acceleration) {                                   \
         0, 0                                           \
     }
-
-/* Opacity of enemy bullets */
-#define SPACE_INVADERS_ENEMY_BULLET_OPACITY (uint8_t)255
 
 /* Is enemy bullet solid */
 #define SPACE_INVADERS_ENEMY_BULLET_SOLID false
@@ -232,52 +220,11 @@ void user_bullet_out_of_bounds(union game *game);
 
 void enemy_bullet_out_of_bounds(union game *game);
 
-static const struct boundary_conditions
-    space_invaders_user_ship_boundary_conditions = {
-        .left_boundary_action = BOUNDARY_ACTION_STOP,
-        .right_boundary_action = BOUNDARY_ACTION_STOP,
-        .top_boundary_action = BOUNDARY_ACTION_STOP,
-        .bottom_boundary_action = BOUNDARY_ACTION_STOP,
-        .left_boundary_function = NULL,
-        .right_boundary_function = NULL,
-        .top_boundary_function = NULL,
-        .bottom_boundary_function = NULL,
-};
-
-static const struct boundary_conditions
-    space_invaders_enemy_ship_boundary_conditions = {
-        .left_boundary_action = BOUNDARY_ACTION_STOP,
-        .right_boundary_action = BOUNDARY_ACTION_STOP,
-        .top_boundary_action = BOUNDARY_ACTION_STOP,
-        .bottom_boundary_action = BOUNDARY_ACTION_STOP,
-        .left_boundary_function = NULL,
-        .right_boundary_function = NULL,
-        .top_boundary_function = NULL,
-        .bottom_boundary_function = NULL,
-};
-
-static const struct boundary_conditions
-    space_invaders_user_bullet_boundary_conditions = {
-        .left_boundary_action = BOUNDARY_ACTION_STOP,
-        .right_boundary_action = BOUNDARY_ACTION_STOP,
-        .top_boundary_action = BOUNDARY_ACTION_STOP,
-        .bottom_boundary_action = BOUNDARY_ACTION_STOP,
-};
-
-static const struct boundary_conditions
-    space_invaders_enemy_bullet_boundary_conditions = {
-        .left_boundary_action = BOUNDARY_ACTION_STOP,
-        .right_boundary_action = BOUNDARY_ACTION_STOP,
-        .top_boundary_action = BOUNDARY_ACTION_STOP,
-        .bottom_boundary_action = BOUNDARY_ACTION_STOP,
-};
-
 static const struct entity_init_struct space_invaders_user_ship_init_struct = {
     .rectangle = (struct rectangle){SPACE_INVADERS_USER_SHIP_START_POSITION},
     .mass = INFINITE_MASS,
     .velocity = SPACE_INVADERS_USER_SHIP_START_VELOCITY,
     .acceleration = SPACE_INVADERS_USER_SHIP_START_ACCELERATION,
-    .opacity = SPACE_INVADERS_USER_SHIP_OPACITY,
     .solid = SPACE_INVADERS_USER_SHIP_SOLID,
 };
 
@@ -287,7 +234,6 @@ static const struct entity_init_struct space_invaders_enemy_ship_init_struct = {
     .mass = INFINITE_MASS,
     .velocity = SPACE_INVADERS_ENEMY_SHIP_START_VELOCITY,
     .acceleration = SPACE_INVADERS_ENEMY_SHIP_START_ACCELERATION,
-    .opacity = SPACE_INVADERS_ENEMY_SHIP_OPACITY,
     .solid = SPACE_INVADERS_ENEMY_SHIP_SOLID,
 };
 static const struct entity_init_struct space_invaders_user_bullet_init_struct =
@@ -297,7 +243,6 @@ static const struct entity_init_struct space_invaders_user_bullet_init_struct =
         .mass = INFINITE_MASS,
         .velocity = SPACE_INVADERS_USER_BULLET_START_VELOCITY,
         .acceleration = SPACE_INVADERS_USER_BULLET_START_ACCELERATION,
-        .opacity = SPACE_INVADERS_USER_BULLET_OPACITY,
         .solid = SPACE_INVADERS_USER_BULLET_SOLID,
 };
 

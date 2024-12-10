@@ -281,9 +281,6 @@ struct entity_creation_result add_entity(
     /* Set entity acceleration */
     new_entity->acceleration = init_struct->acceleration;
 
-    /* Set entity opacity */
-    new_entity->opacity = init_struct->opacity;
-
     /* Set entity solid flag */
     new_entity->solid = init_struct->solid;
 
@@ -391,7 +388,6 @@ void print_physics_engine_environment(
         LOG_INF("\t\t\tPosition 2: (%d, %d)", ent.rectangle.p2.x,
                 ent.rectangle.p2.y);
         LOG_INF("\t\t\tVelocity: (%d, %d)", ent.velocity.x, ent.velocity.y);
-        LOG_INF("\t\t\tOpacity: %u", ent.opacity);
         LOG_INF("\t\t\tSolid: %u", ent.solid);
         LOG_INF("\t\t\tValid: %u", ent.active);
         LOG_INF("\t\t\tIdx: %u", ent.entity_idx);

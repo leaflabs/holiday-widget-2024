@@ -17,20 +17,18 @@ enum entity_validation_error {
 /* Entity initialization structure */
 struct entity_init_struct {
     struct rectangle rectangle __attribute__((aligned(4)));
-    enum mass mass __attribute__((aligned(4)));
     velocity velocity __attribute__((aligned(4)));
     acceleration acceleration __attribute__((aligned(4)));
-    uint8_t opacity __attribute__((aligned(4)));
+    enum mass mass __attribute__((aligned(4)));
     bool solid __attribute__((aligned(4)));
 } __attribute__((aligned(4)));
 
 /* Entity structure */
 struct entity {
     struct rectangle rectangle __attribute__((aligned(4)));
-    enum mass mass __attribute__((aligned(4)));
     velocity velocity __attribute__((aligned(4)));
     acceleration acceleration __attribute__((aligned(4)));
-    uint8_t opacity __attribute__((aligned(4)));
+    enum mass mass __attribute__((aligned(4)));
     bool solid __attribute__((aligned(4)));
     volatile bool active __attribute__((aligned(4)));
     uint8_t entity_idx __attribute__((aligned(4)));

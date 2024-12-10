@@ -28,9 +28,6 @@
         0, 0                                         \
     }
 
-/* Opacity of user paddle */
-#define BRICK_BREAKER_USER_PADDLE_OPACITY (uint8_t)255
-
 /* Is the user paddle solid */
 #define BRICK_BREAKER_USER_PADDLE_SOLID true
 
@@ -56,9 +53,6 @@
     (acceleration) {                          \
         0, 0                                  \
     }
-
-/* Opacity of ball*/
-#define BRICK_BREAKER_BALL_OPACITY (uint8_t)((UINT8_MAX * 3) / 4)  // 255
 
 /* Is the ball solid */
 #define BRICK_BREAKER_BALL_SOLID true
@@ -140,9 +134,6 @@ static const position
     (acceleration) {                           \
         0, 0                                   \
     }
-
-/* Opacity of brick */
-#define BRICK_BREAKER_BRICK_OPACITY (uint8_t)255
 
 /* Is the brick solid */
 #define BRICK_BREAKER_BRICK_SOLID true
@@ -229,7 +220,6 @@ static const struct entity_init_struct brick_breaker_user_paddle_init_struct = {
     .mass = INFINITE_MASS,
     .velocity = BRICK_BREAKER_USER_PADDLE_START_VELOCITY,
     .acceleration = BRICK_BREAKER_USER_PADDLE_START_ACCELERATION,
-    .opacity = BRICK_BREAKER_USER_PADDLE_OPACITY,
     .solid = BRICK_BREAKER_USER_PADDLE_SOLID,
 };
 
@@ -238,7 +228,6 @@ static const struct entity_init_struct brick_breaker_ball_init_struct = {
     .mass = LARGE_MASS,
     .velocity = BRICK_BREAKER_BALL_START_VELOCITY,
     .acceleration = BRICK_BREAKER_BALL_START_ACCELERATION,
-    .opacity = BRICK_BREAKER_BALL_OPACITY,
     .solid = BRICK_BREAKER_BALL_SOLID,
 };
 
@@ -247,7 +236,6 @@ static const struct entity_init_struct brick_breaker_brick_init_struct = {
     .mass = INFINITE_MASS,
     .velocity = BRICK_BREAKER_BRICK_START_VELOCITY,
     .acceleration = BRICK_BREAKER_BRICK_START_ACCELERATION,
-    .opacity = BRICK_BREAKER_BRICK_OPACITY,
     .solid = BRICK_BREAKER_BRICK_SOLID,
 };
 

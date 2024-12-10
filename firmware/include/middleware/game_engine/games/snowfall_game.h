@@ -27,9 +27,6 @@
         0, 0                                  \
     }
 
-/* Opacity of snowflake */
-#define SNOWFALL_SNOWFLAKE_OPACITY (uint8_t)255
-
 /* Are snowflakes solid */
 #define SNOWFALL_SNOWFLAKE_SOLID false
 
@@ -65,20 +62,12 @@ struct snowfall_game {
 enum entity_creation_error snowfall_game_init(
     struct snowfall_game *snowfall_game);
 
-static const struct boundary_conditions snowflake_boundary_conditions = {
-    .left_boundary_action = BOUNDARY_ACTION_BOUNCE,
-    .right_boundary_action = BOUNDARY_ACTION_BOUNCE,
-    .top_boundary_action = BOUNDARY_ACTION_BOUNCE,
-    .bottom_boundary_action = BOUNDARY_ACTION_BOUNCE,
-};
-
 /* Snowflake initialization struct */
 static const struct entity_init_struct snowflake_init_struct = {
     .rectangle = (struct rectangle){SNOWFALL_SNOWFLAKE_START_POSITION},
     .mass = MODERATE_MASS,
     .velocity = SNOWFALL_SNOWFLAKE_START_VELOCITY,
     .acceleration = SNOWFALL_SNOWFLAKE_START_ACCELERATION,
-    .opacity = SNOWFALL_SNOWFLAKE_OPACITY,
     .solid = SNOWFALL_SNOWFLAKE_SOLID,
 };
 
