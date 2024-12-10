@@ -116,7 +116,6 @@ enum Song {
     DECK_THE_HALLS,
     SUCCESS_SOUND,
     FAILURE_SOUND,
-    SILENT_TEST_SOUND,
     /* Additional songs go here */
     NO_SONG
 };
@@ -207,29 +206,7 @@ static const uint32_t FAILURE_NOTES[] = {B4_NATURAL, SILENCE, E4_NATURAL,
 static const uint32_t FAILURE_DURATIONS[] = {QUARTER_NOTE, SIXTEENTH_NOTE,
                                              QUARTER_NOTE, SIXTEENTH_NOTE};
 
-static const uint32_t SILENT_TEST_NOTES[] = {
-    SILENCE,
-    SILENCE,
-    SILENCE,
-    SILENCE,
-};
-
-static const uint32_t SILENT_TEST_DURATIONS[] = {
-    WHOLE_NOTE,
-    WHOLE_NOTE,
-    WHOLE_NOTE,
-    WHOLE_NOTE,
-};
-
-/*static const uint32_t WIN_NOTES[] {
-    B4_NATURAL, E4_NATURAL,
-};
-
-static const uint32_t WIN_DURATIONS[] {
-    EIGHTH_NOTE, QUARTER_NOTE,
-};*/
-
-/** All Song Look-Up Table **/
+/** All Song Look-Up Tables **/
 
 /* Notes Look-Up Table */
 __attribute__((__used__)) static const uint32_t *NOTES[] = {
@@ -238,7 +215,6 @@ __attribute__((__used__)) static const uint32_t *NOTES[] = {
     [DECK_THE_HALLS] = DECK_THE_HALLS_NOTES,
     [SUCCESS_SOUND] = SUCCESS_NOTES,
     [FAILURE_SOUND] = FAILURE_NOTES,
-    [SILENT_TEST_SOUND] = SILENT_TEST_NOTES,
 };
 
 /* Durations Look-Up Table */
@@ -248,7 +224,6 @@ __attribute__((__used__)) static const uint32_t *DURATIONS[] = {
     [DECK_THE_HALLS] = DECK_THE_HALLS_DURATIONS,
     [SUCCESS_SOUND] = SUCCESS_DURATIONS,
     [FAILURE_SOUND] = FAILURE_DURATIONS,
-    [SILENT_TEST_SOUND] = SILENT_TEST_DURATIONS,
 };
 
 /* Song Length Look-Up Table */
@@ -261,8 +236,6 @@ static const size_t SIZES[] = {
         sizeof(DECK_THE_HALLS_NOTES) / sizeof(DECK_THE_HALLS_NOTES[0]),
     [SUCCESS_SOUND] = sizeof(SUCCESS_NOTES) / sizeof(SUCCESS_NOTES[0]),
     [FAILURE_SOUND] = sizeof(FAILURE_NOTES) / sizeof(FAILURE_NOTES[0]),
-    [SILENT_TEST_SOUND] =
-        sizeof(SILENT_TEST_NOTES) / sizeof(SILENT_TEST_NOTES[0]),
 };
 
 #endif
