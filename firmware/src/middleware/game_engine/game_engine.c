@@ -1,8 +1,10 @@
 #include "game_engine.h"
 
+#include "imp23absu_driver.h"
 #include "led_matrix.h"
 #include "logging.h"
 #include "lsm6dsm_driver.h"
+#include "music_player.h"
 #include "physics_engine.h"
 #include "printf/printf.h"
 #include "stm32l0xx_hal_conf.h"
