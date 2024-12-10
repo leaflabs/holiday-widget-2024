@@ -312,6 +312,13 @@ void game_engine_run(void) {
 }
 
 void set_game(enum game_type game) {
+    if (game_engine.context.current_game == FFT_GAME && game != FFT_GAME) {
+        imp23absu_driver_disable();
+    } else if (game_engine.context.current_game != FFT_GAME &&
+               game == FFT_GAME) {
+        imp23absu_driver_enable();
+    }
+
     game_engine.context.current_game = game;
 }
 

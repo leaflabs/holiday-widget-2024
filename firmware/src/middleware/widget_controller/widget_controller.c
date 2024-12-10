@@ -1,6 +1,7 @@
 #include "widget_controller.h"
 
 #include "game_engine.h"
+#include "imp23absu_driver.h"
 #include "led_matrix.h"
 #include "logging.h"
 #include "lsm6dsm_driver.h"
@@ -230,9 +231,32 @@ void widget_controller_run(void) {
                 request_is_not_busy(&ambient_light_comm)) {
                 set_all_enter_lp();
 
+                if (context.mode == WIDGET_MODE_FFT) {
+                    // If FFT Game is active when low-power mode is
+                    // entered, then disable the IMP23ABSU driver
+                    int error = imp23absu_driver_disable();
+                    if (error != 0) {
+                        LOG_ERR(
+                            "Failed to disable IMP23ABSU Driver while entering "
+                            "low-power mode: %d",
+                            error);
+                    }
+                } else {
+                    // Otherwise, if the music play is active when
+                    // low-power mode is entered, then abort the song
+                    if (music_player_is_song_playing(&music_player)) {
+                        enum music_player_error error =
+                            music_player_abort_song(&music_player);
+                        if (error != MUSIC_PLAYER_NO_ERROR) {
+                            LOG_ERR(
+                                "Failed to abort music player while entering "
+                                "low-power mode: %d",
+                                error);
+                        }
+                    }
+                }
                 pause_game_engine(-1);
                 pause_led_matrix();
-                music_player_abort_song(&music_player);
 
                 // Now for phase 2
                 context.state = WIDGET_ENTER_LP2;
@@ -284,6 +308,16 @@ void widget_controller_run(void) {
             if (request_is_finished(&acceleration_comm) &&
                 request_is_finished(&ambient_light_comm)) {
                 set_all_no_request();  // Just have them idle
+
+                if (context.mode == WIDGET_MODE_FFT) {
+                    int error = imp23absu_driver_enable();
+                    if (error != 0) {
+                        LOG_ERR(
+                            "Failed to enable IMP23ABSU Driver while exiting "
+                            "low-power mode: %d",
+                            error);
+                    }
+                }
 
                 context.timer = HAL_GetTick();  // Reset the timer
 
