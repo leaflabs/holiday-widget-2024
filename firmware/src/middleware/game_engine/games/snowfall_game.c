@@ -38,6 +38,61 @@ enum entity_creation_error snowfall_game_init(
     return 0;
 }
 
+static struct game_entity *get_next_inactive_snowflake(
+    struct snowfall_game *snowfall_game) {
+    struct snowfall_game_context *context = &snowfall_game->context;
+
+    uint8_t entity_idx = 0;
+    struct game_entity *snowflake = &context->snowflakes[entity_idx++];
+    while (entity_idx < SNOWFALL_MAX_SNOWFLAKES && snowflake->entity->active) {
+        snowflake = &context->snowflakes[entity_idx++];
+    }
+
+    if (entity_idx == SNOWFALL_MAX_SNOWFLAKES) {
+        return NULL;
+    }
+
+    return snowflake;
+}
+
+static void place_next_snowflake(struct snowfall_game *snowfall_game,
+                                 const struct random_number_generator *rng) {
+    struct snowfall_game_context *context = &snowfall_game->context;
+
+    if (context->num_snowflakes < SNOWFALL_MAX_SNOWFLAKES) {
+        struct game_entity *snowflake =
+            get_next_inactive_snowflake(snowfall_game);
+
+        if (snowflake == NULL) {
+            LOG_ERR("Ran out of snowflakes");
+            return;
+        }
+
+        static int32_t prev_nums[] = {-1, -1, -1, -1, -1};
+        static const uint8_t prev_nums_len =
+            sizeof(prev_nums) / sizeof(prev_nums[0]);
+
+        static uint8_t prev_idx = 0;
+        uint32_t random_number =
+            random_number_generator_get_next_in_n(rng, GRID_SIZE);
+
+        bool invalid_value = true;
+        while (ARRAY_CONTAINS(prev_nums, random_number, prev_nums_len)) {
+            random_number =
+                random_number_generator_get_next_in_n(rng, GRID_SIZE);
+        }
+
+        prev_nums[prev_idx] = random_number;
+        prev_idx = (prev_idx + 1) % prev_nums_len;
+
+        set_game_entity_position(snowflake,
+                                 TOP_LEFT_POSITION_FROM_GRID(random_number, 0));
+
+        activate_game_entity(snowflake);
+        context->num_snowflakes++;
+    }
+}
+
 void update_snowfall_game(struct snowfall_game *snowfall_game,
                           const struct random_number_generator *rng,
                           uint32_t delta_t) {
@@ -74,51 +129,8 @@ void update_snowfall_game(struct snowfall_game *snowfall_game,
     }
 
     time_elapsed -= SNOWFALL_MIN_DURATION_MS;
-    if (context->num_snowflakes < SNOWFALL_MAX_SNOWFLAKES) {
-        uint8_t entity_idx = 0;
-        struct game_entity *snowflake = &context->snowflakes[entity_idx++];
-        while (entity_idx < SNOWFALL_MAX_SNOWFLAKES &&
-               snowflake->entity->active) {
-            snowflake = &context->snowflakes[entity_idx++];
-        }
 
-        uint32_t random_number;
-        if (entity_idx == SNOWFALL_MAX_SNOWFLAKES) {
-            LOG_ERR("Ran out of snowflakes");
-            return;
-        }
-        /*if (col == 1) {
-            random_number = random_number_generator_get_next_in_n(rng, 3);
-            set_game_entity_position(snowflake,
-        TOP_LEFT_POSITION_FROM_GRID(random_number + 2, 0)); col = 2; } else {
-            random_number = random_number_generator_get_next_in_n(rng, 2);
-            if (col == 0) {
-                set_game_entity_position(snowflake,
-        TOP_LEFT_POSITION_FROM_GRID(random_number, 0)); col = 1; } else {
-                set_game_entity_position(snowflake,
-        TOP_LEFT_POSITION_FROM_GRID(random_number + 5, 0)); col = 0;
-            }
-        }*/
-        static int32_t prev[] = {-1, -1, -1, -1, -1};
-        static uint8_t prev_idx = 0;
-        random_number = random_number_generator_get_next_in_n(rng, GRID_SIZE);
-        while (random_number == prev[0] || random_number == prev[1] ||
-               random_number == prev[2] || random_number == prev[3] ||
-               random_number == prev[4]) {
-            random_number =
-                random_number_generator_get_next_in_n(rng, GRID_SIZE);
-        }
-
-        prev[prev_idx] = random_number;
-        prev_idx++;
-        prev_idx %= 3;
-
-        set_game_entity_position(snowflake,
-                                 TOP_LEFT_POSITION_FROM_GRID(random_number, 0));
-
-        activate_game_entity(snowflake);
-        context->num_snowflakes++;
-    }
+    place_next_snowflake(snowfall_game, rng);
 }
 
 void snowfall_game_process_event_queue(struct snowfall_game *snowfall_game) {
@@ -133,10 +145,8 @@ void snowfall_game_process_event_queue(struct snowfall_game *snowfall_game) {
                 deactivate_entity(event.out_of_bounds_event.ent);
                 context->num_snowflakes--;
             } break;
-            case COLLISION_EVENT: {
-                // deactivate_entity(event.collision_event.ent2);
-                // context->num_snowflakes--;
-            } break;
+            case COLLISION_EVENT:
+                break;
         }
     }
 }
