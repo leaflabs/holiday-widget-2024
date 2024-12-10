@@ -62,8 +62,7 @@ enum entity_creation_error pong_game_init(struct pong_game *pong_game) {
         LOG_ERR("Failed to create user paddle entity: %d", result.error);
         return result.error;
     } else if (!game_entity_init(&context->user_paddle, result.entity,
-                                 PONG_USER_PADDLE_SPRITE,
-                                 config->user_paddle_boundary_conditions)) {
+                                 PONG_USER_PADDLE_SPRITE)) {
         LOG_ERR("Failed to create user paddle game entity");
         result.error = ENTITY_CREATION_INVALID_TYPE;
         return result.error;
@@ -76,8 +75,7 @@ enum entity_creation_error pong_game_init(struct pong_game *pong_game) {
         LOG_ERR("Failed to create opponent paddle entity: %d", result.error);
         return result.error;
     } else if (!game_entity_init(&context->opponent_paddle, result.entity,
-                                 PONG_OPPONENT_PADDLE_SPRITE,
-                                 config->opponent_paddle_boundary_conditions)) {
+                                 PONG_OPPONENT_PADDLE_SPRITE)) {
         LOG_ERR("Failed to create opponent paddle game entity");
         result.error = ENTITY_CREATION_INVALID_TYPE;
         return result.error;
@@ -89,8 +87,7 @@ enum entity_creation_error pong_game_init(struct pong_game *pong_game) {
         LOG_ERR("Failed to create ball entity: %d", result.error);
         return result.error;
     } else if (!game_entity_init(&context->ball, result.entity,
-                                 PONG_BALL_SPRITE,
-                                 config->ball_boundary_conditions)) {
+                                 PONG_BALL_SPRITE)) {
         LOG_ERR("Failed to create ball game entity");
         result.error = ENTITY_CREATION_INVALID_TYPE;
         return result.error;

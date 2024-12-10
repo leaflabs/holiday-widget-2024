@@ -151,15 +151,6 @@ struct brick_breaker_game_config {
 
     /* Brick initialization struct */
     const struct entity_init_struct *const brick_init_struct;
-
-    /* User paddle boundary conditions */
-    const struct boundary_conditions *const user_paddle_boundary_conditions;
-
-    /* Ball boundary conditions */
-    const struct boundary_conditions *const ball_boundary_conditions;
-
-    /* Brick boundary conditions */
-    const struct boundary_conditions *const brick_boundary_conditions;
 };
 
 struct brick_breaker_game_context {
@@ -187,33 +178,6 @@ enum entity_creation_error brick_breaker_game_init(
     struct brick_breaker_game *brick_breaker_game);
 
 void brick_breaker_ball_out_of_bounds(union game *game);
-
-void on_brick_collision(struct entity *brick, struct entity *ball);
-
-static const struct boundary_conditions
-    brick_breaker_user_paddle_boundary_conditions = {
-        .left_boundary_action = BOUNDARY_ACTION_STOP,
-        .right_boundary_action = BOUNDARY_ACTION_STOP,
-        .top_boundary_action = BOUNDARY_ACTION_STOP,
-        .bottom_boundary_action = BOUNDARY_ACTION_STOP,
-};
-
-static const struct boundary_conditions brick_breaker_ball_boundary_conditions =
-    {
-        .left_boundary_action = BOUNDARY_ACTION_BOUNCE,
-        .right_boundary_action = BOUNDARY_ACTION_BOUNCE,
-        .top_boundary_action = BOUNDARY_ACTION_BOUNCE,
-        .bottom_boundary_action = BOUNDARY_ACTION_FUNCTION,
-        .bottom_boundary_function = brick_breaker_ball_out_of_bounds,
-};
-
-static const struct boundary_conditions
-    brick_breaker_brick_boundary_conditions = {
-        .left_boundary_action = BOUNDARY_ACTION_STOP,
-        .right_boundary_action = BOUNDARY_ACTION_STOP,
-        .top_boundary_action = BOUNDARY_ACTION_STOP,
-        .bottom_boundary_action = BOUNDARY_ACTION_STOP,
-};
 
 static const struct entity_init_struct brick_breaker_user_paddle_init_struct = {
     .rectangle = (struct rectangle){BRICK_BREAKER_USER_PADDLE_START_POSITION},
@@ -247,12 +211,6 @@ static const struct entity_init_struct brick_breaker_brick_init_struct = {
                     &brick_breaker_user_paddle_init_struct,            \
                 .ball_init_struct = &brick_breaker_ball_init_struct,   \
                 .brick_init_struct = &brick_breaker_brick_init_struct, \
-                .user_paddle_boundary_conditions =                     \
-                    &brick_breaker_user_paddle_boundary_conditions,    \
-                .ball_boundary_conditions =                            \
-                    &brick_breaker_ball_boundary_conditions,           \
-                .brick_boundary_conditions =                           \
-                    &brick_breaker_brick_boundary_conditions,          \
             },                                                         \
         .context = {0},                                                \
     }

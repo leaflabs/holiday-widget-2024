@@ -102,15 +102,6 @@ struct pong_game_config {
 
     /* Ball initialization struct */
     const struct entity_init_struct *const ball_init_struct;
-
-    /* User paddle boundary conditions */
-    const struct boundary_conditions *const user_paddle_boundary_conditions;
-
-    /* Opponent paddle boundary conditions */
-    const struct boundary_conditions *const opponent_paddle_boundary_conditions;
-
-    /* Ball boundary conditions */
-    const struct boundary_conditions *const ball_boundary_conditions;
 };
 
 /* Pong game context struct */
@@ -162,25 +153,19 @@ static const struct entity_init_struct pong_ball_init_struct = {
     .mass = LARGE_MASS,
     .velocity = PONG_BALL_START_VELOCITY,
     .acceleration = PONG_BALL_START_ACCELERATION,
-    .opacity = PONG_OPPONENT_PADDLE_OPACITY,
     .solid = PONG_OPPONENT_PADDLE_SOLID,
 };
 
-#define CREATE_PONG_GAME()                                                  \
-    (struct pong_game) {                                                    \
-        .config =                                                           \
-            {                                                               \
-                .user_paddle_init_struct = &pong_user_paddle_init_struct,   \
-                .opponent_paddle_init_struct =                              \
-                    &pong_opponent_paddle_init_struct,                      \
-                .ball_init_struct = &pong_ball_init_struct,                 \
-                .user_paddle_boundary_conditions =                          \
-                    &pong_user_paddle_boundary_conditions,                  \
-                .opponent_paddle_boundary_conditions =                      \
-                    &pong_opponent_paddle_boundary_conditions,              \
-                .ball_boundary_conditions = &pong_ball_boundary_conditions, \
-            },                                                              \
-        .context = {0},                                                     \
+#define CREATE_PONG_GAME()                                                \
+    (struct pong_game) {                                                  \
+        .config =                                                         \
+            {                                                             \
+                .user_paddle_init_struct = &pong_user_paddle_init_struct, \
+                .opponent_paddle_init_struct =                            \
+                    &pong_opponent_paddle_init_struct,                    \
+                .ball_init_struct = &pong_ball_init_struct,               \
+            },                                                            \
+        .context = {0},                                                   \
     }
 
 void pong_game_process_event_queue(struct pong_game *pong_game);

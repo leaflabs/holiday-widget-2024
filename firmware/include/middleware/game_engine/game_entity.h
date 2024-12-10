@@ -8,35 +8,13 @@
 
 union game;
 
-/* Enumeration of possible actions at boundaries */
-enum boundary_action {
-    BOUNDARY_ACTION_STOP,
-    BOUNDARY_ACTION_BOUNCE,
-    BOUNDARY_ACTION_FUNCTION,
-};
-
-/* Boundary conditions structure */
-struct boundary_conditions {
-    void (*left_boundary_function)(union game *game);
-    void (*right_boundary_function)(union game *game);
-    void (*top_boundary_function)(union game *game);
-    void (*bottom_boundary_function)(union game *game);
-    enum boundary_action left_boundary_action;
-    enum boundary_action right_boundary_action;
-    enum boundary_action top_boundary_action;
-    enum boundary_action bottom_boundary_action;
-};
-
 struct game_entity {
     struct entity *entity;
-    const struct boundary_conditions *boundary_conditions;
     struct sprite_component sprite;
 } __attribute__((aligned(4)));
 
-bool game_entity_init(
-    struct game_entity *game_entity, struct entity *entity,
-    const struct sprite *sprite,
-    const struct boundary_conditions *const boundary_conditions);
+bool game_entity_init(struct game_entity *game_entity, struct entity *entity,
+                      const struct sprite *sprite);
 
 void set_game_entity_position(struct game_entity *game_entity,
                               position new_position);

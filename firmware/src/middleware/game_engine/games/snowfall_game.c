@@ -29,8 +29,7 @@ enum entity_creation_error snowfall_game_init(
             return result.error;
         } else {
             bool ret = game_entity_init(&context->snowflakes[i], result.entity,
-                                        SNOWFALL_SNOWFLAKE_SPRITE,
-                                        config->snowflake_boundary_conditions);
+                                        SNOWFALL_SNOWFLAKE_SPRITE);
             if (!ret) {
                 LOG_ERR("Failed to create snowflake game entity %d", i);
                 result.error = ENTITY_CREATION_INVALID_TYPE;

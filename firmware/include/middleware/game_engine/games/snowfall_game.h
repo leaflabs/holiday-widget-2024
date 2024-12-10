@@ -36,9 +36,6 @@
 struct snowfall_game_config {
     /* Snowman top initialization struct */
     const struct entity_init_struct *const snowflake_init_struct;
-
-    /* Snowman top boundary conditions */
-    const struct boundary_conditions *const snowflake_boundary_conditions;
 } __attribute__((aligned(4)));
 
 struct snowfall_game_context {
@@ -76,8 +73,6 @@ static const struct entity_init_struct snowflake_init_struct = {
         .config =                                                \
             {                                                    \
                 .snowflake_init_struct = &snowflake_init_struct, \
-                .snowflake_boundary_conditions =                 \
-                    &snowflake_boundary_conditions,              \
             },                                                   \
         .context = {0},                                          \
     }

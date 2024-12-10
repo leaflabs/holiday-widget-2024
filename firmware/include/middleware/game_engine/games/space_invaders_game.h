@@ -162,18 +162,6 @@ struct space_invaders_game_config {
 
     /* Enemy bullet initialization structs */
     const struct entity_init_struct *const enemy_bullet_init_struct;
-
-    /* User ship boundary conditions */
-    const struct boundary_conditions *const user_ship_boundary_conditions;
-
-    /* Enemy ship boundary conditions */
-    const struct boundary_conditions *const enemy_ship_boundary_conditions;
-
-    /* User bullet boundary conditions */
-    const struct boundary_conditions *const user_bullet_boundary_conditions;
-
-    /* Enemy bullet boundary conditions */
-    const struct boundary_conditions *const enemy_bullet_boundary_conditions;
 };
 
 struct space_invaders_game_context {
@@ -253,32 +241,23 @@ static const struct entity_init_struct space_invaders_enemy_bullet_init_struct =
         .mass = INFINITE_MASS,
         .velocity = SPACE_INVADERS_ENEMY_BULLET_START_VELOCITY,
         .acceleration = SPACE_INVADERS_ENEMY_BULLET_START_ACCELERATION,
-        .opacity = SPACE_INVADERS_ENEMY_BULLET_OPACITY,
         .solid = SPACE_INVADERS_ENEMY_BULLET_SOLID,
 };
 
-#define CREATE_SPACE_INVADERS_GAME()                                  \
-    (struct space_invaders_game) {                                    \
-        .config =                                                     \
-            {                                                         \
-                .user_ship_init_struct =                              \
-                    &space_invaders_user_ship_init_struct,            \
-                .enemy_ship_init_struct =                             \
-                    &space_invaders_enemy_ship_init_struct,           \
-                .user_bullet_init_struct =                            \
-                    &space_invaders_user_bullet_init_struct,          \
-                .enemy_bullet_init_struct =                           \
-                    &space_invaders_enemy_bullet_init_struct,         \
-                .user_ship_boundary_conditions =                      \
-                    &space_invaders_user_ship_boundary_conditions,    \
-                .enemy_ship_boundary_conditions =                     \
-                    &space_invaders_enemy_ship_boundary_conditions,   \
-                .user_bullet_boundary_conditions =                    \
-                    &space_invaders_user_bullet_boundary_conditions,  \
-                .enemy_bullet_boundary_conditions =                   \
-                    &space_invaders_enemy_bullet_boundary_conditions, \
-            },                                                        \
-        .context = {0},                                               \
+#define CREATE_SPACE_INVADERS_GAME()                          \
+    (struct space_invaders_game) {                            \
+        .config =                                             \
+            {                                                 \
+                .user_ship_init_struct =                      \
+                    &space_invaders_user_ship_init_struct,    \
+                .enemy_ship_init_struct =                     \
+                    &space_invaders_enemy_ship_init_struct,   \
+                .user_bullet_init_struct =                    \
+                    &space_invaders_user_bullet_init_struct,  \
+                .enemy_bullet_init_struct =                   \
+                    &space_invaders_enemy_bullet_init_struct, \
+            },                                                \
+        .context = {0},                                       \
     }
 
 void space_invaders_game_process_event_queue(

@@ -2,10 +2,8 @@
 
 #include "logging.h"
 
-bool game_entity_init(
-    struct game_entity *game_entity, struct entity *entity,
-    const struct sprite *sprite,
-    const struct boundary_conditions *const boundary_conditions) {
+bool game_entity_init(struct game_entity *game_entity, struct entity *entity,
+                      const struct sprite *sprite) {
     position pos = entity->rectangle.p1;
 
     game_entity->entity = entity;
@@ -13,12 +11,6 @@ bool game_entity_init(
         (struct sprite_component){.map = sprite,
                                   .x = GET_POSITION_GRID_X(pos),
                                   .y = GET_POSITION_GRID_Y(pos)};
-
-    if (boundary_conditions == NULL) {
-        LOG_ERR("game_entity_init error: boundary_conditions cannot be NULL");
-    }
-
-    game_entity->boundary_conditions = boundary_conditions;
 
     return true;
 }
@@ -76,5 +68,4 @@ void print_game_entity(struct game_entity *game_entity) {
             game_entity->entity->rectangle.p1.y);
     LOG_INF("\tSprite: %d", &game_entity->sprite);
     LOG_INF("\t\t(%d, %d)", game_entity->sprite.x, game_entity->sprite.y);
-    LOG_INF("\tBoundary Conditions: %d", game_entity->boundary_conditions);
 }

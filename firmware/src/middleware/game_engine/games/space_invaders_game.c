@@ -86,8 +86,7 @@ enum entity_creation_error space_invaders_game_init(
         LOG_ERR("Failed to create user ship entity: %d", result.error);
         return result.error;
     } else if (!game_entity_init(&context->user_ship, result.entity,
-                                 SPACE_INVADERS_USER_SHIP_SPRITE,
-                                 config->user_ship_boundary_conditions)) {
+                                 SPACE_INVADERS_USER_SHIP_SPRITE)) {
         LOG_ERR("Failed to create user ship game entity");
         result.error = ENTITY_CREATION_INVALID_TYPE;
         return result.error;
@@ -103,8 +102,7 @@ enum entity_creation_error space_invaders_game_init(
             return result.error;
         } else {
             bool ret = game_entity_init(&context->enemy_ships[i], result.entity,
-                                        SPACE_INVADERS_ENEMY_SHIP_SPRITE,
-                                        config->enemy_ship_boundary_conditions);
+                                        SPACE_INVADERS_ENEMY_SHIP_SPRITE);
             if (!ret) {
                 LOG_ERR("Failed to create enemy ship game entity %d", i);
                 result.error = ENTITY_CREATION_INVALID_TYPE;
@@ -124,8 +122,7 @@ enum entity_creation_error space_invaders_game_init(
                     result.error);
             return result.error;
         } else if (!game_entity_init(&context->user_bullets[i], result.entity,
-                                     SPACE_INVADERS_USER_BULLET_SPRITE,
-                                     config->user_bullet_boundary_conditions)) {
+                                     SPACE_INVADERS_USER_BULLET_SPRITE)) {
             LOG_ERR("Failed to create user bullet game entity %d", i);
             result.error = ENTITY_CREATION_INVALID_TYPE;
             return result.error;
@@ -140,10 +137,8 @@ enum entity_creation_error space_invaders_game_init(
             LOG_ERR("Failed to create enemy bullet entity %d: %d", i,
                     result.error);
             return result.error;
-        } else if (!game_entity_init(
-                       &context->enemy_bullets[i], result.entity,
-                       SPACE_INVADERS_ENEMY_BULLET_SPRITE,
-                       config->enemy_bullet_boundary_conditions)) {
+        } else if (!game_entity_init(&context->enemy_bullets[i], result.entity,
+                                     SPACE_INVADERS_ENEMY_BULLET_SPRITE)) {
             LOG_ERR("Failed to create enemy bullet game entity %d", i);
             result.error = ENTITY_CREATION_INVALID_TYPE;
             return result.error;

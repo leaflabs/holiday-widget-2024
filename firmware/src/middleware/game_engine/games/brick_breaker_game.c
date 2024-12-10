@@ -58,8 +58,7 @@ enum entity_creation_error brick_breaker_game_init(
         LOG_ERR("Failed to create user paddle entity: %d", result.error);
         return result.error;
     } else if (!game_entity_init(&context->user_paddle, result.entity,
-                                 BRICK_BREAKER_USER_PADDLE_SPRITE,
-                                 config->user_paddle_boundary_conditions)) {
+                                 BRICK_BREAKER_USER_PADDLE_SPRITE)) {
         LOG_ERR("Failed to create user paddle game entity");
         result.error = ENTITY_CREATION_INVALID_TYPE;
         return result.error;
@@ -71,8 +70,7 @@ enum entity_creation_error brick_breaker_game_init(
         LOG_ERR("Failed to create ball entity: %d", result.error);
         return result.error;
     } else if (!game_entity_init(&context->ball, result.entity,
-                                 BRICK_BREAKER_BALL_SPRITE,
-                                 config->ball_boundary_conditions)) {
+                                 BRICK_BREAKER_BALL_SPRITE)) {
         LOG_ERR("Failed to create user paddle game entity");
         result.error = ENTITY_CREATION_INVALID_TYPE;
         return result.error;
@@ -85,8 +83,7 @@ enum entity_creation_error brick_breaker_game_init(
             LOG_ERR("Failed to create brick entity %d: %d", i, result.error);
             return result.error;
         } else if (!game_entity_init(&context->bricks[i], result.entity,
-                                     BRICK_BREAKER_BRICK_SPRITE,
-                                     config->brick_boundary_conditions)) {
+                                     BRICK_BREAKER_BRICK_SPRITE)) {
             LOG_ERR("Failed to create brick %d game entity", i);
             result.error = ENTITY_CREATION_INVALID_TYPE;
             return result.error;

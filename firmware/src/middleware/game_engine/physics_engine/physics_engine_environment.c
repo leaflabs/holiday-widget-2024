@@ -32,25 +32,7 @@ static void update_rectangle_entity(
         if (x_displacement >= max_x_move) {
             rectangle->p1.x += max_x_move;
             rectangle->p2.x += max_x_move;
-            /*switch (ent->boundary_conditions->right_boundary_action) {
-                case BOUNDARY_ACTION_STOP:
-                    ent->velocity.x = 0;
-                    break;
-                case BOUNDARY_ACTION_BOUNCE:
-                    ent->velocity.x = -ent->velocity.x;
-                    break;
-                case BOUNDARY_ACTION_FUNCTION:
-                    ent->boundary_conditions->right_boundary_function(ent);
-                    break;
-                default:
-                    uart_logger_send(
-                        "Unknown right boundary action (idx: %d): %d",
-                        ent->entity_idx,
-                        ent->boundary_conditions->right_boundary_action);
-                    uart_logger_send("Entity p1: %d, %d",
-                                     get_entity_position(ent));
-                    break;
-            }*/
+
             struct physics_engine_event event = {
                 .type = OUT_OF_BOUNDS_EVENT,
                 .out_of_bounds_event =
@@ -73,22 +55,6 @@ static void update_rectangle_entity(
         if (x_displacement <= max_x_move) {
             rectangle->p1.x += max_x_move;
             rectangle->p2.x += max_x_move;
-            /*switch (ent->boundary_conditions->left_boundary_action) {
-                case BOUNDARY_ACTION_STOP:
-                    ent->velocity.x = 0;
-                    break;
-                case BOUNDARY_ACTION_BOUNCE:
-                    ent->velocity.x = -ent->velocity.x;
-                    break;
-                case BOUNDARY_ACTION_FUNCTION:
-                    ent->boundary_conditions->left_boundary_function(ent);
-                    break;
-                default:
-                    uart_logger_send(
-                        "Unknown left boundary action: %d",
-                        ent->boundary_conditions->left_boundary_action);
-                    break;
-            }*/
             struct physics_engine_event event = {
                 .type = OUT_OF_BOUNDS_EVENT,
                 .out_of_bounds_event =
@@ -117,22 +83,6 @@ y_move:
         if (y_displacement >= max_y_move) {
             rectangle->p1.y += max_y_move;
             rectangle->p2.y += max_y_move;
-            /*switch (ent->boundary_conditions->bottom_boundary_action) {
-                case BOUNDARY_ACTION_STOP:
-                    ent->velocity.y = 0;
-                    break;
-                case BOUNDARY_ACTION_BOUNCE:
-                    ent->velocity.y = -ent->velocity.y;
-                    break;
-                case BOUNDARY_ACTION_FUNCTION:
-                    ent->boundary_conditions->bottom_boundary_function(ent);
-                    break;
-                default:
-                    uart_logger_send(
-                        "Unknown bottom boundary action: %d",
-                        ent->boundary_conditions->bottom_boundary_action);
-                    break;
-            }*/
             struct physics_engine_event event = {
                 .type = OUT_OF_BOUNDS_EVENT,
                 .out_of_bounds_event =
@@ -156,22 +106,6 @@ y_move:
         if (y_displacement <= max_y_move) {
             rectangle->p1.y += max_y_move;
             rectangle->p2.y += max_y_move;
-            /*switch (ent->boundary_conditions->top_boundary_action) {
-                case BOUNDARY_ACTION_STOP:
-                    ent->velocity.y = 0;
-                    break;
-                case BOUNDARY_ACTION_BOUNCE:
-                    ent->velocity.y = -ent->velocity.y;
-                    break;
-                case BOUNDARY_ACTION_FUNCTION:
-                    ent->boundary_conditions->top_boundary_function(ent);
-                    break;
-                default:
-                    uart_logger_send(
-                        "Unknown top boundary action: %d",
-                        ent->boundary_conditions->top_boundary_action);
-                    break;
-            }*/
             struct physics_engine_event event = {
                 .type = OUT_OF_BOUNDS_EVENT,
                 .out_of_bounds_event =
