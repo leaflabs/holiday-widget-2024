@@ -4,15 +4,15 @@
 #include <stdio.h>
 #include <string.h>
 
-// Define the rotated 5x5 font array
-const uint8_t FONT_5X5[39][5] = {
+/* Array of characters printable through scroll text */
+static const uint8_t FONT_5X5[39][5] = {
     // A
     {
         0b11110,
-        0b00100,
+        0b10001,
         0b11111,
-        0b00101,
-        0b00101,
+        0b10001,
+        0b10001,
     },
     // B
     {
