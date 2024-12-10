@@ -258,23 +258,25 @@ void unpause_led_matrix() {
 
 size_t led_matrix_scroll_text(const char *text, enum scroll_speed speed) {
     static size_t scroll_position = 0;
-    static char *prev_text = NULL;
+    static char prev_text[16];
+    static bool busy = false;
 
-    if (prev_text != NULL) {
+    if (busy) {
         if (strcmp(text, prev_text) != 0) {
+            strncpy(prev_text, text, sizeof(prev_text));
             scroll_position = 0;
             LOG_INF("Warning: scroll text interrupted by new text");
         }
     } else {
-        led_matrix_comm.data.led_matrix.renderer.active = false;
-        led_matrix_comm.data.led_matrix.renderer.finished = true;
-        led_matrix_comm.data.led_matrix.loader.active = true;
-        led_matrix_comm.data.led_matrix.loader.finished = true;
-        led_matrix_comm.data.led_matrix.loader.input_anim =
-            ANIM_RUNTIME_ANIMATION;
+        busy = true;
+        strncpy(prev_text, text, sizeof(prev_text));
     }
 
-    prev_text = text;
+    led_matrix_comm.data.led_matrix.renderer.active = false;
+    led_matrix_comm.data.led_matrix.renderer.finished = true;
+    led_matrix_comm.data.led_matrix.loader.active = true;
+    led_matrix_comm.data.led_matrix.loader.finished = true;
+    led_matrix_comm.data.led_matrix.loader.input_anim = ANIM_RUNTIME_ANIMATION;
 
     if (led_matrix_comm.data.led_matrix.loader.finished) {
         generate_frame(text, strlen(text), scroll_position++ / speed,
@@ -282,7 +284,7 @@ size_t led_matrix_scroll_text(const char *text, enum scroll_speed speed) {
 
         if (scroll_position >= strlen(text) * (N_DIMENSIONS * speed)) {
             scroll_position = 0;
-            prev_text = NULL;
+            busy = false;
             led_matrix_comm.data.led_matrix.loader.active = false;
             led_matrix_comm.data.led_matrix.loader.finished = true;
             led_matrix_comm.data.led_matrix.renderer.active = true;
