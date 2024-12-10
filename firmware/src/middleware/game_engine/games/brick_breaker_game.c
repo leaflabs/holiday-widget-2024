@@ -125,11 +125,11 @@ brick_breaker_game_process_event_queue(
     struct brick_breaker_game *brick_breaker_game,
     struct random_number_generator *rng) {
     struct brick_breaker_game_context *context = &brick_breaker_game->context;
-    struct physics_engine_event_queue *event_queue = &context->game_common.event_queue;
+    struct ring_buffer *event_queue = &context->game_common.event_queue;
 
     struct physics_engine_event event;
 
-    while (physics_engine_event_queue_dequeue(event_queue, &event)) {
+    while (ring_buffer_pop(event_queue, &event) == 0) {
         switch (event.type) {
             case OUT_OF_BOUNDS_EVENT:
                 struct physics_engine_out_of_bounds_event *out_of_bounds_event =
@@ -309,7 +309,7 @@ void brick_breaker_game_reset(struct brick_breaker_game *brick_breaker_game) {
         activate_game_entity(&context->game_entities[i]);
     }
 
-    physics_engine_event_queue_flush(&context->game_common.event_queue);
+    ring_buffer_flush(&context->game_common.event_queue);
 
     context->lives = BRICK_BREAKER_LIVES;
     context->bricks_remaining = BRICK_BREAKER_NUM_OF_BRICKS;

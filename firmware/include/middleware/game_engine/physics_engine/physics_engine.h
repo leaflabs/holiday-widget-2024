@@ -21,7 +21,8 @@ struct physics_engine_config {};
 /* Physics engine context structure */
 struct physics_engine_context {
     struct physics_engine_environment *environment __attribute__((aligned(4)));
-    struct physics_engine_event_queue *event_queue __attribute__((aligned(4)));
+    struct ring_buffer *event_queue __attribute__((aligned(4)));
+
     struct random_number_generator random_number_generator
         __attribute__((aligned(4)));
 } __attribute__((aligned(4)));
@@ -38,6 +39,6 @@ void physics_engine_update(struct physics_engine *physics_engine,
 
 void physics_engine_set_context(struct physics_engine *physics_engine,
                                 struct physics_engine_environment *environment,
-                                struct physics_engine_event_queue *event_queue);
+                                struct ring_buffer *event_queue);
 
 #endif

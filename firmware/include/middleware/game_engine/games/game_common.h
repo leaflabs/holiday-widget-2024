@@ -12,7 +12,8 @@ enum game_state {
 
 struct game_common {
     struct physics_engine_environment environment;
-    struct physics_engine_event_queue event_queue;
+    struct physics_engine_event __event_buffer[EVENT_QUEUE_SIZE];
+    struct ring_buffer event_queue;
     enum game_state game_state;
 };
 

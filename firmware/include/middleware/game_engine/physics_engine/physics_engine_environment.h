@@ -48,9 +48,9 @@ struct entity_creation_result add_entity(
     struct entity_init_struct *init_struct);
 
 /* Updates the provided physics engine environment */
-void physics_engine_environment_update(
-    struct physics_engine_event_queue *event_queue,
-    struct physics_engine_environment *env, uint32_t delta_t);
+void physics_engine_environment_update(struct ring_buffer *event_queue,
+                                       struct physics_engine_environment *env,
+                                       uint32_t delta_t);
 
 /* Prints the provided physics engine environment */
 void print_physics_engine_environment(

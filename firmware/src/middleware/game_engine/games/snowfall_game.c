@@ -123,11 +123,11 @@ void update_snowfall_game(struct snowfall_game *snowfall_game,
 
 void snowfall_game_process_event_queue(struct snowfall_game *snowfall_game) {
     struct snowfall_game_context *context = &snowfall_game->context;
-    struct physics_engine_event_queue *event_queue = &context->game_common.event_queue;
+    struct ring_buffer *event_queue = &context->game_common.event_queue;
 
     struct physics_engine_event event;
 
-    while (physics_engine_event_queue_dequeue(event_queue, &event)) {
+    while (ring_buffer_pop(event_queue, &event) == 0) {
         switch (event.type) {
             case OUT_OF_BOUNDS_EVENT: {
                 deactivate_entity(event.out_of_bounds_event.ent);

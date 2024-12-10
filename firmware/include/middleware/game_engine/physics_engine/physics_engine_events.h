@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include "entity.h"
+#include "ring_buffer.h"
 #include "utils.h"
 #define EVENT_QUEUE_SIZE 32
 
@@ -56,27 +57,4 @@ struct physics_engine_event {
     };
 };
 
-/* Physics engine event queue structure */
-struct physics_engine_event_queue {
-    struct physics_engine_event events[EVENT_QUEUE_SIZE];
-    int8_t head;
-    int8_t tail;
-};
-
-void physics_engine_event_queue_init(
-    struct physics_engine_event_queue *event_queue);
-bool physics_engine_event_queue_is_empty(
-    struct physics_engine_event_queue *event_queue);
-bool physics_engine_event_queue_is_full(
-    struct physics_engine_event_queue *event_queue);
-bool physics_engine_event_queue_enqueue(
-    struct physics_engine_event_queue *event_queue,
-    struct physics_engine_event *event);
-bool physics_engine_event_queue_dequeue(
-    struct physics_engine_event_queue *event_queue,
-    struct physics_engine_event *dest);
-void physics_engine_event_queue_flush(
-    struct physics_engine_event_queue *event_queue);
-void print_physics_engine_event_queue(
-    struct physics_engine_event_queue *event_queue);
 #endif

@@ -15,9 +15,8 @@ static bool rectangles_overlap(const struct rectangle *r1,
              r1->p2.y < r2->p1.y);   // r1 is above r2
 }
 
-static void update_rectangle_entity(
-    struct physics_engine_event_queue *event_queue, struct entity *ent,
-    uint32_t delta_t) {
+static void update_rectangle_entity(struct ring_buffer *event_queue,
+                                    struct entity *ent, uint32_t delta_t) {
     const velocity velocity = ent->velocity;
     struct rectangle *rectangle = &ent->rectangle;
     int32_t max_x_move, max_y_move;
@@ -41,7 +40,7 @@ static void update_rectangle_entity(
                         .ent = ent,
                     },
             };
-            if (!physics_engine_event_queue_enqueue(event_queue, &event)) {
+            if (ring_buffer_push(event_queue, &event)) {
                 LOG_ERR(
                     "Failed to add out of bounds (right) event to event queue: "
                     "event queue full");
@@ -63,7 +62,7 @@ static void update_rectangle_entity(
                         .ent = ent,
                     },
             };
-            if (!physics_engine_event_queue_enqueue(event_queue, &event)) {
+            if (ring_buffer_push(event_queue, &event)) {
                 LOG_ERR(
                     "Failed to add out of bounds (left) event to event queue: "
                     "event queue full");
@@ -92,7 +91,7 @@ y_move:
                     },
             };
 
-            if (!physics_engine_event_queue_enqueue(event_queue, &event)) {
+            if (ring_buffer_push(event_queue, &event)) {
                 LOG_ERR(
                     "Failed to add out of bounds (bottom) event to event "
                     "queue: event queue full");
@@ -114,7 +113,7 @@ y_move:
                         .ent = ent,
                     },
             };
-            if (!physics_engine_event_queue_enqueue(event_queue, &event)) {
+            if (ring_buffer_push(event_queue, &event)) {
                 LOG_ERR(
                     "Failed to add out of bounds (top) event to event queue: "
                     "event queue full");
@@ -235,9 +234,9 @@ static inline int sign(int x) {
     return (x > 0) - (x < 0);
 }
 
-void physics_engine_environment_update(
-    struct physics_engine_event_queue *event_queue,
-    struct physics_engine_environment *env, uint32_t delta_t) {
+void physics_engine_environment_update(struct ring_buffer *event_queue,
+                                       struct physics_engine_environment *env,
+                                       uint32_t delta_t) {
     if (env->paused) {
         return;
     }
@@ -285,12 +284,10 @@ void physics_engine_environment_update(
                                     .ent2 = ent2,
                                 },
                         };
-                        if (!physics_engine_event_queue_enqueue(event_queue,
-                                                                &event)) {
+                        if (ring_buffer_push(event_queue, &event)) {
                             LOG_ERR(
                                 "Failed to add collision event to event queue: "
                                 "event queue full");
-                            print_physics_engine_event_queue(event_queue);
                         }
                         num_collisions++;
                         break;

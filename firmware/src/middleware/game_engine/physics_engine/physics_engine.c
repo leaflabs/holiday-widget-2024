@@ -24,10 +24,9 @@ void physics_engine_update(struct physics_engine *physics_engine,
     }
 }
 
-void physics_engine_set_context(
-    struct physics_engine *physics_engine,
-    struct physics_engine_environment *environment,
-    struct physics_engine_event_queue *event_queue) {
+void physics_engine_set_context(struct physics_engine *physics_engine,
+                                struct physics_engine_environment *environment,
+                                struct ring_buffer *event_queue) {
     struct physics_engine_context *context = &physics_engine->context;
 
     context->environment = environment;

@@ -146,11 +146,11 @@ void pong_user_scores(struct pong_game *pong_game) {
 
 pong_game_process_event_queue(struct pong_game *pong_game) {
     struct pong_game_context *context = &pong_game->context;
-    struct physics_engine_event_queue *event_queue = &context->game_common.event_queue;
+    struct ring_buffer *event_queue = &context->game_common.event_queue;
 
     struct physics_engine_event event;
 
-    while (physics_engine_event_queue_dequeue(event_queue, &event)) {
+    while (ring_buffer_pop(event_queue, &event) == 0) {
         switch (event.type) {
             case OUT_OF_BOUNDS_EVENT:
                 struct physics_engine_out_of_bounds_event *out_of_bounds_event =
@@ -294,7 +294,7 @@ void pong_game_reset(struct pong_game *pong_game) {
                              (struct rectangle){PONG_BALL_START_POSITION}.p1);
     set_game_entity_velocity(&context->ball, PONG_BALL_START_VELOCITY);
 
-    physics_engine_event_queue_flush(&context->game_common.event_queue);
+    ring_buffer_flush(&context->game_common.event_queue);
 
     /* Activate all game entities */
     for (int i = 0; i <= PONG_LAST_ENTITY_IDX; i++) {
