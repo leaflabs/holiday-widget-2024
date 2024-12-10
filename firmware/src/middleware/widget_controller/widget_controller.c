@@ -138,7 +138,8 @@ void widget_controller_setup(void) {
     led_matrix_comm.data.led_matrix.renderer.num_entities =
         sizeof(entities) / sizeof(struct game_entity);
 
-    context.state = WIDGET_BASIC;
+    context.state = WIDGET_PREINIT;
+    context.mode = WIDGET_MODE_SNOWFALL_GAME;
 }
 
 void widget_controller_run(void) {
@@ -151,7 +152,8 @@ void widget_controller_run(void) {
     static bool led_matrix_previous_state[4] = {false, false, false, false};
     switch (context.state) {
         case WIDGET_PREINIT: {
-            // Nothing
+            update_mode();
+            context.state = WIDGET_BASIC;
         } break;
 
         case WIDGET_BASIC: {
