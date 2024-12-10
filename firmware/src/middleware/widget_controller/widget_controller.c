@@ -64,13 +64,13 @@ static void update_data(void);
 static void update_mode(void) {
     music_player_abort_song(&music_player);
     switch (context.mode) {
-        case WIDGET_MODE_PONG_GAME: /*fall-through*/
+        case WIDGET_MODE_PONG_GAME:
             set_game(PONG_GAME);
             break;
-        case WIDGET_MODE_SPACE_INVADERS_GAME: /*fall-through*/
+        case WIDGET_MODE_SPACE_INVADERS_GAME:
             set_game(SPACE_INVADERS_GAME);
             break;
-        case WIDGET_MODE_BRICK_BREAKER_GAME: /*fall-through*/
+        case WIDGET_MODE_BRICK_BREAKER_GAME:
             set_game(BRICK_BREAKER_GAME);
             break;
         case WIDGET_MODE_SNOWFALL_GAME:
@@ -162,17 +162,6 @@ void widget_controller_run(void) {
 
             tap_flags tap_flags = lsm6dsm_driver_get_tap_flags(lsm6dsm);
             if (tap_flags.double_tap && tap_flags.y_tap) {
-                // Tap sign is not consistent when directly holding the board -
-                // could change with board geometry and enclosure - for now, any
-                // double tap advances to next mode
-                /*if (tap_flags.tap_sign == 1) {
-                    next_mode();
-                    LOG_ERR("Next widget mode");
-                } else {
-                    previous_mode();
-                    LOG_ERR("Previous widget mode");
-                }*/
-
                 next_mode();
 
                 if (game_engine_get_current_game_state() ==
