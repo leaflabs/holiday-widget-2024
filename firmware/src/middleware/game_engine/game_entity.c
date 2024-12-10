@@ -6,6 +6,17 @@ bool game_entity_init(struct game_entity *game_entity, struct entity *entity,
                       const struct sprite *sprite) {
     position pos = entity->rectangle.p1;
 
+    if (game_entity == NULL) {
+        LOG_ERR(
+            "Failed to initialize game entity: <game_entity> must not be NULL");
+        return false;
+    }
+
+    if (entity == NULL) {
+        LOG_ERR("Failed to initialize game entity: <entity> must not be NULL");
+        return false;
+    }
+
     game_entity->entity = entity;
     game_entity->sprite =
         (struct sprite_component){.map = sprite,
