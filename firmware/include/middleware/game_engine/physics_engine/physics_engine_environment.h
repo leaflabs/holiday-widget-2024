@@ -5,9 +5,8 @@
 #include "entity.h"
 #include "environment.h"
 #include "physics_engine_events.h"
-#define MAX_ENTITIES 32
 
-#include "entity.h"
+#define MAX_ENTITIES 32
 
 /* Enumeration of entity creation errors */
 enum entity_creation_error;
