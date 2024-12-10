@@ -9,8 +9,6 @@
 #include "system_communication.h"
 #include "utils.h"
 
-// #pragma GCC push_options
-// #pragma GCC optimize ("O3")   // Apply high optimization level
 extern volatile bool update_requested;
 extern struct driver_comm_shared_memory led_matrix_comm;
 
@@ -565,5 +563,3 @@ enum game_state game_engine_get_current_game_state() {
             return GAME_STATE_IN_PROGRESS;
     }
 }
-
-// #pragma GCC pop_options       // Revert to previous optimization level
