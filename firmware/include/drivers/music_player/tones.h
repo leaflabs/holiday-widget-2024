@@ -10,7 +10,7 @@ static const uint16_t sine_wave[32] = {
 /* Number of samples in the sine wave */
 #define SINE_WAVE_SAMPLES sizeof(sine_wave) / sizeof(sine_wave[0])
 
-static uint16_t sine_wave_volume_adj[SINE_WAVE_SAMPLES];
+static uint16_t sine_wave_volume_adj[SINE_WAVE_SAMPLES] __attribute__((used));
 
 /** Chromatic Scale Definitions **/
 
