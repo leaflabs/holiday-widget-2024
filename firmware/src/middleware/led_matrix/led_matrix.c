@@ -309,10 +309,10 @@ size_t led_matrix_scroll_text(const char *text, enum scroll_speed speed) {
     prev_text = text;
 
     if (led_matrix_comm.data.led_matrix.loader.finished) {
-        generate_frame(text, strlen(text), scroll_position++ >> speed,
+        generate_frame(text, strlen(text), scroll_position++ / speed,
                        animation_map_values[ANIM_RUNTIME_ANIMATION][0].mat);
 
-        if (scroll_position >= strlen(text) * (N_DIMENSIONS << speed)) {
+        if (scroll_position >= strlen(text) * (N_DIMENSIONS * speed)) {
             scroll_position = 0;
             prev_text = NULL;
             led_matrix_comm.data.led_matrix.loader.active = false;

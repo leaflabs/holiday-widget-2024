@@ -100,9 +100,9 @@ void pause_led_matrix();
 void unpause_led_matrix();
 
 enum scroll_speed {
-    SCROLL_SPEED_FAST = 1,
-    SCROLL_SPEED_MODERATE = 2,
-    SCROLL_SPEED_SLOW = 4,
+    SCROLL_SPEED_FAST = 2,
+    SCROLL_SPEED_MODERATE = 3,
+    SCROLL_SPEED_SLOW = 5,
 };
 
 size_t led_matrix_scroll_text(const char *text, enum scroll_speed speed);
