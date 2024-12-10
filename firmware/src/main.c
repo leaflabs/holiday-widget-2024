@@ -7,10 +7,6 @@
 #include "widget_controller.h"
 #include "widget_system.h"
 
-void my_task() {
-    set_game(SNOWFALL_GAME);
-}
-
 int main(void) {
     widget_system_init();
 
@@ -37,8 +33,6 @@ int main(void) {
     job_add(&music_player_run, JOB_RUN_RUN);
     job_add(&game_engine_run, JOB_RUN_RUN);
     job_add(&widget_controller_run, JOB_RUN_RUN);
-
-    job_add(&my_task, JOB_RUN_ENTRY);
 
     while (1) {
         job_state_machine_run();
