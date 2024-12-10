@@ -44,8 +44,8 @@ struct physics_engine_out_of_bounds_event {
 };
 
 struct physics_engine_collision_event {
-    volatile struct entity *ent1;
-    volatile struct entity *ent2;
+    struct entity *ent1;
+    struct entity *ent2;
 };
 
 /* Physics engine event structure */
