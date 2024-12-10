@@ -325,7 +325,7 @@ static void charlieplex_driver_prepare_frames(uint8_t *leds) {
 */
 void charlieplex_driver_draw(uint8_t *leds) {
     struct charlieplex_driver_context *context = charlieplex_driver->context;
-    // context->leds[context->current_buffer ^ 1U] = leds;
+
     charlieplex_driver_prepare_frames(leds);
     context->update_requested = true;
 }
@@ -333,21 +333,10 @@ void charlieplex_driver_draw(uint8_t *leds) {
 static inline void charlieplex_driver_draw_frame(uint8_t *leds,
                                                  enum led_frame led_frame) {
     struct charlieplex_driver_context *context = charlieplex_driver->context;
+
     GPIOC->ODR = 0U;
     GPIOC->MODER = context->moder_buffer[context->current_buffer][led_frame];
     GPIOC->ODR = led_frame_ctrl_odr[led_frame];
-    /*
-    GPIOC->ODR = 0U;
-    uint32_t moder = led_frame_ctrl_moder[led_frame];
-    enum leds *frame_leds = frame_led_map[led_frame];
-    for (int i = 0; i < led_count[led_frame]; i++) {
-        uint8_t led_idx = frame_leds[i];
-        moder |= low_moder[leds[led_idx]];  //
-    ctrl_output_mode_map[mode[leds[led_idx]][led_idx]];
-    }
-    GPIOC->MODER = moder;
-    GPIOC->ODR = led_frame_ctrl_odr[led_frame];
-    */
 }
 
 static int tim7_init(struct charlieplex_driver *charlieplex_driver) {
@@ -418,11 +407,6 @@ void charlieplex_driver_init(void) {
 }
 
 void TIM7_IRQHandler(void) {
-    /*static int i = 0;
-    if (i == 0) {
-        t1 = HAL_GetTick();
-    }*/
-    // LOG_INF("HERE1");
     struct charlieplex_driver_context *context = charlieplex_driver->context;
     static uint8_t stage = 0;
     static const enum led_frame next_frame[] = {
@@ -430,30 +414,13 @@ void TIM7_IRQHandler(void) {
         [LED_FRAME_3] = LED_FRAME_4, [LED_FRAME_4] = LED_FRAME_5,
         [LED_FRAME_5] = LED_FRAME_1,
     };
-    /*
-    // Check if the update interrupt flag is set
-    if (__HAL_TIM_GET_FLAG(&context->htim, TIM_FLAG_UPDATE) != RESET) {
-        // Check if the update interrupt is enabled
-        if (__HAL_TIM_GET_IT_SOURCE(&context->htim, TIM_IT_UPDATE) != RESET) {*/
+
     // Clear the update interrupt flag
     __HAL_TIM_CLEAR_IT(&context->htim, TIM_IT_UPDATE);
-    // LOG_INF("HERE2");
-    // static uint8_t count[10];
-    // static uint8_t idx = 0;
-    // count[idx]++;
+
     if (context->update_requested) {
-        /*idx++;
-        if (idx == 10) {
-            idx = 0;
-            for (int i = 0; i < 10; i++) {
-                LOG_INF("Count[%d]: %d", i, count[i]);
-                count[i] = 0;
-            }
-        }*/
         context->current_buffer ^= 1U;
-        // context->current_frame = LED_FRAME_1;
         context->update_requested = false;
-        // LOG_INF("HERE3");
     }
 
     /* Write frame every other update to reduce current draw */
@@ -464,23 +431,10 @@ void TIM7_IRQHandler(void) {
     } else {
         charlieplex_driver_draw_frame(context->leds[context->current_buffer],
                                       context->current_frame);
-        // LOG_INF("HERE4");
+
         context->current_frame = next_frame[context->current_frame];
         stage = 0;
     }
-    // LOG_INF("HERE5");
-    /*}
-}*/
-    /*if (i >= 9) {
-        t2 = HAL_GetTick();
-        duration = t2 - t1;
-        LOG_INF("Duration: %1.3fms", (float)duration/10.0f);
-        i = 0;
-    } else {
-        i++;
-    }*/
-    // LOG_INF("HERE2");
-    // asm(" nop");
 }
 
 void pause_charlieplex_driver(void) {
@@ -499,8 +453,4 @@ void unpause_charlieplex_driver(void) {
     if (ret != 0) {
         LOG_ERR("Failed to start TIM7: %d", ret);
     }
-}
-
-void get_duration() {
-    // LOG_INF("Duration: %1.3f", ((float)duration)/10.0f);
 }
