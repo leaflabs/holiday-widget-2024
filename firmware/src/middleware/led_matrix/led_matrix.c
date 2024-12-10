@@ -10,13 +10,6 @@
 #include "string.h"
 #include "system_communication.h"
 
-#define _ANTIALIAS_LEVEL 1
-#if _ANTIALIAS_LEVEL <= 0
-#error "_ANTIALIAS_LEVEL must be greater than 0"
-#endif
-
-const uint32_t ANTIALIAS_LEVEL = _ANTIALIAS_LEVEL;
-
 volatile bool update_requested;
 
 /* Type to represent the led matrix thats usable for the charlieplex code */
@@ -122,7 +115,6 @@ void led_matrix_renderer_run(void) {
     // First, reset the pixel
     output->mat[cur_row][cur_col] = 0;
 
-#if _ANTIALIAS_LEVEL == 1
     // Now iterate over all sprites in the buffer and draw them
     for (uint32_t i = 0; i < num_entities; i++) {
         if (game_entity_is_active(&input[i])) {
@@ -133,41 +125,18 @@ void led_matrix_renderer_run(void) {
             int width = sprite->width;
             int height = sprite->height;
 
-            // Get difference so we can also index into the sprite data array
-            int dx = cur_col - x_pos;
-            int dy = cur_row - y_pos;
-
-            // Add the brightness if we are in the bounds
-            if (cur_row >= y_pos && cur_col >= x_pos && dy < height &&
-                dx < width) {
-                int brightness = sprite->data[dx + dy * width];
-                output->mat[cur_row][cur_col] = brightness;
-            }
-        }
-    }
-#else
-    // Now iterate over all sprites in the buffer and draw them
-    for (uint32_t i = 0; i < num_entities; i++) {
-        if (game_entity_is_active(&input[i])) {
-            struct sprite_component *sc = &input[i].sprite;
-            const struct sprite *sprite = sc->map;
-            int x_pos = sc->x;
-            int y_pos = sc->y;
-            int width = sprite->width * _ANTIALIAS_LEVEL;
-            int height = sprite->height * _ANTIALIAS_LEVEL;
-
             // Determine the bounds of the sprite in terms of LED matrix pixels
-            int x1 = x_pos / _ANTIALIAS_LEVEL;             // Left boundary
-            int y1 = y_pos / _ANTIALIAS_LEVEL;             // Top boundary
-            int x2 = (x_pos + width) / _ANTIALIAS_LEVEL;   // Right boundary
-            int y2 = (y_pos + height) / _ANTIALIAS_LEVEL;  // Bottom boundary
+            int x1 = x_pos;             // Left boundary
+            int y1 = y_pos;             // Top boundary
+            int x2 = (x_pos + width);   // Right boundary
+            int y2 = (y_pos + height);  // Bottom boundary
 
             // Calculate the sub-pixel boundaries for the current LED matrix
             // pixel
-            int cur_x_subpixel_start = cur_col * _ANTIALIAS_LEVEL;
-            int cur_x_subpixel_end = (cur_col + 1) * _ANTIALIAS_LEVEL;
-            int cur_y_subpixel_start = cur_row * _ANTIALIAS_LEVEL;
-            int cur_y_subpixel_end = (cur_row + 1) * _ANTIALIAS_LEVEL;
+            int cur_x_subpixel_start = cur_col;
+            int cur_x_subpixel_end = (cur_col + 1);
+            int cur_y_subpixel_start = cur_row;
+            int cur_y_subpixel_end = (cur_row + 1);
 
             // Check if the sprite overlaps with the current pixel
             if (cur_col >= x1 && cur_col <= x2 && cur_row >= y1 &&
@@ -193,12 +162,11 @@ void led_matrix_renderer_run(void) {
 
                 // Calculate overlap proportion relative to the entire pixel
                 // area
-                float overlap_area = (float)(overlap_width * overlap_height) /
-                                     (_ANTIALIAS_LEVEL * _ANTIALIAS_LEVEL);
+                float overlap_area = (float)(overlap_width * overlap_height);
 
                 // Get the brightness of the corresponding sprite pixel
-                int dx = (overlap_x_start - x_pos) / _ANTIALIAS_LEVEL;
-                int dy = (overlap_y_start - y_pos) / _ANTIALIAS_LEVEL;
+                int dx = (overlap_x_start - x_pos);
+                int dy = (overlap_y_start - y_pos);
                 int brightness = sprite->data[dx + dy * sprite->width];
 
                 // Add the scaled brightness to the output pixel
@@ -212,7 +180,7 @@ void led_matrix_renderer_run(void) {
             }
         }
     }
-#endif
+
     // Update index values
     cur_col++;
     if (cur_col >= N_DIMENSIONS) {
