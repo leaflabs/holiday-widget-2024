@@ -8,10 +8,6 @@
 #include "music_player.h"
 #include "system_communication.h"
 
-// Regular operation for 10 seconds, 5 seconds of sleep mode
-#define WAKE_MS 10000
-#define SLEEP_MS 5000
-
 enum widget_state {
     WIDGET_PREINIT,    // One time configuration steps
     WIDGET_BASIC,      // Basic operating mode for the widget
