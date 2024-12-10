@@ -6,13 +6,13 @@
 #define RNG_BUFFER_SIZE 32
 
 struct random_number_generator_context {
-    RNG_HandleTypeDef hrng __attribute__((aligned(4)));
-    struct ring_buffer buffer __attribute__((aligned(4)));
-    uint32_t rng_buf[RNG_BUFFER_SIZE] __attribute__((aligned(4)));
-};
+    RNG_HandleTypeDef hrng;
+    struct ring_buffer buffer;
+    uint32_t rng_buf[RNG_BUFFER_SIZE];
+} __attribute__((aligned(4)));
 
 struct random_number_generator {
-    struct random_number_generator_context context __attribute__((aligned(4)));
+    struct random_number_generator_context context;
 };
 
 void random_number_generator_init(struct random_number_generator *rng);
