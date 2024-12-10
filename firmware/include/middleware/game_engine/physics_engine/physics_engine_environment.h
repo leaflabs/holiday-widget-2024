@@ -36,8 +36,8 @@ struct entity_creation_result {
 
 /* Environment structure */
 struct physics_engine_environment {
-    struct entity entities[MAX_ENTITIES] __attribute__((aligned(4)));
-    uint32_t num_of_entities __attribute__((aligned(4)));
+    struct entity entities[MAX_ENTITIES];
+    uint32_t num_of_entities;
     bool paused;
 } __attribute__((aligned(4)));
 
