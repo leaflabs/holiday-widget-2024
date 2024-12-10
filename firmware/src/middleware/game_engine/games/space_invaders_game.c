@@ -350,10 +350,7 @@ static void handle_enemy_ship_user_bullet_collision(
         for (int i = 0; i < SPACE_INVADERS_MAX_ENEMY_BULLETS; i++) {
             deactivate_game_entity(&context->enemy_bullets[i]);
         }
-        /* Display win screen */
-        /*LOG_INF("You win!");
-        space_invaders_game_reset(space_invaders_game);
-        LOG_INF("Game Reset");*/
+
         enum music_player_error error =
             music_player_play_song(&music_player, SUCCESS_SOUND);
         if (error != MUSIC_PLAYER_NO_ERROR) {

@@ -113,13 +113,11 @@ void update_snowfall_game(struct snowfall_game *snowfall_game,
                 current_song = JINGLE_BELLS;
                 break;
         }
-        // current_song = SILENT_TEST_SOUND;
+
         enum music_player_error error =
             music_player_play_song(&music_player, current_song);
         if (error != MUSIC_PLAYER_NO_ERROR) {
             LOG_ERR("Failed to play song <%d>: %d", current_song, error);
-        } else {
-            LOG_ERR("Snowfall now playing <%d>", current_song);
         }
     }
 

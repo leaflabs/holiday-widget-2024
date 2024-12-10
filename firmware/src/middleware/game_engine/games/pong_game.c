@@ -164,10 +164,8 @@ pong_game_process_event_queue(struct pong_game *pong_game) {
                     } else if (out_of_bounds_event->type ==
                                OUT_OF_BOUNDS_LEFT) {
                         pong_opponent_scores(pong_game);
-                        LOG_DBG("Opponent scored");
                     } else {
                         pong_user_scores(pong_game);
-                        LOG_DBG("User scored");
                     }
                 }
                 break;
@@ -203,10 +201,7 @@ pong_game_process_event_queue(struct pong_game *pong_game) {
                             }
                         }
                     }
-                } else {
-                    LOG_INF("First time");
                 }
-
                 last_collision_time = HAL_GetTick();
                 last_collision_entity = other;
 
@@ -220,20 +215,9 @@ pong_game_process_event_queue(struct pong_game *pong_game) {
                 if (context->ball.entity->rectangle.p1.x ==
                     context->user_paddle.entity->rectangle.p1.x) {
                     pong_opponent_scores(pong_game);
-                    // LOG_ERR("Paddle and ball have same x: ball=(%d, %d)
-                    // paddle==(%d, %d)", context->ball.entity->rectangle.p1.x,
-                    // context->ball.entity->rectangle.p1.y,
-                    // context->user_paddle.entity->rectangle.p1.x,
-                    // context->user_paddle.entity->rectangle.p1.y);
                 } else if (context->ball.entity->rectangle.p1.x ==
                            context->opponent_paddle.entity->rectangle.p1.x) {
                     pong_user_scores(pong_game);
-                    // LOG_ERR("Opponent Paddle and ball have same x: ball=(%d,
-                    // %d) paddle==(%d, %d)",
-                    // context->ball.entity->rectangle.p1.x,
-                    // context->ball.entity->rectangle.p1.y,
-                    // context->opponent_paddle.entity->rectangle.p1.x,
-                    // context->opponent_paddle.entity->rectangle.p1.y);
                 }
                 break;
             default:
@@ -244,11 +228,9 @@ pong_game_process_event_queue(struct pong_game *pong_game) {
     /* Make sure ball never has x velocity 0 */
     if (context->ball.entity->velocity.x < PONG_BALL_MIN_X_VELOCITY &&
         context->ball.entity->velocity.x >= 0) {
-        LOG_INF("Increased ball velocity to +min");
         context->ball.entity->velocity.x = PONG_BALL_MIN_X_VELOCITY;
     } else if (context->ball.entity->velocity.x > -PONG_BALL_MIN_X_VELOCITY &&
                context->ball.entity->velocity.x <= 0) {
-        LOG_INF("Increased ball velocity to -min");
         context->ball.entity->velocity.x = -PONG_BALL_MIN_X_VELOCITY;
     }
 }
@@ -258,13 +240,9 @@ void pong_game_process_input(struct pong_game *pong_game,
     struct pong_game_context *context = &pong_game->context;
 
     if (tilt_flags.wrist_tilt_ia_yneg) {
-        // set_game_entity_position_relative(&context->user_paddle,
-        // (position){0, GRID_UNIT_SIZE});
         set_entity_velocity(context->user_paddle.entity, (velocity){0, 62});
     } else if (tilt_flags.wrist_tilt_ia_ypos) {
         set_entity_velocity(context->user_paddle.entity, (velocity){0, -62});
-        // set_game_entity_position_relative(&context->user_paddle,
-        // (position){0, -GRID_UNIT_SIZE});
     } else {
         set_entity_velocity(context->user_paddle.entity, (velocity){0, 0});
     }

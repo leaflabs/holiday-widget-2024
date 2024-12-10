@@ -279,28 +279,11 @@ void game_engine_run(void) {
             }
         }
 
-        /*if (__HAL_TIM_GET_FLAG(&context->htim, TIM_FLAG_UPDATE)) {
-            update_game_engine(&game_engine, MAX_DELTA_T);
-            LOG_INF("Overflow");
-            __HAL_TIM_SET_COUNTER(&context->htim, 0);
-            HAL_TIM_Base_Start(&context->htim);
-        } else {
-            uint32_t delta_t = __HAL_TIM_GET_COUNTER(&context->htim);
-            if (delta_t >= 150) {
-                update_game_engine(&game_engine, delta_t);
-                __HAL_TIM_SET_COUNTER(&context->htim, 0);
-            }
-        }*/
-
-        // static uint32_t times[10];
-        // static uint8_t idx = 0;
         if (update_requested) {
             if (__HAL_TIM_GET_FLAG(&context->htim, TIM_FLAG_UPDATE)) {
-                // times[idx++] = MAX_DELTA_T;
                 update_game_engine(
                     &game_engine, TICKS_TO_MS(cfg->prescaler,
                                               cfg->clock_division, UINT16_MAX));
-                LOG_INF("Overflow");
                 __HAL_TIM_SET_COUNTER(&context->htim, 0);
                 HAL_TIM_Base_Start(&context->htim);
             } else {
@@ -311,13 +294,6 @@ void game_engine_run(void) {
                 // times[idx++] = __HAL_TIM_GET_COUNTER(&context->htim);
                 __HAL_TIM_SET_COUNTER(&context->htim, 0);
             }
-            /*if (idx >= 10) {
-                LOG_INF("Times:");
-                for (int i = 0; i < 10; i++) {
-                    LOG_INF("%d", times[i]);
-                }
-                idx = 0;
-            }*/
             update_requested = false;
         }
 

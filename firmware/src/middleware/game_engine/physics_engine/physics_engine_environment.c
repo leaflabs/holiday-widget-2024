@@ -300,8 +300,6 @@ void physics_engine_environment_update(struct ring_buffer *event_queue,
     uint32_t t2 = TIM21->CNT;
     uint32_t duration1 = t1 - t0_1;
     uint32_t duration2 = t2 - t1;
-    // LOG_INF("Duration1: %d", duration1);
-    // LOG_INF("Duration2: %d", duration2);
 }
 
 void print_physics_engine_environment(
