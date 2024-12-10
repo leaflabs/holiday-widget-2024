@@ -295,7 +295,6 @@ void game_engine_run(void) {
                     &game_engine,
                     TICKS_TO_MS(cfg->prescaler, cfg->clock_division,
                                 __HAL_TIM_GET_COUNTER(&context->htim)));
-                // times[idx++] = __HAL_TIM_GET_COUNTER(&context->htim);
                 __HAL_TIM_SET_COUNTER(&context->htim, 0);
             }
             update_requested = false;
