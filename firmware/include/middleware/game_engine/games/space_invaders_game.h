@@ -2,8 +2,8 @@
 #define __SPACE_INVADERS_GAME_H__
 #include <stdint.h>
 
+#include "game_common.h"
 #include "game_entity.h"
-#include "game_state.h"
 #include "lsm6dsm_driver.h"
 #include "physics_engine.h"
 #include "random_number_generator.h"
@@ -165,8 +165,7 @@ struct space_invaders_game_config {
 };
 
 struct space_invaders_game_context {
-    struct physics_engine_environment environment;
-    struct physics_engine_event_queue event_queue;
+    struct game_common game_common;
     union {
         struct {
             struct game_entity user_ship;
@@ -184,7 +183,6 @@ struct space_invaders_game_context {
     volatile uint32_t last_user_bullet_time;
     volatile uint8_t enemies_remaining;
     volatile uint8_t lives;
-    enum game_state game_state;
 } __attribute__((aligned(4)));
 
 struct space_invaders_game {

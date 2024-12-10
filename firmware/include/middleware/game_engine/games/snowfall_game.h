@@ -1,7 +1,7 @@
 #ifndef __SNOWFALL_GAME_H__
 #define __SNOWFALL_GAME_H__
+#include "game_common.h"
 #include "game_entity.h"
-#include "game_state.h"
 #include "physics_engine.h"
 
 #define SNOWFALL_MAX_SNOWFLAKES 30
@@ -39,15 +39,13 @@ struct snowfall_game_config {
 } __attribute__((aligned(4)));
 
 struct snowfall_game_context {
-    struct physics_engine_environment environment;
-    struct physics_engine_event_queue event_queue;
+    struct game_common game_common;
     union {
         struct {
             struct game_entity snowflakes[SNOWFALL_MAX_SNOWFLAKES];
         };
         struct game_entity game_entities[SNOWFALL_MAX_SNOWFLAKES];
     };
-    enum game_state game_state;
     uint8_t num_snowflakes;
 };
 

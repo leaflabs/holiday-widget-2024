@@ -51,11 +51,10 @@ static void update_game(struct game_engine *game_engine, uint32_t delta_t) {
     struct game_engine_context *context = &game_engine->context;
     switch (context->current_game) {
         case PONG_GAME:
-            switch (context->pong_game.context.game_state) {
+            switch (context->pong_game.context.game_common.game_state) {
                 case GAME_STATE_IN_PROGRESS:
-                    for (int i = 0;
-                         i <
-                         context->pong_game.context.environment.num_of_entities;
+                    for (int i = 0; i < context->pong_game.context.game_common
+                                            .environment.num_of_entities;
                          i++) {
                         context->pong_game.context.game_entities[i].sprite.x =
                             GET_POSITION_GRID_X(
@@ -80,8 +79,9 @@ static void update_game(struct game_engine *game_engine, uint32_t delta_t) {
                     if (led_matrix_scroll_text(score_string,
                                                SCROLL_SPEED_MODERATE) == 0) {
                         physics_engine_environment_unpause(
-                            &context->pong_game.context.environment);
-                        context->pong_game.context.game_state =
+                            &context->pong_game.context.game_common
+                                 .environment);
+                        context->pong_game.context.game_common.game_state =
                             GAME_STATE_IN_PROGRESS;
                     }
                     break;
@@ -105,10 +105,12 @@ static void update_game(struct game_engine *game_engine, uint32_t delta_t) {
             }
             break;
         case SPACE_INVADERS_GAME:
-            switch (context->space_invaders_game.context.game_state) {
+            switch (
+                context->space_invaders_game.context.game_common.game_state) {
                 case GAME_STATE_IN_PROGRESS:
-                    for (int i = 0; i < context->space_invaders_game.context
-                                            .environment.num_of_entities;
+                    for (int i = 0;
+                         i < context->space_invaders_game.context.game_common
+                                 .environment.num_of_entities;
                          i++) {
                         context->space_invaders_game.context.game_entities[i]
                             .sprite.x = GET_POSITION_GRID_X(
@@ -138,9 +140,10 @@ static void update_game(struct game_engine *game_engine, uint32_t delta_t) {
                     if (led_matrix_scroll_text(score_string,
                                                SCROLL_SPEED_MODERATE) == 0) {
                         physics_engine_environment_unpause(
-                            &context->space_invaders_game.context.environment);
-                        context->space_invaders_game.context.game_state =
-                            GAME_STATE_IN_PROGRESS;
+                            &context->space_invaders_game.context.game_common
+                                 .environment);
+                        context->space_invaders_game.context.game_common
+                            .game_state = GAME_STATE_IN_PROGRESS;
                     }
                     break;
                 case GAME_STATE_YOU_WIN:
@@ -164,8 +167,8 @@ static void update_game(struct game_engine *game_engine, uint32_t delta_t) {
             }
             break;
         case SNOWFALL_GAME:
-            for (int i = 0;
-                 i < context->snowfall_game.context.environment.num_of_entities;
+            for (int i = 0; i < context->snowfall_game.context.game_common
+                                    .environment.num_of_entities;
                  i++) {
                 context->snowfall_game.context.game_entities[i].sprite.x =
                     GET_POSITION_GRID_X(
@@ -183,10 +186,12 @@ static void update_game(struct game_engine *game_engine, uint32_t delta_t) {
             snowfall_game_process_event_queue(&context->snowfall_game);
             break;
         case BRICK_BREAKER_GAME:
-            switch (context->brick_breaker_game.context.game_state) {
+            switch (
+                context->brick_breaker_game.context.game_common.game_state) {
                 case GAME_STATE_IN_PROGRESS:
-                    for (int i = 0; i < context->brick_breaker_game.context
-                                            .environment.num_of_entities;
+                    for (int i = 0;
+                         i < context->brick_breaker_game.context.game_common
+                                 .environment.num_of_entities;
                          i++) {
                         context->brick_breaker_game.context.game_entities[i]
                             .sprite.x = GET_POSITION_GRID_X(
@@ -213,9 +218,10 @@ static void update_game(struct game_engine *game_engine, uint32_t delta_t) {
                     if (led_matrix_scroll_text(score_string,
                                                SCROLL_SPEED_MODERATE) == 0) {
                         physics_engine_environment_unpause(
-                            &context->brick_breaker_game.context.environment);
-                        context->brick_breaker_game.context.game_state =
-                            GAME_STATE_IN_PROGRESS;
+                            &context->brick_breaker_game.context.game_common
+                                 .environment);
+                        context->brick_breaker_game.context.game_common
+                            .game_state = GAME_STATE_IN_PROGRESS;
                     }
                     break;
 
@@ -432,44 +438,48 @@ static bool game_engine_set_game(struct game_engine *game_engine,
     struct game_engine_context *context = &game_engine->context;
     switch (game_type) {
         case PONG_GAME:
-            physics_engine_set_context(&context->physics_engine,
-                                       &context->pong_game.context.environment,
-                                       &context->pong_game.context.event_queue);
+            physics_engine_set_context(
+                &context->physics_engine,
+                &context->pong_game.context.game_common.environment,
+                &context->pong_game.context.game_common.event_queue);
             led_matrix_comm.data.led_matrix.renderer.entities =
                 context->pong_game.context.game_entities;
             led_matrix_comm.data.led_matrix.renderer.num_entities =
-                context->pong_game.context.environment.num_of_entities;
+                context->pong_game.context.game_common.environment
+                    .num_of_entities;
             break;
         case SPACE_INVADERS_GAME:
             physics_engine_set_context(
                 &context->physics_engine,
-                &context->space_invaders_game.context.environment,
-                &context->space_invaders_game.context.event_queue);
+                &context->space_invaders_game.context.game_common.environment,
+                &context->space_invaders_game.context.game_common.event_queue);
             led_matrix_comm.data.led_matrix.renderer.entities =
                 context->space_invaders_game.context.game_entities;
             led_matrix_comm.data.led_matrix.renderer.num_entities =
-                context->space_invaders_game.context.environment
+                context->space_invaders_game.context.game_common.environment
                     .num_of_entities;
             break;
         case SNOWFALL_GAME:
             physics_engine_set_context(
                 &context->physics_engine,
-                &context->snowfall_game.context.environment,
-                &context->snowfall_game.context.event_queue);
+                &context->snowfall_game.context.game_common.environment,
+                &context->snowfall_game.context.game_common.event_queue);
             led_matrix_comm.data.led_matrix.renderer.entities =
                 context->snowfall_game.context.game_entities;
             led_matrix_comm.data.led_matrix.renderer.num_entities =
-                context->snowfall_game.context.environment.num_of_entities;
+                context->snowfall_game.context.game_common.environment
+                    .num_of_entities;
             break;
         case BRICK_BREAKER_GAME:
             physics_engine_set_context(
                 &context->physics_engine,
-                &context->brick_breaker_game.context.environment,
-                &context->brick_breaker_game.context.event_queue);
+                &context->brick_breaker_game.context.game_common.environment,
+                &context->brick_breaker_game.context.game_common.event_queue);
             led_matrix_comm.data.led_matrix.renderer.entities =
                 context->brick_breaker_game.context.game_entities;
             led_matrix_comm.data.led_matrix.renderer.num_entities =
-                context->brick_breaker_game.context.environment.num_of_entities;
+                context->brick_breaker_game.context.game_common.environment
+                    .num_of_entities;
             break;
         case NO_GAME:
             physics_engine_set_context(&context->physics_engine, NULL, NULL);
@@ -546,11 +556,11 @@ enum game_state game_engine_get_current_game_state() {
 
     switch (context->current_game) {
         case PONG_GAME:
-            return context->pong_game.context.game_state;
+            return context->pong_game.context.game_common.game_state;
         case SPACE_INVADERS_GAME:
-            return context->space_invaders_game.context.game_state;
+            return context->space_invaders_game.context.game_common.game_state;
         case BRICK_BREAKER_GAME:
-            return context->brick_breaker_game.context.game_state;
+            return context->brick_breaker_game.context.game_common.game_state;
         default:
             return GAME_STATE_IN_PROGRESS;
     }

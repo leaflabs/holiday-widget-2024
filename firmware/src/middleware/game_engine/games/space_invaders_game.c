@@ -68,12 +68,7 @@ enum entity_creation_error space_invaders_game_init(
         &space_invaders_game->config;
     struct space_invaders_game_context *context = &space_invaders_game->context;
 
-    /* Clear environment instance */
-    context->environment = (struct physics_engine_environment){0};
-
-    /* Clear event queue */
-    context->event_queue = (struct physics_engine_event_queue){0};
-    physics_engine_event_queue_init(&context->event_queue);
+    game_common_init(&context->game_common);
 
     /******************/
     /*  Add Entities  */
@@ -81,7 +76,8 @@ enum entity_creation_error space_invaders_game_init(
     struct entity_creation_result result;
 
     /* Add user ship entity */
-    result = add_entity(&context->environment, config->user_ship_init_struct);
+    result = add_entity(&context->game_common.environment,
+                        config->user_ship_init_struct);
     if (result.error != ENTITY_CREATION_SUCCESS) {
         LOG_ERR("Failed to create user ship entity: %d", result.error);
         return result.error;
@@ -94,8 +90,8 @@ enum entity_creation_error space_invaders_game_init(
 
     /* Add enemy ship entities */
     for (int i = 0; i < SPACE_INVADERS_NUM_OF_ENEMY_SHIPS; i++) {
-        result =
-            add_entity(&context->environment, config->enemy_ship_init_struct);
+        result = add_entity(&context->game_common.environment,
+                            config->enemy_ship_init_struct);
         if (result.error != ENTITY_CREATION_SUCCESS) {
             LOG_ERR("Failed to create enemy ship entity %d: %d", i,
                     result.error);
@@ -115,8 +111,8 @@ enum entity_creation_error space_invaders_game_init(
 
     /* Add user bullet entities */
     for (int i = 0; i < SPACE_INVADERS_MAX_USER_BULLETS; i++) {
-        result =
-            add_entity(&context->environment, config->user_bullet_init_struct);
+        result = add_entity(&context->game_common.environment,
+                            config->user_bullet_init_struct);
         if (result.error != ENTITY_CREATION_SUCCESS) {
             LOG_ERR("Failed to create user bullet entity %d: %d", i,
                     result.error);
@@ -131,8 +127,8 @@ enum entity_creation_error space_invaders_game_init(
 
     /* Add enemy bullet entities */
     for (int i = 0; i < SPACE_INVADERS_MAX_ENEMY_BULLETS; i++) {
-        result =
-            add_entity(&context->environment, config->enemy_bullet_init_struct);
+        result = add_entity(&context->game_common.environment,
+                            config->enemy_bullet_init_struct);
         if (result.error != ENTITY_CREATION_SUCCESS) {
             LOG_ERR("Failed to create enemy bullet entity %d: %d", i,
                     result.error);
@@ -156,8 +152,6 @@ enum entity_creation_error space_invaders_game_init(
     context->enemies_remaining = SPACE_INVADERS_NUM_OF_ENEMY_SHIPS;
     context->lives = 3;
     context->last_enemy_bullet_time = HAL_GetTick();
-
-    context->game_state = GAME_STATE_IN_PROGRESS;
 
     return 0;
 }
@@ -323,14 +317,11 @@ static void handle_user_ship_enemy_bullet_collision(
         for (int i = 0; i < SPACE_INVADERS_MAX_ENEMY_BULLETS; i++) {
             deactivate_game_entity(&context->enemy_bullets[i]);
         }
-        /* Display lose screen */
-        /*LOG_INF("You lose!");
-        space_invaders_game_reset(space_invaders_game);
-        LOG_INF("Game Reset");*/
-        context->game_state = GAME_STATE_YOU_LOSE;
+
+        context->game_common.game_state = GAME_STATE_YOU_LOSE;
     } else {
-        context->game_state = GAME_STATE_SCORE_CHANGE;
-        physics_engine_environment_pause(&context->environment);
+        physics_engine_environment_pause(&context->game_common.environment);
+        context->game_common.game_state = GAME_STATE_SCORE_CHANGE;
     }
 
     pause_game_engine(SPACE_INVADERS_FREEZE_TIME);
@@ -368,7 +359,7 @@ static void handle_enemy_ship_user_bullet_collision(
         if (error != MUSIC_PLAYER_NO_ERROR) {
             LOG_ERR("Music player failed to play success sound: %d", error);
         }
-        context->game_state = GAME_STATE_YOU_WIN;
+        context->game_common.game_state = GAME_STATE_YOU_WIN;
     }
 }
 
@@ -391,7 +382,7 @@ static void handle_user_bullet_enemy_bullet_collision(
 void space_invaders_game_process_event_queue(
     struct space_invaders_game *space_invaders_game) {
     struct space_invaders_game_context *context = &space_invaders_game->context;
-    struct physics_engine_event_queue *event_queue = &context->event_queue;
+    struct physics_engine_event_queue *event_queue = &context->game_common.event_queue;
 
     struct physics_engine_event event;
 
@@ -674,7 +665,7 @@ void space_invaders_game_reset(
 
     activate_game_entity(&context->user_ship);
 
-    physics_engine_event_queue_flush(&context->event_queue);
+    physics_engine_event_queue_flush(&context->game_common.event_queue);
 
     /* Reset lives */
     context->num_of_user_bullets = 0;
@@ -684,5 +675,5 @@ void space_invaders_game_reset(
     context->last_enemy_bullet_time = HAL_GetTick();
     context->last_user_bullet_time = HAL_GetTick();
 
-    context->game_state = GAME_STATE_IN_PROGRESS;
+    context->game_common.game_state = GAME_STATE_IN_PROGRESS;
 }

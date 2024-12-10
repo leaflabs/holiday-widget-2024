@@ -17,9 +17,6 @@ enum physics_engine_event_type;
 /* Physics engine event structure */
 struct physics_engine_event;
 
-/* Physics engine event queue structure */
-struct physics_engine_event_queue;
-
 /* Enumeration of physics engine event types */
 enum physics_engine_event_type {
     OUT_OF_BOUNDS_EVENT,

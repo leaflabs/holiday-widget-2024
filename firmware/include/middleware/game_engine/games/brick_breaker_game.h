@@ -1,7 +1,7 @@
 #ifndef __BRICK_BREAKER_GAME_H__
 #define __BRICK_BREAKER_GAME_H__
+#include "game_common.h"
 #include "game_entity.h"
-#include "game_state.h"
 #include "lsm6dsm_driver.h"
 #include "physics_engine.h"
 #include "random_number_generator.h"
@@ -154,8 +154,7 @@ struct brick_breaker_game_config {
 };
 
 struct brick_breaker_game_context {
-    struct physics_engine_environment environment;
-    struct physics_engine_event_queue event_queue;
+    struct game_common game_common;
     union {
         struct {
             struct game_entity user_paddle;
@@ -166,7 +165,6 @@ struct brick_breaker_game_context {
     };
     uint8_t lives;
     uint8_t bricks_remaining;
-    enum game_state game_state;
 };
 
 struct brick_breaker_game {

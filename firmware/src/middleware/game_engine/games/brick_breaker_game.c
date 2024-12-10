@@ -40,12 +40,7 @@ enum entity_creation_error brick_breaker_game_init(
         &brick_breaker_game->config;
     struct brick_breaker_game_context *context = &brick_breaker_game->context;
 
-    /* Clear environment instance */
-    context->environment = (struct physics_engine_environment){0};
-
-    /* Clear event queue */
-    context->event_queue = (struct physics_engine_event_queue){0};
-    physics_engine_event_queue_init(&context->event_queue);
+    game_common_init(&context->game_common);
 
     /******************/
     /*  Add Entities  */
@@ -53,7 +48,8 @@ enum entity_creation_error brick_breaker_game_init(
     struct entity_creation_result result;
 
     /* Add user paddle entity */
-    result = add_entity(&context->environment, config->user_paddle_init_struct);
+    result = add_entity(&context->game_common.environment,
+                        config->user_paddle_init_struct);
     if (result.error != ENTITY_CREATION_SUCCESS) {
         LOG_ERR("Failed to create user paddle entity: %d", result.error);
         return result.error;
@@ -65,7 +61,8 @@ enum entity_creation_error brick_breaker_game_init(
     }
 
     /* Add ball entity */
-    result = add_entity(&context->environment, config->ball_init_struct);
+    result =
+        add_entity(&context->game_common.environment, config->ball_init_struct);
     if (result.error != ENTITY_CREATION_SUCCESS) {
         LOG_ERR("Failed to create ball entity: %d", result.error);
         return result.error;
@@ -78,7 +75,8 @@ enum entity_creation_error brick_breaker_game_init(
 
     /* Add brick entities */
     for (int i = 0; i < BRICK_BREAKER_NUM_OF_BRICKS; i++) {
-        result = add_entity(&context->environment, config->brick_init_struct);
+        result = add_entity(&context->game_common.environment,
+                            config->brick_init_struct);
         if (result.error != ENTITY_CREATION_SUCCESS) {
             LOG_ERR("Failed to create brick entity %d: %d", i, result.error);
             return result.error;
@@ -101,8 +99,6 @@ enum entity_creation_error brick_breaker_game_init(
 
     context->lives = BRICK_BREAKER_LIVES;
     context->bricks_remaining = BRICK_BREAKER_NUM_OF_BRICKS;
-
-    context->game_state = GAME_STATE_IN_PROGRESS;
 
     return result.error;
 }
@@ -129,7 +125,7 @@ brick_breaker_game_process_event_queue(
     struct brick_breaker_game *brick_breaker_game,
     struct random_number_generator *rng) {
     struct brick_breaker_game_context *context = &brick_breaker_game->context;
-    struct physics_engine_event_queue *event_queue = &context->event_queue;
+    struct physics_engine_event_queue *event_queue = &context->game_common.event_queue;
 
     struct physics_engine_event event;
 
@@ -164,7 +160,8 @@ brick_breaker_game_process_event_queue(
                                      i++) {
                                     deactivate_game_entity(&context->bricks[i]);
                                 }
-                                context->game_state = GAME_STATE_YOU_LOSE;
+                                context->game_common.game_state =
+                                    GAME_STATE_YOU_LOSE;
                                 /* Display losing screen */
                             } else {
                                 position ball_positions[2] = {
@@ -178,9 +175,10 @@ brick_breaker_game_process_event_queue(
                                 set_entity_velocity(
                                     context->ball.entity,
                                     BRICK_BREAKER_BALL_START_VELOCITY);
-                                context->game_state = GAME_STATE_SCORE_CHANGE;
                                 physics_engine_environment_pause(
-                                    &context->environment);
+                                    &context->game_common.environment);
+                                context->game_common.game_state =
+                                    GAME_STATE_SCORE_CHANGE;
                             }
                             LOG_INF("Lives: %d", context->lives);
                         } break;
@@ -231,7 +229,7 @@ brick_breaker_game_process_event_queue(
                                 "Music player failed to play success sound: %d",
                                 error);
                         }
-                        context->game_state = GAME_STATE_YOU_WIN;
+                        context->game_common.game_state = GAME_STATE_YOU_WIN;
                         // Display winning screen
                     }
                 }
@@ -311,10 +309,10 @@ void brick_breaker_game_reset(struct brick_breaker_game *brick_breaker_game) {
         activate_game_entity(&context->game_entities[i]);
     }
 
-    physics_engine_event_queue_flush(&context->event_queue);
+    physics_engine_event_queue_flush(&context->game_common.event_queue);
 
     context->lives = BRICK_BREAKER_LIVES;
     context->bricks_remaining = BRICK_BREAKER_NUM_OF_BRICKS;
 
-    context->game_state = GAME_STATE_IN_PROGRESS;
+    context->game_common.game_state = GAME_STATE_IN_PROGRESS;
 }

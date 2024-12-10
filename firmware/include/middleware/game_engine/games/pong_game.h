@@ -1,7 +1,7 @@
 #ifndef __PONG_GAME_H__
 #define __PONG_GAME_H__
+#include "game_common.h"
 #include "game_entity.h"
-#include "game_state.h"
 #include "lsm6dsm_driver.h"
 #include "physics_engine.h"
 #include "system_communication.h"
@@ -106,8 +106,7 @@ struct pong_game_config {
 
 /* Pong game context struct */
 struct pong_game_context {
-    struct physics_engine_environment environment;
-    struct physics_engine_event_queue event_queue;
+    struct game_common game_common;
     union {
         struct {
             struct game_entity user_paddle;
@@ -118,7 +117,6 @@ struct pong_game_context {
     };
     uint8_t user_score;
     uint8_t opponent_score;
-    enum game_state game_state;
 };
 
 struct pong_game {

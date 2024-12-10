@@ -38,14 +38,7 @@ enum entity_creation_error pong_game_init(struct pong_game *pong_game) {
     const struct pong_game_config *config = &pong_game->config;
     struct pong_game_context *context = &pong_game->context;
 
-    /* Clear environment */
-    context->environment = (struct physics_engine_environment){0};
-
-    /* Clear event queue */
-    context->event_queue = (struct physics_engine_event_queue){0};
-    physics_engine_event_queue_init(&context->event_queue);
-
-    context->game_state = GAME_STATE_IN_PROGRESS;
+    game_common_init(&context->game_common);
 
     /* Set scores to 0 */
     context->user_score = 0;
@@ -57,7 +50,8 @@ enum entity_creation_error pong_game_init(struct pong_game *pong_game) {
     struct entity_creation_result result;
 
     /* Add user paddle entity to environment and initialize game entity */
-    result = add_entity(&context->environment, config->user_paddle_init_struct);
+    result = add_entity(&context->game_common.environment,
+                        config->user_paddle_init_struct);
     if (result.error != ENTITY_CREATION_SUCCESS) {
         LOG_ERR("Failed to create user paddle entity: %d", result.error);
         return result.error;
@@ -69,8 +63,8 @@ enum entity_creation_error pong_game_init(struct pong_game *pong_game) {
     }
 
     /* Add oppponent paddle entity */
-    result =
-        add_entity(&context->environment, config->opponent_paddle_init_struct);
+    result = add_entity(&context->game_common.environment,
+                        config->opponent_paddle_init_struct);
     if (result.error != ENTITY_CREATION_SUCCESS) {
         LOG_ERR("Failed to create opponent paddle entity: %d", result.error);
         return result.error;
@@ -82,7 +76,8 @@ enum entity_creation_error pong_game_init(struct pong_game *pong_game) {
     }
 
     /* Add ball entity */
-    result = add_entity(&context->environment, config->ball_init_struct);
+    result =
+        add_entity(&context->game_common.environment, config->ball_init_struct);
     if (result.error != ENTITY_CREATION_SUCCESS) {
         LOG_ERR("Failed to create ball entity: %d", result.error);
         return result.error;
@@ -97,7 +92,7 @@ enum entity_creation_error pong_game_init(struct pong_game *pong_game) {
     activate_game_entity(&context->user_paddle);
     activate_game_entity(&context->opponent_paddle);
     activate_game_entity(&context->ball);
-    // print_physics_engine_environment(&context->environment);
+
     return result.error;
 }
 
@@ -115,17 +110,14 @@ void pong_opponent_scores(struct pong_game *pong_game) {
         deactivate_game_entity(&context->opponent_paddle);
         deactivate_game_entity(&context->ball);
 
-        context->game_state = GAME_STATE_YOU_LOSE;
-        // pong_game_reset(pong_game);
-        // LOG_INF("Game Reset");
-        /* Display losing screen */
+        context->game_common.game_state = GAME_STATE_YOU_LOSE;
     } else {
-        // struct rectangle rect = {PONG_BALL_START_POSITION};
         set_game_entity_position(
             &context->ball, ((struct rectangle){PONG_BALL_START_POSITION}).p1);
         set_entity_velocity(context->ball.entity, PONG_BALL_START_VELOCITY);
-        context->game_state = GAME_STATE_SCORE_CHANGE;
-        physics_engine_environment_pause(&context->environment);
+
+        physics_engine_environment_pause(&context->game_common.environment);
+        context->game_common.game_state = GAME_STATE_SCORE_CHANGE;
     }
 }
 
@@ -141,23 +133,20 @@ void pong_user_scores(struct pong_game *pong_game) {
         deactivate_game_entity(&context->opponent_paddle);
         deactivate_game_entity(&context->ball);
 
-        context->game_state = GAME_STATE_YOU_WIN;
-        // pong_game_reset(pong_game);
-        // LOG_INF("Game Reset");
-        /* Display winning screen */
+        context->game_common.game_state = GAME_STATE_YOU_WIN;
     } else {
-        // struct rectangle rect = {PONG_BALL_START_POSITION};
         set_game_entity_position(
             &context->ball, ((struct rectangle){PONG_BALL_START_POSITION}).p1);
         set_entity_velocity(context->ball.entity, PONG_BALL_START_VELOCITY);
-        context->game_state = GAME_STATE_SCORE_CHANGE;
-        physics_engine_environment_pause(&context->environment);
+
+        physics_engine_environment_pause(&context->game_common.environment);
+        context->game_common.game_state = GAME_STATE_SCORE_CHANGE;
     }
 }
 
 pong_game_process_event_queue(struct pong_game *pong_game) {
     struct pong_game_context *context = &pong_game->context;
-    struct physics_engine_event_queue *event_queue = &context->event_queue;
+    struct physics_engine_event_queue *event_queue = &context->game_common.event_queue;
 
     struct physics_engine_event event;
 
@@ -305,14 +294,14 @@ void pong_game_reset(struct pong_game *pong_game) {
                              (struct rectangle){PONG_BALL_START_POSITION}.p1);
     set_game_entity_velocity(&context->ball, PONG_BALL_START_VELOCITY);
 
-    physics_engine_event_queue_flush(&context->event_queue);
+    physics_engine_event_queue_flush(&context->game_common.event_queue);
 
     /* Activate all game entities */
     for (int i = 0; i <= PONG_LAST_ENTITY_IDX; i++) {
         activate_game_entity(&context->game_entities[i]);
     }
 
-    context->game_state = GAME_STATE_IN_PROGRESS;
+    context->game_common.game_state = GAME_STATE_IN_PROGRESS;
 
     /* Set scores to 0 */
     context->user_score = 0;

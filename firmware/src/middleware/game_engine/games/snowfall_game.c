@@ -7,12 +7,7 @@ enum entity_creation_error snowfall_game_init(
     const struct snowfall_game_config *config = &snowfall_game->config;
     struct snowfall_game_context *context = &snowfall_game->context;
 
-    /* Clear environment instance */
-    context->environment = (struct physics_engine_environment){0};
-
-    /* Clear event queue */
-    context->event_queue = (struct physics_engine_event_queue){0};
-    physics_engine_event_queue_init(&context->event_queue);
+    game_common_init(&context->game_common);
 
     /******************/
     /*  Add Entities  */
@@ -21,8 +16,8 @@ enum entity_creation_error snowfall_game_init(
 
     /* Add enemy ship entities */
     for (int i = 0; i < SNOWFALL_MAX_SNOWFLAKES; i++) {
-        result =
-            add_entity(&context->environment, config->snowflake_init_struct);
+        result = add_entity(&context->game_common.environment,
+                            config->snowflake_init_struct);
         if (result.error != ENTITY_CREATION_SUCCESS) {
             LOG_ERR("Failed to create snowflake entity %d: %d", i,
                     result.error);
@@ -39,7 +34,6 @@ enum entity_creation_error snowfall_game_init(
     }
 
     context->num_snowflakes = 0;
-    context->game_state = GAME_STATE_IN_PROGRESS;
 
     return 0;
 }
@@ -129,7 +123,7 @@ void update_snowfall_game(struct snowfall_game *snowfall_game,
 
 void snowfall_game_process_event_queue(struct snowfall_game *snowfall_game) {
     struct snowfall_game_context *context = &snowfall_game->context;
-    struct physics_engine_event_queue *event_queue = &context->event_queue;
+    struct physics_engine_event_queue *event_queue = &context->game_common.event_queue;
 
     struct physics_engine_event event;
 
