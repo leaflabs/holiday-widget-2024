@@ -4,19 +4,11 @@
 #include "random_number_generator.h"
 #include "sprite.h"
 
-#define UPDATE_PERIOD_MS 1
-
-/* Physics engine configuration structure */
-struct physics_engine_config;
-
 /* Physics engine context structure */
 struct physics_engine_context;
 
 /* Physics engine structure */
 struct physics_engine;
-
-/* Physics engine configuration structure */
-struct physics_engine_config {};
 
 /* Physics engine context structure */
 struct physics_engine_context {
@@ -29,7 +21,6 @@ struct physics_engine_context {
 
 /* Physics engine structure */
 struct physics_engine {
-    const struct physics_engine_config config;
     struct physics_engine_context context;
 } __attribute__((aligned(4)));
 
