@@ -1,13 +1,9 @@
 #include "acceleration.h"
 #include "ambient_light.h"
-#include "charlieplex_driver.h"
 #include "game_engine.h"
 #include "job_queue.h"
 #include "led_matrix.h"
 #include "music_player.h"
-#include "system_communication.h"
-#include "tones.h"
-#include "utils.h"
 #include "widget_controller.h"
 #include "widget_system.h"
 
