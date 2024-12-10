@@ -38,6 +38,7 @@ struct game_engine game_engine = {
             .space_invaders_game = CREATE_SPACE_INVADERS_GAME(),
             .snowfall_game = CREATE_SNOWFALL_GAME(),
             .brick_breaker_game = CREATE_BRICK_BREAKER_GAME(),
+            .fft_game = CREATE_FFT_GAME(),
             .htim = {0},
         },
 };
@@ -243,6 +244,9 @@ static void update_game(struct game_engine *game_engine, uint32_t delta_t) {
                     break;
             }
             break;
+        case FFT_GAME:
+            fft_game_update(&context->fft_game);
+            break;
         case NO_GAME:
             break;
         default:
@@ -400,6 +404,14 @@ static void game_engine_init(struct game_engine *game_engine) {
         LOG_DBG("Brick Breaker game initialized");
     }
 
+    /* Initialize FFT Game */
+    if ((error = fft_game_init(&context->fft_game)) !=
+        ENTITY_CREATION_SUCCESS) {
+        LOG_ERR("Error initializing FFT game: %d", error);
+    } else {
+        LOG_DBG("FFT game initialized");
+    }
+
     context->paused = false;
 
     ret = HAL_TIM_Base_Start(&context->htim);
@@ -455,6 +467,17 @@ static bool game_engine_set_game(struct game_engine *game_engine,
                 context->brick_breaker_game.context.game_entities;
             led_matrix_comm.data.led_matrix.renderer.num_entities =
                 context->brick_breaker_game.context.game_common.environment
+                    .num_of_entities;
+            break;
+        case FFT_GAME:
+            physics_engine_set_context(
+                &context->physics_engine,
+                &context->fft_game.context.game_common.environment,
+                &context->fft_game.context.game_common.event_queue);
+            led_matrix_comm.data.led_matrix.renderer.entities =
+                context->fft_game.context.game_entities;
+            led_matrix_comm.data.led_matrix.renderer.num_entities =
+                context->fft_game.context.game_common.environment
                     .num_of_entities;
             break;
         case NO_GAME:

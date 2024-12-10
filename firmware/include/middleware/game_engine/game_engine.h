@@ -1,6 +1,7 @@
 #ifndef __GAME_ENGINE_H__
 #define __GAME_ENGINE_H__
 #include "brick_breaker_game.h"
+#include "fft_game.h"
 #include "pong_game.h"
 #include "snowfall_game.h"
 #include "space_invaders_game.h"
@@ -10,6 +11,7 @@ enum game_type {
     SPACE_INVADERS_GAME,
     SNOWFALL_GAME,
     BRICK_BREAKER_GAME,
+    FFT_GAME,
     NUM_OF_GAMES,
     NO_GAME,
 };
@@ -19,6 +21,7 @@ static const char *game_type_to_str[] = {
     [SPACE_INVADERS_GAME] = "Asteroids Game",
     [SNOWFALL_GAME] = "Snowfall Game",
     [BRICK_BREAKER_GAME] = "Brick Breaker Game",
+    [FFT_GAME] = "FFT Game",
     [NUM_OF_GAMES] = "Number of Games",
     [NO_GAME] = "No Game",
 };
@@ -35,6 +38,7 @@ struct game_engine_context {
     struct space_invaders_game space_invaders_game __attribute__((aligned(4)));
     struct snowfall_game snowfall_game __attribute__((aligned(4)));
     struct brick_breaker_game brick_breaker_game __attribute__((aligned(4)));
+    struct fft_game fft_game __attribute__((aligned(4)));
 
     enum game_type current_game __attribute__((aligned(4)));
 

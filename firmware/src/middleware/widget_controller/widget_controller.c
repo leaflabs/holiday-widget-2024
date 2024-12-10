@@ -80,7 +80,7 @@ static void update_mode(void) {
             set_game(SNOWFALL_GAME);
             break;
         case WIDGET_MODE_FFT:
-            set_game(NO_GAME);
+            set_game(FFT_GAME);
             break;
     }
 }
